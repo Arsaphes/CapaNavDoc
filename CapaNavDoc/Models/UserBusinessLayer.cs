@@ -32,7 +32,7 @@ namespace CapaNavDoc.Models
         public void DeleteUser(User user)
         {
             CapaNavDocDal dal = new CapaNavDocDal();
-            dal.Users.Remove(user);
+            dal.Entry(user).State = EntityState.Deleted;
             dal.SaveChanges();
         }
 
