@@ -1,0 +1,28 @@
+﻿@using CapaNavDoc.ViewModel
+@model LoggedUserViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@RenderSection("TitleSection")</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @RenderSection("HeaderSection", false)
+</head>
+
+<body>
+
+<div style="text-align: right">
+</div>
+
+    <hr />
+<div>
+    @RenderSection("ContentBody")
+</div>
+
+
+
+</body>
+</html>

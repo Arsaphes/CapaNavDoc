@@ -1,0 +1,88 @@
+﻿@using CapaNavDoc.Models
+@using CapaNavDoc.ViewModel
+@model UserEditionViewModel
+
+<link href="~/Content/EditFormStyle.css" rel="stylesheet"/>
+<script src="~/Scripts/Validations.js"></script>
+
+
+@* ReSharper disable once Html.PathError *@
+<form id="EditForm" action="/User/EditUser" method="post">
+    <input id="EditionModeInput" type="hidden" name="editionMode" value="Annuler" />
+    <input id="UserId" type="hidden" name="Id" value="@Model.Id" />
+    <table class="EditFormTable">
+        <tr>
+            <td>
+                Nom:
+            </td>
+            <td>
+                <input id="LastNameTextBox-val.Required" type="text" name="LastName" value="@Model.LastName"
+                       message="Le nom est obligatoire." 
+                       validatorLabelId="LastNameValidationMessage"/><br/>
+                <label id="LastNameValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Prénom:
+            </td>
+            <td>
+                <input id="FirstNameTextBox-val.Required" type="text" name="FirstName" value="@Model.FirstName"
+                       message="Le prénom est obligatoire."
+                       validatorLabelId="FirstNameValidationMessage"/><br />
+                <label id="FirstNameValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Identifiant:
+            </td>
+            <td>
+                <input id="UserNameTextBox-val.Required" type="text" name="UserName" value="@Model.UserName"
+                       message="L'identifiant est obligatoire."
+                       validatorLabelId="UserNameValidationMessage"/><br />
+                <label id="UserNameValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mot de passe:
+            </td>
+            <td>
+                <input id="PasswordTextBox-val.Required" type="text" name="Password" value="@Model.Password"
+                       message="Le mot de passe est obligatoire."
+                       validatorLabelId="PasswordValidationMessage"/><br />
+                <label id="PasswordValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Centre:
+            </td>
+            <td>
+                <select name="centerId">
+                    @foreach (Center center in Model.Centers)
+                    {
+                        string selected = center.Id.ToString() == Model.CenterId ? " selected " : "";
+                        <option value="@center.Id" @selected>@center.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <input type="submit" value="Annuler"/>
+                        </td>
+                        <td>
+                            <input type="button" value=@Model.EditionMode onclick="Validate('@Model.EditionMode');"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+

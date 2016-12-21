@@ -1,0 +1,36 @@
+﻿.GridViewTable {
+    border: 1px solid lightgray;
+    -ms-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border-collapse: collapse;
+}
+
+.GridViewTable th {
+    background-color: #ddd;
+    padding: 5px;
+    text-align: center;
+}
+
+.GridViewTable tr:last-child {
+    background-color: #ddd;
+}
+
+.GridViewTable tr:last-child td {
+    text-align: right;
+}
+
+.GridViewTable td {
+    border-top: 1px solid #ddd;
+    padding: 5px;
+    border-left: 1px solid #ddd;
+}
+
+.UsersTable td:nth-child(6) {
+    text-align: center;
+}
+
+.UsersTable td:nth-child(7) {
+    text-align: center;
+}

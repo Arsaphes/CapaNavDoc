@@ -1,0 +1,43 @@
+﻿.EditFormTable {
+    margin: 10px;
+}
+
+.EditFormTable td {
+    padding-bottom: 5px;
+}
+
+.EditFormTable td:first-child {
+    padding-right: 15px;
+}
+
+.EditFormTable tr:last-child td {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.EditFormTable input[type="text"] {
+    width: 200px;
+}
+
+.EditFormTable input[type="number"] {
+    width: 200px;
+}
+
+.EditFormTable input[type="submit"] {
+    width: 100px;
+}
+
+.EditFormTable input[type="button"] {
+    width: 100px;
+}
+
+.EditFormTable select {
+    width: 200px;
+}
+
+.EditFormTable label {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+

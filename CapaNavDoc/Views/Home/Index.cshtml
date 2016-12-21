@@ -1,0 +1,47 @@
+﻿@using CapaNavDoc.ViewModel 
+@model LoggedUserViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CAPANAVDOC</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+
+
+
+<div>
+    <form action="/Home/DoLogin" method="post">
+        <table class="LoginTable">
+            <tr>
+                <td>
+                    Identifiant:
+                </td>
+                <td>
+                    <input type="text" id="UserNameTextBox" name="UserName" value="@Model.UserName"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Mot de passe:
+                </td>
+                <td>
+                    <input type="password" id="PasswordTextBox" name="Password" value="@Model.Password"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input type="submit" name="submitButton" value="Login" style="width: 80px;"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
