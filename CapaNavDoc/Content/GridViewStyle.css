@@ -5,6 +5,7 @@
     -webkit-border-radius: 4px;
     border-radius: 4px;
     border-collapse: collapse;
+    margin: auto;
 }
 
 .GridViewTable th {
@@ -27,6 +28,7 @@
     border-left: 1px solid #ddd;
 }
 
+
 .UsersTable td:nth-child(5) {
     text-align: center;
 }
@@ -34,6 +36,7 @@
 .UsersTable td:nth-child(6) {
     text-align: center;
 }
+
 
 .ActionsTable td:nth-child(2) {
     text-align: center;
@@ -43,10 +46,38 @@
     text-align: center;
 }
 
+
+.CentersTable td:nth-child(1) {
+    -moz-min-width: 90px;
+    -ms-min-width: 90px;
+    -o-min-width: 90px;
+    -webkit-min-width: 90px;
+    min-width: 90px;
+}
+
 .CentersTable td:nth-child(2) {
     text-align: center;
+    -moz-min-width: 90px;
+    -ms-min-width: 90px;
+    -o-min-width: 90px;
+    -webkit-min-width: 90px;
+    min-width: 90px;
 }
 
 .CentersTable td:nth-child(3) {
     text-align: center;
+    -moz-min-width: 90px;
+    -ms-min-width: 90px;
+    -o-min-width: 90px;
+    -webkit-min-width: 90px;
+    min-width: 90px;
+}
+
+.CentersTable td:nth-child(4) {
+    text-align: center;
+    -moz-min-width: 90px;
+    -ms-min-width: 90px;
+    -o-min-width: 90px;
+    -webkit-min-width: 90px;
+    min-width: 90px;
 }

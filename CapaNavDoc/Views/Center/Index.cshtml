@@ -32,44 +32,60 @@
             });
     </script>
 
-    <table class="GridViewTable CentersTable">
-        <tr>
-            <th>
-                Code
-            </th>
-            <th>
-                Editer
-            </th>
-            <th>
-                Supprimer
-            </th>
-        </tr>
-        @foreach (CenterDetailsViewModel center in Model.CentersDetails)
-        {
-            <tr>
-                <td>
-                    @center.Name
-                </td>
-                <td>
-                    @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetCenterUpdateView", 
-                   new { centerId = @center.Id }, 
-                   new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, null)
-                </td>
-                <td>
-                    @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView", 
-                   new { centerId = @center.Id }, 
-                   new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');" }, null)
-                </td>
-            </tr>
-        }
-        <tr>
-            <td colspan="6">
-                @Ajax.ActionLink("Ajouter un atelier", "GetCenterInsertView", "", 
-               new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, 
-               new { @class = "btn btn-success" })
-            </td>
-        </tr>
-    </table>
+    <div class="PageTitle">
+        Gestion des atelier.
+    </div>
+
+    <div class="PageGridView">
+        @* ReSharper disable Html.PathError *@
+        <form action="/Center/ManageUsers" method="post">
+            <table class="GridViewTable CentersTable">
+                <tr>
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                        Utilisateurs
+                    </th>
+                    <th>
+                        Editer
+                    </th>
+                    <th>
+                        Supprimer
+                    </th>
+                </tr>
+                @foreach (CenterDetailsViewModel center in Model.CentersDetails)
+                {
+                    <tr>
+                        <td>
+                            @center.Name
+                        </td>
+                        <td>
+                            <input type="hidden" name="centerId" value="@center.Id" />
+                            <input type="image" src="~/Content/Icons/User-Group-icon.png" alt="Users" />
+                        </td>
+                        <td>
+                            @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetCenterUpdateView",
+                                new { centerId = @center.Id },
+                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, null)
+                        </td>
+                        <td>
+                            @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView",
+                                new { centerId = @center.Id },
+                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');" }, null)
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="6">
+                        @Ajax.ActionLink("Ajouter un atelier", "GetCenterInsertView", "",
+                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" },
+                            new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 }
 
 

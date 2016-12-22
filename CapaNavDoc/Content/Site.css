@@ -35,3 +35,18 @@
 .Dialog-NoTitleBar {
     display: none;
 }
+
+.PageTitle {
+    color: gray;
+    font-size: 20px;
+    -webkit-font-variant: small-caps;
+    -moz-font-variant: small-caps;
+    -ms-font-variant: small-caps;
+    -o-font-variant: small-caps;
+    font-variant: small-caps;
+    padding: 0 0 20px 20px;
+}
+
+.PageGridView {
+    
+}

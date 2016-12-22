@@ -68,6 +68,13 @@ namespace CapaNavDoc.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult ManageUsers(string centerId)
+        {
+
+            return View("Index");
+        }
+
 
         /// <summary>
         /// Get a partial view used to insert a Center.
