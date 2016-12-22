@@ -201,6 +201,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="DataAccessLayer\CapaNavDocDal.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -237,6 +238,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\User\UserEditionView.cshtml" />
     <Content Include="Views\Shared\ConfirmationView.cshtml" />
+    <Content Include="Views\Welcome\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

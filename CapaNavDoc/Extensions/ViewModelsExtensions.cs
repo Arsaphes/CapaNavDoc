@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using CapaNavDoc.Models;
+﻿using CapaNavDoc.Models;
 using CapaNavDoc.ViewModel;
 
 namespace CapaNavDoc.Extensions
 {
     public static class ViewModelsExtensions
     {
-        public static User ToUser(this UserEditionViewModel model, string centerId)
+        /// <summary>
+        /// Get a User model from a UserEditionViewModel used to edit a user in a popup form.
+        /// </summary>
+        /// <param name="model">The model used in the popup edition form.</param>
+        /// <returns>A User.</returns>
+        public static User ToUser(this UserEditionViewModel model)
         {
             return new User
             {
@@ -14,25 +18,34 @@ namespace CapaNavDoc.Extensions
                 UserName = model.UserName,
                 LastName = model.LastName,
                 Password = model.Password,
-                FirstName = model.FirstName,
-                CenterId = centerId.ToInt32()
+                FirstName = model.FirstName
             };
         }
 
-        public static UserDetailsViewModel ToUserDetailsViewModel(this User user, string centerName)
+        /// <summary>
+        /// Get a UserDetailsViewModel used to display the users in a grid view from a User model. 
+        /// </summary>
+        /// <param name="user">The User model.</param>
+        /// <returns>A UserDetailsViewModel.</returns>
+        public static UserDetailsViewModel ToUserDetailsViewModel(this User user)
         {
             return new UserDetailsViewModel
             {
                 Id = user.Id.ToString(),
                 Password = user.Password,
-                CenterName = centerName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserName = user.UserName
             };
         }
 
-        public static UserEditionViewModel ToUserEditionViewModel(this User user, List<Center> centers, string editionMode)
+        /// <summary>
+        /// Get a UserEditionViewModel used to edit a user in a popup form from a User model.
+        /// </summary>
+        /// <param name="user">Teh User model.</param>
+        /// <param name="editionMode">The edition mode. Could be for updating ('Changer') or inserting ('Ajouter').</param>
+        /// <returns>A UserEditionViewModel.</returns>
+        public static UserEditionViewModel ToUserEditionViewModel(this User user, string editionMode)
         {
             return new UserEditionViewModel
             {
@@ -41,9 +54,8 @@ namespace CapaNavDoc.Extensions
                 UserName = user.UserName,
                 FirstName = user.FirstName,
                 Password = user.Password,
-                Centers = centers,
+
                 EditionMode = editionMode,
-                CenterId = user.CenterId.ToString()
             };
         }
     }
