@@ -7,22 +7,70 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@RenderSection("TitleSection")</title>
+    
     <link href="~/Content/bootstrap.css" rel="stylesheet"/>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/NavigationBarStyle.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+
     @RenderSection("HeaderSection", false)
 </head>
-
 <body>
+    <div class="NavBarBackground">
+        <ul class="NavigationBar">
+            <li id="AdministrationListItem">
+                <a id="AdministrationLink" href="#">Administration</a>
+                <ul>
+                    <li><a href="/User/Index">Utilisateurs</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Retrievals</a>
+                <ul>
+                    <li><a href="#">Data Listing</a></li>
+                    <li><a href="#">Web Scheduling</a></li>
+                    <li><a href="#">Google Maps Application</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Reporting</a>
+                <ul>
+                    <li><a href="#">Ad Hoc Report</a></li>
+                    <li><a href="#">Drill Down Report</a></li>
+                    <li><a href="#">Ranking Report</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Business Intelligence</a>
+                <ul>
+                    <li><a href="#">Business Dashboard</a></li>
+                    <li><a href="#">Web Pivot Table</a></li>
+                    <li><a href="#">Interactive Report</a></li>
+                    <li><a href="#">What-If Analysis</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Data Maintenance</a>
+                <ul>
+                    <li><a href="#">Database CRUD</a></li>
+                    <li><a href="#">Database Update</a></li>
+                    <li><a href="#">Order Entry</a></li>
+                    <li><a href="#">Drag-and-Drop Application</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">B2B Portal</a>
+                <ul>
+                    <li><a href="#">B2B Portal</a></li>
+                    <li><a href="#">Secure Data-Driven Listings</a></li>
+                    <li><a href="#">Secure Shopping Cart</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
-<div style="text-align: right">
-</div>
-
-    <hr />
-<div>
-    @RenderSection("ContentBody")
-</div>
-
-
-
+    <div>
+        @RenderSection("ContentBody")
+    </div>
 </body>
 </html>

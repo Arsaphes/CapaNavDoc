@@ -118,6 +118,10 @@
     <Content Include="Content\EditFormStyle.css" />
     <Content Include="Content\Icons\Close-2-icon.png" />
     <Content Include="Content\Icons\Pencil-icon.png" />
+    <Content Include="Content\Images\NavBar01.png" />
+    <Content Include="Content\Images\NavBar02.png" />
+    <Content Include="Content\Images\NavBar03.png" />
+    <Content Include="Content\NavigationBarStyle.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -204,10 +208,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action.cs" />
+    <Compile Include="Models\BusinessLayers\ActionBusinessLayer.cs" />
+    <Compile Include="Models\BusinessLayers\EquipmentBusinessLayer.cs" />
+    <Compile Include="Models\BusinessLayers\EquipmentCenterBusinessLayer.cs" />
+    <Compile Include="Models\BusinessLayers\EquipmentMonitoringBusinessLayer.cs" />
     <Compile Include="Models\Center.cs" />
-    <Compile Include="Models\CenterBusinessLayer.cs" />
+    <Compile Include="Models\BusinessLayers\CenterBusinessLayer.cs" />
+    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\EquipmentCenter.cs" />
+    <Compile Include="Models\EquipmentMonitoring.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserBusinessLayer.cs" />
+    <Compile Include="Models\BusinessLayers\UserBusinessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />

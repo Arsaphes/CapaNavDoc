@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Models;
+using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 
 namespace CapaNavDoc.Controllers

@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using CapaNavDoc.DataAccessLayer;
 
-namespace CapaNavDoc.Models
+namespace CapaNavDoc.Models.BusinessLayers
 {
     public class UserBusinessLayer
     {
@@ -36,12 +36,12 @@ namespace CapaNavDoc.Models
             dal.SaveChanges();
         }
 
+
         public void DeleteUser(int id)
         {
             DeleteUser(GetUser(id));
         }
-
-
+        
         public User GetUser(string userName, string password)
         {
             return GetUsers().FirstOrDefault(u => u.UserName == userName && u.Password == password);
@@ -51,6 +51,5 @@ namespace CapaNavDoc.Models
         {
             return GetUsers().FirstOrDefault(u => u.Id == id);
         }
-
     }
 }

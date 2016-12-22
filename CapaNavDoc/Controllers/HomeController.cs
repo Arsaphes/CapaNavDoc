@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using CapaNavDoc.Models;
+using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 
 namespace CapaNavDoc.Controllers

@@ -1,0 +1,74 @@
+﻿.NavBarBackground {
+	width: 100%; 
+	height: 50px; 
+	margin: 0;
+	z-index: 99;
+	position: relative;
+    background-image: url("/Content/Images/NavBar01.png");
+	}
+
+.NavigationBar {
+	height: 50px;
+    padding: 0;
+	margin: 0;
+	position: absolute;
+	}
+
+.NavigationBar li {
+	height: auto;
+	width: 150px;
+	float: left;
+	text-align: center;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+    font-family: 'Droid Sans', sans-serif;
+    }
+
+.NavigationBar a {							
+	padding: 15px 0;  
+	text-decoration: none;
+	color: #707070;
+	display: block;
+	}
+
+.NavigationBar li:hover, a:hover {
+    background-image: url("/Content/Images/NavBar02.png");
+} 
+
+.NavigationBar li ul {
+    display: none;  
+    height: auto;									
+    margin: 0;
+    padding: 0;
+    }
+
+.NavigationBar li:hover ul {
+    display: block; 
+    }
+
+.NavigationBar li ul li {
+    background-color: #e4e4e4;
+} 
+
+.NavigationBar li ul li a 	{
+	border-bottom: 1px solid #aaa; 
+	}
+				
+.NavigationBar li ul li a:hover {
+    background-image: none;
+    background-color: #fdfdfd;
+}
+
+.ActiveListItem {
+    background-image: url("/Content/Images/NavBar03.png");
+}
+
+.ActiveLink {
+    background-image: url("/Content/Images/NavBar03.png");
+    color: white !important;
+}
+
+.ActiveLink:hover {
+    color: #aaa !important;
+}
