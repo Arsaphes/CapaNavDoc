@@ -5,6 +5,7 @@
 	z-index: 99;
 	position: relative;
     background-image: url("/Content/Images/NavBar01.png");
+    margin-bottom: 20px;
 	}
 
 .NavigationBar {
