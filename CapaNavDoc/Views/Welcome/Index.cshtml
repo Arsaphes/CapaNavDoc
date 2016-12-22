@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
@@ -13,5 +12,10 @@
 {}
 
 @section ContentBody
-{}
+{
+    @* ReSharper disable Html.PathError *@
+    <form id="WelcomeForm" action="/Welcome/InitializeDatabase" method="post">
+        <input type="submit" value="Init DB"/>
+    </form>
+}
 
