@@ -49,9 +49,6 @@
                 Mot de passe
             </th>
             <th>
-                Centre
-            </th>
-            <th>
                 Editer
             </th>
             <th>
@@ -74,9 +71,6 @@
                     @user.Password
                 </td>
                 <td>
-                    @user.CenterName
-                </td>
-                <td>
                     @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetUserUpdateView", new {userId = @user.Id}, new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, null)
                 </td>
                 <td>
@@ -85,7 +79,7 @@
             </tr>
         }
         <tr>
-            <td colspan="7">
+            <td colspan="6">
                 @Ajax.ActionLink("Ajouter un utilisateur", "GetUserInsertView", "", new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, new {@class = "btn btn-success"})
             </td>
         </tr>

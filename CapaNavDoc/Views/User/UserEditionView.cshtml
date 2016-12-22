@@ -1,5 +1,4 @@
-﻿@using CapaNavDoc.Models
-@using CapaNavDoc.ViewModel
+﻿@using CapaNavDoc.ViewModel
 @model UserEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet"/>
@@ -53,20 +52,6 @@
                        message="Le mot de passe est obligatoire."
                        validatorLabelId="PasswordValidationMessage"/><br />
                 <label id="PasswordValidationMessage"></label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Centre:
-            </td>
-            <td>
-                <select name="centerId">
-                    @foreach (Center center in Model.Centers)
-                    {
-                        string selected = center.Id.ToString() == Model.CenterId ? " selected " : "";
-                        <option value="@center.Id" @selected>@center.Name</option>
-                    }
-                </select>
             </td>
         </tr>
         <tr>
