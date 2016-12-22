@@ -4,7 +4,7 @@
 <link href="~/Content/ConfirmationFormStyle.css" rel="stylesheet" />
 
 @* ReSharper disable once Html.PathError *@
-<form id="ConfirmationForm" action="/User/DeleteUser" method="post">
+<form id="ConfirmationForm" action="/@Model.Controler/@Model.Action" method="post">
     <input id="UserId" type="hidden" name="Id" value="@Model.Id"/>
     <table class="ConfirmationFormTable">
         <tr>

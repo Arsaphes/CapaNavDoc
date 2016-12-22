@@ -82,7 +82,7 @@ namespace CapaNavDoc.Controllers
         }
 
         /// <summary>
-        /// Get a partial view used to update a user.
+        /// Get a partial view used to update a User.
         /// </summary>
         /// <param name="userId">The id of the User to update.</param>
         /// <returns>A partial view.</returns>
@@ -107,7 +107,7 @@ namespace CapaNavDoc.Controllers
             UserBusinessLayer bl = new UserBusinessLayer();
             User user = bl.GetUser(userId.ToInt32());
             string userCall = $"{user.FirstName} {user.LastName}";
-            ConfirmationViewModel model = new ConfirmationViewModel {ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = userId};
+            ConfirmationViewModel model = new ConfirmationViewModel {ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = userId, Controler = "User", Action = "DeleteUser"};
 
             return PartialView("ConfirmationView", model);
         }

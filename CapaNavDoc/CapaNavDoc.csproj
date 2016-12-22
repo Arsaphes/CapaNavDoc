@@ -199,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
@@ -222,6 +223,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BusinessLayers\UserBusinessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ActionDetailsViewModel.cs" />
+    <Compile Include="ViewModel\ActionEditionViewModel.cs" />
+    <Compile Include="ViewModel\ActionListViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
     <Compile Include="ViewModel\UserEditionViewModel.cs" />
@@ -239,6 +243,8 @@
     <Content Include="Views\User\UserEditionView.cshtml" />
     <Content Include="Views\Shared\ConfirmationView.cshtml" />
     <Content Include="Views\Welcome\Index.cshtml" />
+    <Content Include="Views\Action\Index.cshtml" />
+    <Content Include="Views\Action\ActionEditionView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

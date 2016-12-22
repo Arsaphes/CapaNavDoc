@@ -34,3 +34,11 @@
 .UsersTable td:nth-child(6) {
     text-align: center;
 }
+
+.ActionsTable td:nth-child(2) {
+    text-align: center;
+}
+
+.ActionsTable td:nth-child(3) {
+    text-align: center;
+}
