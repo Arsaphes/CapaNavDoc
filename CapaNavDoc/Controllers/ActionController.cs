@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using CapaNavDoc.Extensions;
+using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;

@@ -1,0 +1,41 @@
+﻿@using CapaNavDoc.ViewModel
+@model CenterEditionViewModel
+
+<link href="~/Content/EditFormStyle.css" rel="stylesheet" />
+<script src="~/Scripts/Validations.js"></script>
+
+
+@* ReSharper disable Html.PathError *@
+<form id="EditForm" action="/Center/EditCenter" method="post">
+    <input id="EditionModeInput" type="hidden" name="editionMode" value="Annuler" />
+    <input id="CenterId" type="hidden" name="Id" value="@Model.Id" />
+    <table class="EditFormTable">
+        <tr>
+            <td>
+                Code:
+            </td>
+            <td>
+                <input id="NameTextBox-val.Required" type="text" name="Name" value="@Model.Name"
+                       message="Le code est obligatoire."
+                       validatorLabelId="NameValidationMessage" /><br />
+                <label id="NameValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <input type="submit" value="Annuler" />
+                        </td>
+                        <td>
+                            <input type="button" value=@Model.EditionMode onclick="Validate('@Model.EditionMode');" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+
+

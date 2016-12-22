@@ -13,7 +13,7 @@ namespace CapaNavDoc.Models.BusinessLayers
             return dal.Centers.ToList();
         }
 
-        public Center InserCenter(Center center)
+        public Center InsertCenter(Center center)
         {
             CapaNavDocDal dal = new CapaNavDocDal();
             dal.Centers.Add(center);

@@ -196,13 +196,16 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActionController.cs" />
+    <Compile Include="Controllers\CenterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="DataAccessLayer\CapaNavDocDal.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\ViewModelsExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\ActionExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\CenterExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,6 +225,9 @@
     <Compile Include="ViewModel\ActionDetailsViewModel.cs" />
     <Compile Include="ViewModel\ActionEditionViewModel.cs" />
     <Compile Include="ViewModel\ActionListViewModel.cs" />
+    <Compile Include="ViewModel\CenterDetailsViewModel.cs" />
+    <Compile Include="ViewModel\CenterEditionViewModel.cs" />
+    <Compile Include="ViewModel\CenterListViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
     <Compile Include="ViewModel\UserEditionViewModel.cs" />
@@ -241,6 +247,8 @@
     <Content Include="Views\Welcome\Index.cshtml" />
     <Content Include="Views\Action\Index.cshtml" />
     <Content Include="Views\Action\ActionEditionView.cshtml" />
+    <Content Include="Views\Center\Index.cshtml" />
+    <Content Include="Views\Center\CenterEditionView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

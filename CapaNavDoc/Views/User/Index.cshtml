@@ -75,10 +75,14 @@
                         @user.Password
                     </td>
                     <td>
-                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetUserUpdateView", new {userId = @user.Id}, new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');"}, null)
+                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetUserUpdateView", 
+                       new {userId = @user.Id}, 
+                       new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');"}, null)
                     </td>
                     <td>
-                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView", new {userId = @user.Id}, new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');"}, null)
+                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView", 
+                       new {userId = @user.Id}, 
+                       new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');"}, null)
                     </td>
                 </tr>
             }

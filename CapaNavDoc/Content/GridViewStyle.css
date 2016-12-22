@@ -42,3 +42,11 @@
 .ActionsTable td:nth-child(3) {
     text-align: center;
 }
+
+.CentersTable td:nth-child(2) {
+    text-align: center;
+}
+
+.CentersTable td:nth-child(3) {
+    text-align: center;
+}
