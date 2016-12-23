@@ -229,10 +229,11 @@
     <Compile Include="ViewModel\CenterEditionViewModel.cs" />
     <Compile Include="ViewModel\CenterListViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
+    <Compile Include="ViewModel\LoginUserViewModel.cs" />
+    <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
     <Compile Include="ViewModel\UserEditionViewModel.cs" />
     <Compile Include="ViewModel\UserListViewModel.cs" />
-    <Compile Include="ViewModel\LoggedUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

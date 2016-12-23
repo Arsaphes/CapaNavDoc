@@ -1,5 +1,5 @@
 ﻿@using CapaNavDoc.ViewModel 
-@model LoggedUserViewModel
+@model LoginUserViewModel
 
 @{
     Layout = null;
@@ -17,6 +17,7 @@
 
 
 <div>
+    @* ReSharper disable Html.PathError *@
     <form action="/Home/DoLogin" method="post">
         <table class="LoginTable">
             <tr>
@@ -37,7 +38,7 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <input type="submit" name="submitButton" value="Login" style="width: 80px;"/>
+                    <input type="submit" name="submitAction" value="Login" style="width: 80px;"/>
                 </td>
             </tr>
         </table>

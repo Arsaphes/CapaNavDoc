@@ -1,6 +1,6 @@
 ﻿namespace CapaNavDoc.ViewModel
 {
-    public class CenterEditionViewModel : LoggedUserViewModel
+    public class CenterEditionViewModel : MyLayoutViewModel
     {
         public string Name { get; set; }
 

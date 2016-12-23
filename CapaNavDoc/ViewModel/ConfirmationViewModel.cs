@@ -1,6 +1,6 @@
 ﻿namespace CapaNavDoc.ViewModel
 {
-    public class ConfirmationViewModel : LoggedUserViewModel
+    public class ConfirmationViewModel : MyLayoutViewModel
     {
         public string ConfirmationMessage { get; set; }
         public string Controler { get; set; }

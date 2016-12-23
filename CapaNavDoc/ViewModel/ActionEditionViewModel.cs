@@ -1,6 +1,6 @@
 ﻿namespace CapaNavDoc.ViewModel
 {
-    public class ActionEditionViewModel : LoggedUserViewModel
+    public class ActionEditionViewModel : MyLayoutViewModel
     {
         public string Description { get; set; }
 
