@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CapaNavDoc.Models
 {
@@ -9,6 +8,6 @@ namespace CapaNavDoc.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public List<User> Users { get; set; } = new List<User>();
+        public string UserList { get; set; }
     }
 }

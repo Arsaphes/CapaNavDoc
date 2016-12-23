@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CapaNavDoc.Models
 {
@@ -17,7 +16,7 @@ namespace CapaNavDoc.Models
 	    public string MechanicsGroup { get; set; }
 	    public string DocumentsReferences { get; set; }
 	    public string DocumentsPartNumber { get; set; }
-	    public List<EquipmentCenter> EquipmentCenters { get; set; }
-	    public EquipmentMonitoring EquipmentMonitoring { get; set; }    
+	    public string EquipmentCenterList { get; set; }
+	    public string EquipmentMonitoringId { get; set; }
 	}
 }
