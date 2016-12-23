@@ -12,13 +12,28 @@
     background-color: #ddd;
     padding: 5px;
     text-align: center;
+    border-bottom: 1px solid gray;
+}
+
+.PageGridView tr:nth-child(odd) {
+    background-color: #b0e0e6;
 }
 
 .GridViewTable tr:last-child {
     background-color: #ddd;
 }
 
+.GridViewTable tr:hover {
+    background-color: #a9a9a9;
+}
+
+.GridViewTable tr:last-child:hover {
+    background-color: #ddd;
+}
+
+
 .GridViewTable tr:last-child td {
+    border-top: 1px solid gray;
     text-align: right;
 }
 

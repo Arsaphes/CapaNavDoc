@@ -31,6 +31,83 @@ namespace CapaNavDoc.Controllers
                 FirstName = "Christophe",
                 Password = "123"
             });
+            ubl.InsertUser(new User
+            {
+                FirstName = "Anna",
+                LastName = "HASINA",
+                Password = "123",
+                UserName = "anna"
+            });
+            ubl.InsertUser(new User
+            {
+                FirstName = "Jean-Marc",
+                LastName = "RAYNAUD",
+                Password = "123",
+                UserName = "jmr"
+            });
+            ubl.InsertUser(new User
+            {
+                FirstName = "Jean-François",
+                LastName = "SICARD",
+                Password = "123",
+                UserName = "jfc"
+            });
+            ubl.InsertUser(new User
+            {
+                FirstName = "Régis",
+                LastName = "VANDENBURIE",
+                Password = "123",
+                UserName = "regis"
+            });
+
+            CenterBusinessLayer cbl = new CenterBusinessLayer();
+            cbl.InsertCenter(new Center
+            {
+                Name = "Biscarrosse"
+            });
+
+            cbl.InsertCenter(new Center
+            {
+                Name = "Grenoble"
+            });
+
+            cbl.InsertCenter(new Center
+            {
+                Name = "Muret"
+            });
+
+            cbl.InsertCenter(new Center
+            {
+                Name = "Carcassonne"
+            });
+
+            cbl.InsertCenter(new Center
+            {
+                Name = "Castelnaudary"
+            });
+
+            cbl.InsertCenter(new Center
+            {
+                Name = "Montpellier"
+            });
+
+            ActionBusinessLayer abl = new ActionBusinessLayer();
+            abl.InsertAction(new Action
+            {
+                Description = "Réparation"
+            });
+            abl.InsertAction(new Action
+            {
+                Description = "Inspection"
+            });
+            abl.InsertAction(new Action
+            {
+                Description = "Révision Générale"
+            });
+            abl.InsertAction(new Action
+            {
+                Description = "Réglage"
+            });
 
             return RedirectToAction("Index");
         }
