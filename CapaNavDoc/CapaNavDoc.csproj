@@ -111,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ConfirmationFormStyle.css" />
     <Content Include="Content\EditFormStyle.css" />
     <Content Include="Content\Icons\Close-2-icon.png" />
