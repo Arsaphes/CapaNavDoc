@@ -68,13 +68,50 @@ namespace CapaNavDoc.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Get a view to add or remove users linked to a Center.
+        /// </summary>
+        /// <param name="centerId">The Center id.</param>
+        /// <returns>A view.</returns>
+        [HttpGet]
         public ActionResult ManageUsers(string centerId)
         {
+            CenterUsersViewModel model = new CenterUsersViewModel();
+            UserBusinessLayer ubl = new UserBusinessLayer();
+            CenterBusinessLayer cbl = new CenterBusinessLayer();
+            Center center = cbl.GetCenter(centerId.ToInt32());
 
-            return View("Index");
+            model.CenterUsersDetails = cbl.GetCenterUsers(centerId.ToInt32()).Select(u => u.ToUserDetailsViewModel()).ToList();
+            model.UsersDetails = ubl.GetUsers().Select(u => u.ToUserDetailsViewModel()).ToList().Except(model.CenterUsersDetails).ToList();
+            model.CenterId = centerId;
+            model.CenterName = center.Name;
+            
+            return View("ManageUsers", model);
         }
 
+        /// <summary>
+        /// Add or remove a User from a Center users list.
+        /// </summary>
+        /// <param name="centerId">The Center id.</param>
+        /// <param name="userId">The id of the User to add or remove to the Center users list.</param>
+        /// <param name="transfertAction">The action to perform: 'Add' or 'Remove'.</param>
+        /// <returns>A redirection to the default view.</returns>
+        [HttpGet]
+        public ActionResult TransfertUser(string centerId, string userId, string transfertAction)
+        {
+            User user = new UserBusinessLayer().GetUser(userId.ToInt32());
+            CenterBusinessLayer cbl = new CenterBusinessLayer();
+            Center center = cbl.GetCenter(centerId.ToInt32());
+
+            if (transfertAction == "Add")
+                center.Users.Add(user);
+            else
+                center.Users.Remove(user);
+            cbl.UpdateCenter(center);
+
+            return RedirectToAction("ManageUsers", new {centerId});
+        }
 
         /// <summary>
         /// Get a partial view used to insert a Center.

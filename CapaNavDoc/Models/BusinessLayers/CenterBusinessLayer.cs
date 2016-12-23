@@ -46,5 +46,11 @@ namespace CapaNavDoc.Models.BusinessLayers
         {
             return GetCenters().FirstOrDefault(c => c.Id == id);
         }
+
+        public List<User> GetCenterUsers(int centerId)
+        {
+            Center center = GetCenter(centerId);
+            return center.Users;
+        }
     }
 }

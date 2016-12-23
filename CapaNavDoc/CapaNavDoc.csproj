@@ -113,6 +113,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\ConfirmationFormStyle.css" />
     <Content Include="Content\EditFormStyle.css" />
+    <Content Include="Content\Icons\Actions-go-next-icon.png" />
+    <Content Include="Content\Icons\Actions-go-previous-icon.png" />
     <Content Include="Content\Icons\Close-2-icon.png" />
     <Content Include="Content\Icons\Pencil-icon.png" />
     <Content Include="Content\Icons\User-Group-icon.png" />
@@ -227,6 +229,7 @@
     <Compile Include="ViewModel\CenterDetailsViewModel.cs" />
     <Compile Include="ViewModel\CenterEditionViewModel.cs" />
     <Compile Include="ViewModel\CenterListViewModel.cs" />
+    <Compile Include="ViewModel\CenterUsersViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
     <Compile Include="ViewModel\LoginUserViewModel.cs" />
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
@@ -249,6 +252,7 @@
     <Content Include="Views\Action\ActionEditionView.cshtml" />
     <Content Include="Views\Center\Index.cshtml" />
     <Content Include="Views\Center\CenterEditionView.cshtml" />
+    <Content Include="Views\Center\ManageUsers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
