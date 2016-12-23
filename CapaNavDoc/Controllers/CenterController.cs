@@ -105,15 +105,15 @@ namespace CapaNavDoc.Controllers
         /// <summary>
         /// Get a partial view used to confirm a Center deletation.
         /// </summary>
-        /// <param name="CenterId">The id of the Center to delete.</param>
+        /// <param name="centerId">The id of the Center to delete.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetConfirmationView(string CenterId)
+        public PartialViewResult GetConfirmationView(string centerId)
         {
             CenterBusinessLayer bl = new CenterBusinessLayer();
-            Center center = bl.GetCenter(CenterId.ToInt32());
+            Center center = bl.GetCenter(centerId.ToInt32());
             string userCall = $"{center.Name}";
-            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = CenterId, Controler = "Center", Action = "DeleteCenter" };
+            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = centerId, Controler = "Center", Action = "DeleteCenter" };
 
             return PartialView("ConfirmationView", model);
         }
