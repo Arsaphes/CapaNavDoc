@@ -50,11 +50,28 @@ namespace CapaNavDoc.Models.BusinessLayers
         public List<User> GetCenterUsers(int centerId)
         {
             Center center = GetCenter(centerId);
+            if(center.UserList == null) return new List<User>();
+
             string[] ids = center.UserList.Split(';');
             UserBusinessLayer bl = new UserBusinessLayer();
             List<User> users = bl.GetUsers().Where(u => ids.Contains(u.Id.ToString())).ToList();
             
             return users;
+        }
+
+        public void AddCenterUser(Center center, int userId)
+        {
+            if (center.UserList == null) center.UserList = "";
+            center.UserList += center.UserList.Length == 0 ? userId.ToString() : $";{userId}";
+        }
+
+        public void RemoveCenterUser(Center center, int userId)
+        {
+            if(string.IsNullOrEmpty(center.UserList)) return;
+            string[] ids = center.UserList.Split(';');
+            string newIds = ids.Where(id => id != userId.ToString()).Aggregate("", (current, id) => current + (current.Length == 0 ? id : $";{id}"));
+
+            center.UserList = newIds;
         }
     }
 }

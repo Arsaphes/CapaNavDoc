@@ -36,6 +36,7 @@
     display: none;
 }
 
+
 .PageTitle {
     color: gray;
     font-size: 20px;
@@ -51,6 +52,25 @@
     
 }
 
+
 .GridViewTransfertTable {
     width: 100%;
+}
+
+.GridViewTransfertTable td {
+    text-align: center;
+    vertical-align: top;
+    padding-bottom: 15px;
+}
+
+.GridViewTransfertTable tr:first-child {
+    font-weight: bold;
+}
+
+.GridViewTransfertTable td:first-child {
+    width: 49%;
+}
+
+.GridViewTransfertTable td:last-child {
+    width: 49%;
 }

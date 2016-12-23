@@ -30,7 +30,6 @@
                     Utilisateurs de l'atelier
                 </td>
                 <td>
-                    X
                 </td>
                 <td>
                     Utilisateurs enregistrés
@@ -38,7 +37,7 @@
             </tr>
             <tr>
                 <td>
-                    <table class="GridViewTable">
+                    <table class="GridViewTable TransfertCenterUserTable-Left">
                         <tr>
                             <th>
                                 Nom
@@ -60,7 +59,7 @@
                                     @user.FirstName
                                 </td>
                                 <td>
-                                    <a href="/Center/TransfertUser?centerId=@Model.CenterId&userId=@user.Id&transfertAction=Remove"><img src="~/Content/Icons/Actions-go-previous-icon.png" alt="Right Arrow" /></a>
+                                    <a href="/Center/TransfertUser?centerId=@Model.CenterId&userId=@user.Id&transfertAction=Remove"><img src="~/Content/Icons/Actions-go-next-icon.png" alt="Right Arrow" /></a>
                                 </td>
                             </tr>
                         }
@@ -71,10 +70,11 @@
 
                 </td>
                 <td>
-                    X
+
+                    <img src="~/Content/Icons/Arrows-icon.png" alt="Left-Right Arrow" />
                 </td>
                 <td>
-                    <table class="GridViewTable">
+                    <table class="GridViewTable TransfertUserTable-Right">
                         <tr>
                             <th>
                                 Ajouter

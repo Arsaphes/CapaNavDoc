@@ -83,7 +83,7 @@ namespace CapaNavDoc.Controllers
             Center center = cbl.GetCenter(centerId.ToInt32());
 
             model.CenterUsersDetails = cbl.GetCenterUsers(centerId.ToInt32()).Select(u => u.ToUserDetailsViewModel()).ToList();
-            model.UsersDetails = ubl.GetUsers().Select(u => u.ToUserDetailsViewModel()).ToList().Except(model.CenterUsersDetails).ToList();
+            model.UsersDetails = ubl.GetUsers().Select(u => u.ToUserDetailsViewModel()).Except(model.CenterUsersDetails).ToList();
             model.CenterId = centerId;
             model.CenterName = center.Name;
             
@@ -100,14 +100,13 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult TransfertUser(string centerId, string userId, string transfertAction)
         {
-            User user = new UserBusinessLayer().GetUser(userId.ToInt32());
             CenterBusinessLayer cbl = new CenterBusinessLayer();
             Center center = cbl.GetCenter(centerId.ToInt32());
 
             if (transfertAction == "Add")
-                center.Users.Add(user);
+                cbl.AddCenterUser(center, userId.ToInt32());
             else
-                center.Users.Remove(user);
+                cbl.RemoveCenterUser(center, userId.ToInt32());
             cbl.UpdateCenter(center);
 
             return RedirectToAction("ManageUsers", new {centerId});

@@ -115,6 +115,7 @@
     <Content Include="Content\EditFormStyle.css" />
     <Content Include="Content\Icons\Actions-go-next-icon.png" />
     <Content Include="Content\Icons\Actions-go-previous-icon.png" />
+    <Content Include="Content\Icons\Arrows-icon.png" />
     <Content Include="Content\Icons\Close-2-icon.png" />
     <Content Include="Content\Icons\Pencil-icon.png" />
     <Content Include="Content\Icons\User-Group-icon.png" />
