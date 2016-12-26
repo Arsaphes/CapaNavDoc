@@ -199,6 +199,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\CenterController.cs" />
+    <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ViewModels\ActionExtensions.cs" />
     <Compile Include="Extensions\ViewModels\CenterExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
     <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,7 +226,6 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BusinessLayers\UserBusinessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolKit\StringToolKit.cs" />
     <Compile Include="ViewModel\ActionDetailsViewModel.cs" />
     <Compile Include="ViewModel\ActionEditionViewModel.cs" />
     <Compile Include="ViewModel\ActionListViewModel.cs" />
@@ -233,6 +234,9 @@
     <Compile Include="ViewModel\CenterListViewModel.cs" />
     <Compile Include="ViewModel\CenterUsersViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentDetailsViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentEditionViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentListViewModel.cs" />
     <Compile Include="ViewModel\LoginUserViewModel.cs" />
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
@@ -255,6 +259,8 @@
     <Content Include="Views\Center\Index.cshtml" />
     <Content Include="Views\Center\CenterEditionView.cshtml" />
     <Content Include="Views\Center\ManageUsers.cshtml" />
+    <Content Include="Views\Equipment\Index.cshtml" />
+    <Content Include="Views\Equipment\EquipmentEditionView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

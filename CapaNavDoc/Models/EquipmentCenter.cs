@@ -7,7 +7,7 @@ namespace CapaNavDoc.Models
         [Key]
         public int Id { get; set; }
 
-        public Center Center { get; set; }
+        public int CenterId { get; set; }
         public string ActionList { get; set; }
     }
 }

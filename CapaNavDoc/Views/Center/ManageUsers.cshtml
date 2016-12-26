@@ -1,4 +1,6 @@
-﻿@using CapaNavDoc.ViewModel
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel
 @model CenterUsersViewModel
 
 @{
@@ -59,7 +61,7 @@
                                     @user.FirstName
                                 </td>
                                 <td>
-                                    <a href="/Center/TransfertUser?centerId=@Model.CenterId&userId=@user.Id&transfertAction=Remove"><img src="~/Content/Icons/Actions-go-next-icon.png" alt="Right Arrow" /></a>
+                                    <a href="/Center/TransfertUser?centerId=@Model.CenterId&userId=@user.Id&transfertAction=Remove"><img src="~/Content/Icons/Actions-go-next-icon.png" alt="Right Arrow"/></a>
                                 </td>
                             </tr>
                         }
@@ -70,8 +72,7 @@
 
                 </td>
                 <td>
-
-                    <img src="~/Content/Icons/Arrows-icon.png" alt="Left-Right Arrow" />
+                    <img src="~/Content/Icons/Arrows-icon.png" alt="Left-Right Arrow"/>
                 </td>
                 <td>
                     <table class="GridViewTable TransfertUserTable-Right">
@@ -90,7 +91,7 @@
                         {
                             <tr>
                                 <td>
-                                    <a href="/Center/TransfertUser?centerId=@Model.CenterId&userId=@user.Id&transfertAction=Add"><img src="~/Content/Icons/Actions-go-previous-icon.png" alt="Left Arrow" /></a>
+                                    <a href="/Center/TransfertUser?centerId=@Model.CenterId&userId=@user.Id&transfertAction=Add"><img src="~/Content/Icons/Actions-go-previous-icon.png" alt="Left Arrow"/></a>
                                 </td>
                                 <td>
                                     @user.LastName
@@ -104,6 +105,11 @@
                             <td colspan="3"></td>
                         </tr>
                     </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <a class="btn btn-success" href="/Center/Index">Revenir à la liste des ateliers</a>
                 </td>
             </tr>
         </table>
