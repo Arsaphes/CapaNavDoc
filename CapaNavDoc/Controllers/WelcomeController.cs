@@ -110,6 +110,18 @@ namespace CapaNavDoc.Controllers
                 Description = "Réglage"
             });
 
+            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            ebl.Insert(new Equipment
+            {
+                ActivityField = "Moteurs à pistons",
+                Ata = 72,
+                MechanicsGroup = "moteurs pistons",
+                Name = "Adaptateur Magnéto",
+                Manufacturer = "TCM",
+                PartNumber = "632653A1",
+                DocumentsReferences = "M-16",
+            });
+            
             return RedirectToAction("Index");
         }
     }

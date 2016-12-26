@@ -2,7 +2,7 @@
 
 namespace CapaNavDoc.ViewModel
 {
-    public class EquipmentListViewModel
+    public class EquipmentListViewModel : MyLayoutViewModel
     {
         public List<EquipmentDetailsViewModel> EquipmentsDetails { get; set; }
     }

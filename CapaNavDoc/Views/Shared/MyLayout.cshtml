@@ -1,4 +1,6 @@
-﻿@using CapaNavDoc.ViewModel
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel
 @model MyLayoutViewModel
 
 <!DOCTYPE html>
@@ -19,13 +21,12 @@
     <div class="NavBarBackground">
         <ul class="NavigationBar">
             <li id="AdministrationListItem">
-                @* ReSharper disable Html.PathError *@
                 <a id="AdministrationLink" href="/Welcome/Index">Administration</a>
                 <ul>
-                    @* ReSharper disable Html.PathError *@
                     <li><a href="/User/Index">Utilisateurs</a></li>
                     <li><a href="/Action/Index">Actions</a></li>
                     <li><a href="/Center/Index">Centres</a></li>
+                    <li><a href="/Equipment/Index">Equipements</a></li>
                 </ul>
             </li>
             <li>

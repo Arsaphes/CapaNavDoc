@@ -1,5 +1,4 @@
-﻿
-
+﻿@using CapaNavDoc.Extensions
 @using CapaNavDoc.ViewModel
 @model EquipmentListViewModel
 
@@ -14,11 +13,82 @@
 
 @section HeaderSection
 {
-
+    <link href="~/Content/GridViewStyle.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/Dialog.js"></script>
 }
 
 @section ContentBody
 {
-    
+    <div id="editDialog" style="display: none;"></div>
+    <div id="confirmDialog" style="display: none;"></div>
+    <script type="text/javascript">
+            $(document)
+                .ready(function() {
+                    initDialod("#editDialog", 320);
+                    initDialod("#confirmDialog", 340);
+                    document.getElementById("AdministrationLink").className += "ActiveLink";
+                });
+    </script>
+
+    <div class="PageTitle">
+        Gestion des équipements.
+    </div>
+
+    <div class="PageGridView">
+        @* ReSharper disable Html.PathError *@
+        <table class="GridViewTable EquipmentTable">
+            <tr>
+                <th>P/N</th>
+                <th>Constructeur</th>
+                <th>Désignation</th>
+                <th>Type</th>
+                <th>ATA</th>
+                <th>Domaine d'activité P145</th>
+                <th>Famille Tech Formation</th>
+                <th>Documentation</th>
+                <th>Documentation P/N</th>
+                <th>Atelier</th>
+                <th>Action</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
+            </tr>
+            @foreach (EquipmentDetailsViewModel equipment in Model.EquipmentsDetails)
+            {
+                <tr>
+                    <td>@equipment.PartNumber</td>
+                    <td>@equipment.Manufacturer</td>
+                    <td>@equipment.Name</td>
+                    <td>@equipment.Type</td>
+                    <td>@equipment.Ata</td>
+                    <td>@equipment.ActivityField</td>
+                    <td>@equipment.MechanicsGroup</td>
+                    <td>@equipment.DocumentsReferences</td>
+                    <td>@equipment.DocumentsPartNumber</td>
+                    <td>@equipment.CenterName</td>
+                    <td>@equipment.ActionDescription</td>
+                    <td>
+                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetEquipmentUpdateView",
+                                new { centerId = @equipment.Id },
+                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, null)
+                    </td>
+                    <td>
+                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView",
+                                new { centerId = @equipment.Id },
+                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');" }, null)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="13">
+                    @Ajax.ActionLink("Ajouter un équipement", "GetEquipmentInsertView", "",
+                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" },
+                            new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        </table>
+    </div>
 }
 
