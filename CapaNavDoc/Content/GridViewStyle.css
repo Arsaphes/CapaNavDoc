@@ -1,4 +1,6 @@
-﻿.GridViewTable {
+﻿/* ReSharper disable CssBrowserCompatibility */
+
+.GridViewTable {
     border: 1px solid lightgray;
     -ms-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -13,11 +15,6 @@
     padding: 5px;
     text-align: center;
     border-bottom: 1px solid gray;
-}
-
-
-.PageGridView tr:nth-child(odd) {
-    background-color: #b0e0e6;
 }
 
 .GridViewTable tr:last-child {
@@ -52,21 +49,6 @@
     text-align: center;
 }
 
-
-.TransfertCenterUserTable-Left td {
-    text-align: left;
-    width: 120px;
-}
-
-.TransfertCenterUserTable-Left td:first-child {
-    width: 120px;
-}
-
-.TransfertCenterUserTable-Left td:last-child {
-    text-align: center;
-}
-
-
 .TransfertUserTable-Right td {
     text-align: left;
     width: 120px;
@@ -77,15 +59,6 @@
 }
 
 .TransfertUserTable-Right td:first-child {
-    text-align: center;
-}
-
-
-.ActionsTable td:nth-child(2) {
-    text-align: center;
-}
-
-.ActionsTable td:nth-child(3) {
     text-align: center;
 }
 
@@ -124,3 +97,27 @@
     -webkit-min-width: 90px;
     min-width: 90px;
 }
+
+.TransfertCenterUserTable-Left td {
+    text-align: left;
+    width: 120px;
+}
+
+.TransfertCenterUserTable-Left td:first-child {
+    width: 120px;
+}
+
+.TransfertCenterUserTable-Left td:last-child {
+    text-align: center;
+}
+
+
+.ActionsTable td:nth-child(2) {
+    text-align: center;
+}
+
+.ActionsTable td:nth-child(3) {
+    text-align: center;
+}
+
+

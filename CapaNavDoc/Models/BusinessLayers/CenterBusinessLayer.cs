@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using CapaNavDoc.DataAccessLayer;
+using CapaNavDoc.Extensions;
 
 namespace CapaNavDoc.Models.BusinessLayers
 {
@@ -47,6 +48,8 @@ namespace CapaNavDoc.Models.BusinessLayers
             return GetCenters().FirstOrDefault(c => c.Id == id);
         }
 
+
+
         public List<User> GetCenterUsers(int centerId)
         {
             Center center = GetCenter(centerId);
@@ -61,17 +64,12 @@ namespace CapaNavDoc.Models.BusinessLayers
 
         public void AddCenterUser(Center center, int userId)
         {
-            if (center.UserList == null) center.UserList = "";
-            center.UserList += center.UserList.Length == 0 ? userId.ToString() : $";{userId}";
+            center.UserList = center.UserList.AddId(userId);
         }
 
         public void RemoveCenterUser(Center center, int userId)
         {
-            if(string.IsNullOrEmpty(center.UserList)) return;
-            string[] ids = center.UserList.Split(';');
-            string newIds = ids.Where(id => id != userId.ToString()).Aggregate("", (current, id) => current + (current.Length == 0 ? id : $";{id}"));
-
-            center.UserList = newIds;
+            center.UserList = center.UserList.RemoveId(userId);
         }
     }
 }
