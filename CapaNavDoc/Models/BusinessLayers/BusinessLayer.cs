@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net.NetworkInformation;
 
-namespace CapaNavDoc.Models
+namespace CapaNavDoc.Models.BusinessLayers
 {
     public class BusinessLayer<T> where T : class
     {

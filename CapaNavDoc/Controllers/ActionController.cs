@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
@@ -17,8 +18,8 @@ namespace CapaNavDoc.Controllers
         /// <returns>A view.</returns>
         public ActionResult Index()
         {
-            ActionBusinessLayer bl = new ActionBusinessLayer();
-            List<Action> actions = bl.GetActions();
+            BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
+            List<Action> actions = bl.GetList();
             List<ActionDetailsViewModel> actionDetails = actions.Select(action => action.ToActionDetailsViewModel()).ToList();
             ActionListViewModel model = new ActionListViewModel {ActionsDetails = actionDetails};
             return View("Index", model);
@@ -33,18 +34,18 @@ namespace CapaNavDoc.Controllers
         [HttpPost]
         public ActionResult EditAction(ActionEditionViewModel model, string editionMode)
         {
-            ActionBusinessLayer bl;
+            BusinessLayer<Action> bl;
 
             switch (editionMode)
             {
                 case "Ajouter":
-                    bl = new ActionBusinessLayer();
-                    bl.InsertAction(model.ToAction());
+                    bl = new BusinessLayer<Action>(new CapaNavDocDal());
+                    bl.Insert(model.ToAction());
                     return RedirectToAction("Index");
 
                 case "Changer":
-                    bl = new ActionBusinessLayer();
-                    bl.UpdateAction(model.ToAction());
+                    bl = new BusinessLayer<Action>(new CapaNavDocDal());
+                    bl.Update(model.ToAction());
                     return RedirectToAction("Index");
 
                 default:  // Annuler
@@ -63,8 +64,8 @@ namespace CapaNavDoc.Controllers
         {
             if (dialogResult == "Non") return RedirectToAction("Index");
 
-            ActionBusinessLayer bl = new ActionBusinessLayer();
-            bl.DeleteAction(model.Id.ToInt32());
+            BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
+            bl.Delete(model.Id.ToInt32());
             return RedirectToAction("Index");
         }
 
@@ -88,8 +89,8 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetActionUpdateView(string actionId)
         {
-            ActionBusinessLayer ub = new ActionBusinessLayer();
-            Action action = ub.GetAction(actionId.ToInt32());
+            BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
+            Action action = bl.Get(actionId.ToInt32());
             ActionEditionViewModel model = action.ToActionEditionViewModel("Changer");
 
             return PartialView("ActionEditionView", model);
@@ -103,8 +104,8 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetConfirmationView(string actionId)
         {
-            ActionBusinessLayer bl = new ActionBusinessLayer();
-            Action action = bl.GetAction(actionId.ToInt32());
+            BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
+            Action action = bl.Get(actionId.ToInt32());
             string userCall = $"{action.Description}";
             ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = actionId, Controler = "Action", Action = "DeleteAction" };
 

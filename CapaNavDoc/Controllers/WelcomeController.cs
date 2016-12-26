@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 
@@ -91,20 +92,20 @@ namespace CapaNavDoc.Controllers
                 Name = "Montpellier"
             });
 
-            ActionBusinessLayer abl = new ActionBusinessLayer();
-            abl.InsertAction(new Action
+            BusinessLayer<Action> abl = new BusinessLayer<Action>(new CapaNavDocDal());
+            abl.Insert(new Action
             {
                 Description = "Réparation"
             });
-            abl.InsertAction(new Action
+            abl.Insert(new Action
             {
                 Description = "Inspection"
             });
-            abl.InsertAction(new Action
+            abl.Insert(new Action
             {
                 Description = "Révision Générale"
             });
-            abl.InsertAction(new Action
+            abl.Insert(new Action
             {
                 Description = "Réglage"
             });

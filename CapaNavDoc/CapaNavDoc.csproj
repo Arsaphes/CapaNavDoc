@@ -212,8 +212,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Action.cs" />
-    <Compile Include="Models\BusinessLayer.cs" />
-    <Compile Include="Models\BusinessLayers\ActionBusinessLayer.cs" />
+    <Compile Include="Models\BusinessLayers\BusinessLayer.cs" />
     <Compile Include="Models\BusinessLayers\EquipmentBusinessLayer.cs" />
     <Compile Include="Models\BusinessLayers\EquipmentCenterBusinessLayer.cs" />
     <Compile Include="Models\BusinessLayers\EquipmentMonitoringBusinessLayer.cs" />
