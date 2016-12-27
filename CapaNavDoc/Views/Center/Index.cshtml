@@ -1,4 +1,6 @@
-﻿@using CapaNavDoc.Extensions
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.Extensions
 @using CapaNavDoc.ViewModel
 @model CenterListViewModel
 
@@ -38,31 +40,18 @@
     </div>
 
     <div class="PageGridView">
-        @* ReSharper disable Html.PathError *@
         <table class="GridViewTable CentersTable">
             <tr>
-                <th>
-                    Code
-                </th>
-                <th>
-                    Utilisateurs
-                </th>
-                <th>
-                    Editer
-                </th>
-                <th>
-                    Supprimer
-                </th>
+                <th>Code</th>
+                <th>Utilisateurs</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
             </tr>
             @foreach (CenterDetailsViewModel center in Model.CentersDetails)
             {
                 <tr>
-                    <td>
-                        @center.Name
-                    </td>
-                    <td>
-                        <a href="/Center/ManageUsers?centerId=@center.Id"><img src="~/Content/Icons/User-Group-icon.png" alt="Users" /></a>
-                    </td>
+                    <td>@center.Name</td>
+                    <td><a href="/Center/ManageUsers?centerId=@center.Id"><img src="~/Content/Icons/User-Group-icon.png" alt="Users" /></a></td>
                     <td>
                         @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetCenterUpdateView",
                             new { centerId = @center.Id },

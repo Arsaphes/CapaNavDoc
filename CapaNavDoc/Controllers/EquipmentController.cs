@@ -111,5 +111,23 @@ namespace CapaNavDoc.Controllers
 
             return PartialView("ConfirmationView", model);
         }
+
+        /// <summary>
+        /// Get a partial view used to link some centers to the Equipment.
+        /// </summary>
+        /// <param name="equipmentId">The Equipment id.</param>
+        /// <returns>A partial view.</returns>
+        [HttpGet]
+        public PartialViewResult GetEquipmentCenters(string equipmentId)
+        {
+            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            Equipment equipment = bl.Get(equipmentId.ToInt32());
+            List<EquipmentCenterViewModel> centers = new List<EquipmentCenterViewModel>();
+
+            centers.AddRange(equipment.GetEquipmentCenterList().Select(c => c.ToEquipmentCenterViewModel()));
+            EquipmentCenterListViewModel model = new EquipmentCenterListViewModel { EquipmentId = equipmentId, EquipmentCenters = centers};
+
+            return PartialView("EquipmentCentersView", model);
+        }
     }
 }

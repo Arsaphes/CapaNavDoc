@@ -1,11 +1,11 @@
-﻿@using CapaNavDoc.ViewModel
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel
 @model UserEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet"/>
 <script src="~/Scripts/Validations.js"></script>
 
-
-@* ReSharper disable once Html.PathError *@
 <form id="EditForm" action="/User/EditUser" method="post">
     <input id="EditionModeInput" type="hidden" name="editionMode" value="Annuler" />
     <input id="UserId" type="hidden" name="Id" value="@Model.Id" />

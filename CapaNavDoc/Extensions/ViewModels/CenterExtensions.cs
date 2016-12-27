@@ -49,5 +49,7 @@ namespace CapaNavDoc.Extensions.ViewModels
                 EditionMode = editionMode,
             };
         }
+
+
     }
 }

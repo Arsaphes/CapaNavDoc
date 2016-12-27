@@ -13,6 +13,5 @@
         public string DocumentsReferences { get; set; }
         public string DocumentsPartNumber { get; set; }
         public string CenterName { get; set; }
-        public string ActionDescription { get; set; }
     }
 }

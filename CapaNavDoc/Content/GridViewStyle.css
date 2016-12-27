@@ -121,6 +121,14 @@
 }
 
 
-.EquipmentTable {
-    
+.EquipmentTable td:nth-child(10) {
+    text-align: center;
+}
+
+.EquipmentTable td:nth-child(11) {
+    text-align: center;
+}
+
+.EquipmentTable td:nth-child(12) {
+    text-align: center;
 }

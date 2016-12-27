@@ -1,0 +1,23 @@
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.Models
+@using CapaNavDoc.ViewModel
+@model CapaNavDoc.ViewModel.EquipmentCenterListViewModel
+
+<form>
+    <input type="hidden" name="EquipmentId" value="@Model.EquipmentId"/>
+    <table>
+        @foreach (EquipmentCenterViewModel equipmentCenter in Model.EquipmentCenters)
+        {
+             <tr>
+                 <td>
+                     @equipmentCenter.CenterName
+                 </td>
+                 <td>
+                     
+                 </td>
+            </tr>
+
+        }
+    </table>
+</form>

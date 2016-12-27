@@ -117,12 +117,14 @@
     <Content Include="Content\Icons\Actions-go-previous-icon.png" />
     <Content Include="Content\Icons\Arrows-icon.png" />
     <Content Include="Content\Icons\Close-2-icon.png" />
+    <Content Include="Content\Icons\maintenance-icon.png" />
     <Content Include="Content\Icons\Pencil-icon.png" />
     <Content Include="Content\Icons\User-Group-icon.png" />
     <Content Include="Content\Images\NavBar01.png" />
     <Content Include="Content\Images\NavBar02.png" />
     <Content Include="Content\Images\NavBar03.png" />
     <Content Include="Content\NavigationBarStyle.css" />
+    <Content Include="Content\ToggleButton.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -192,7 +194,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Validation.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +209,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ViewModels\ActionExtensions.cs" />
     <Compile Include="Extensions\ViewModels\CenterExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\EquipmentCenterExtensions.cs" />
     <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
     <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -234,6 +236,9 @@
     <Compile Include="ViewModel\CenterListViewModel.cs" />
     <Compile Include="ViewModel\CenterUsersViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentCenterActionViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentCenterListViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentCenterViewModel.cs" />
     <Compile Include="ViewModel\EquipmentDetailsViewModel.cs" />
     <Compile Include="ViewModel\EquipmentEditionViewModel.cs" />
     <Compile Include="ViewModel\EquipmentListViewModel.cs" />
@@ -261,6 +266,7 @@
     <Content Include="Views\Center\ManageUsers.cshtml" />
     <Content Include="Views\Equipment\Index.cshtml" />
     <Content Include="Views\Equipment\EquipmentEditionView.cshtml" />
+    <Content Include="Views\Equipment\EquipmentCentersView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
