@@ -16,7 +16,7 @@ namespace CapaNavDoc.Models
 	    public string MechanicsGroup { get; set; }
 	    public string DocumentsReferences { get; set; }
 	    public string DocumentsPartNumber { get; set; }
-	    public string EquipmentCenterList { get; set; }
+	    public string EquipmentCenterActionList { get; set; } // "n,m;" where 'n' is the center id, 'm' the action id, ',' the center/action separator, ';' the center/action group separator
 	    public string EquipmentMonitoringId { get; set; }
 	}
 }

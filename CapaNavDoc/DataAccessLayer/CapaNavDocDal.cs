@@ -9,7 +9,6 @@ namespace CapaNavDoc.DataAccessLayer
         public DbSet<Center> Centers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<EquipmentMonitoring> EquipmentMonitorings { get; set; }
-        public DbSet<EquipmentCenter> EquipmentCenters { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<Action> Actions { get; set; }
 
@@ -19,7 +18,6 @@ namespace CapaNavDoc.DataAccessLayer
             modelBuilder.Entity<Center>().ToTable("Centers");
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<EquipmentMonitoring>().ToTable("EquipmentMonitorings");
-            modelBuilder.Entity<EquipmentCenter>().ToTable("EquipmentCenters");
             modelBuilder.Entity<Equipment>().ToTable("Equipments");
             modelBuilder.Entity<Action>().ToTable("Actions");
 

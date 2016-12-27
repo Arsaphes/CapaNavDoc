@@ -120,12 +120,12 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentCenters(string equipmentId)
         {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            Equipment equipment = bl.Get(equipmentId.ToInt32());
-            List<EquipmentCenterViewModel> centers = new List<EquipmentCenterViewModel>();
+            EquipmentCenterViewModel model = new EquipmentCenterViewModel { EquipmentId = equipmentId };
+            BusinessLayer<Action> abl = new BusinessLayer<Action>(new CapaNavDocDal());
+            BusinessLayer<Center> cbl = new BusinessLayer<Center>(new CapaNavDocDal());
 
-            centers.AddRange(equipment.GetEquipmentCenterList().Select(c => c.ToEquipmentCenterViewModel()));
-            EquipmentCenterListViewModel model = new EquipmentCenterListViewModel { EquipmentId = equipmentId, EquipmentCenters = centers};
+            model.ActionDescriptions = new List<string>(abl.GetList().Select(a => a.Description));
+            model.CenterNames = new List<string>(cbl.GetList().Select(c => c.Name));
 
             return PartialView("EquipmentCentersView", model);
         }

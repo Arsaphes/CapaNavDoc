@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CapaNavDoc.DataAccessLayer;
-using CapaNavDoc.Models;
-using CapaNavDoc.Models.BusinessLayers;
+﻿using CapaNavDoc.Models;
 using CapaNavDoc.ViewModel;
 
 namespace CapaNavDoc.Extensions.ViewModels
@@ -77,31 +73,5 @@ namespace CapaNavDoc.Extensions.ViewModels
                 EditionMode = editionMode,
             };
         }
-
-        public static EquipmentCenterListViewModel ToEquipmentCenterListViewModel(this Equipment equipment)
-        {
-            List<EquipmentCenterViewModel> centers = new List<EquipmentCenterViewModel>();
-            centers.AddRange(equipment.GetEquipmentCenterList().Select(c => c.ToEquipmentCenterViewModel()));
-
-            return new EquipmentCenterListViewModel
-            {
-                EquipmentId = equipment.Id.ToString(),
-                EquipmentCenters = centers
-            };
-        }
-
-        public static List<EquipmentCenter> GetEquipmentCenterList(this Equipment equipment)
-        {
-            List<EquipmentCenter> centers = new List<EquipmentCenter>();
-            if (string.IsNullOrEmpty(equipment.EquipmentCenterList)) return centers;
-
-            string[] ids = equipment.EquipmentCenterList.Split(';');
-            BusinessLayer<EquipmentCenter> bl = new BusinessLayer<EquipmentCenter>(new CapaNavDocDal());
-            centers.AddRange(ids.Select(id => bl.Get(id.ToInt32())));
-
-            return centers;
-        }
-
- 
     }
 }

@@ -50,13 +50,5 @@ namespace CapaNavDoc.Extensions.ViewModels
             };
         }
 
-        public static EquipmentCenterActionViewModel ToEquipmentCenterActionViewModel(this Action action)
-        {
-            return new EquipmentCenterActionViewModel
-            {
-                ActionId = action.Id.ToString(),
-                ActionDescription = action.Description
-            };
-        }
     }
 }
