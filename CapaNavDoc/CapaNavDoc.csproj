@@ -114,6 +114,7 @@
     <Content Include="Content\CenterActionsStyle.css" />
     <Content Include="Content\ConfirmationFormStyle.css" />
     <Content Include="Content\EditFormStyle.css" />
+    <Content Include="Content\EquipmentMonitoringStyle.css" />
     <Content Include="Content\Icons\Actions-go-next-icon.png" />
     <Content Include="Content\Icons\Actions-go-previous-icon.png" />
     <Content Include="Content\Icons\Arrows-icon.png" />
@@ -121,6 +122,7 @@
     <Content Include="Content\Icons\maintenance-icon.png" />
     <Content Include="Content\Icons\Pencil-icon.png" />
     <Content Include="Content\Icons\User-Group-icon.png" />
+    <Content Include="Content\Icons\Zoom-icon.png" />
     <Content Include="Content\Images\NavBar01.png" />
     <Content Include="Content\Images\NavBar02.png" />
     <Content Include="Content\Images\NavBar03.png" />
@@ -178,11 +180,9 @@
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\BusinessLayers\BusinessLayer.cs" />
     <Compile Include="Models\BusinessLayers\EquipmentBusinessLayer.cs" />
-    <Compile Include="Models\BusinessLayers\EquipmentMonitoringBusinessLayer.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\BusinessLayers\CenterBusinessLayer.cs" />
     <Compile Include="Models\Equipment.cs" />
-    <Compile Include="Models\EquipmentMonitoring.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BusinessLayers\UserBusinessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -198,8 +198,10 @@
     <Compile Include="ViewModel\EquipmentDetailsViewModel.cs" />
     <Compile Include="ViewModel\EquipmentEditionViewModel.cs" />
     <Compile Include="ViewModel\EquipmentListViewModel.cs" />
+    <Compile Include="ViewModel\EquipmentMonitoringViewModel.cs" />
     <Compile Include="ViewModel\LoginUserViewModel.cs" />
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
+    <Compile Include="ViewModel\UserCallViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
     <Compile Include="ViewModel\UserEditionViewModel.cs" />
     <Compile Include="ViewModel\UserListViewModel.cs" />
@@ -223,6 +225,7 @@
     <Content Include="Views\Equipment\Index.cshtml" />
     <Content Include="Views\Equipment\EquipmentEditionView.cshtml" />
     <Content Include="Views\Equipment\EquipmentCentersView.cshtml" />
+    <Content Include="Views\Equipment\EquipmentMonitoringView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

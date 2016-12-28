@@ -1,0 +1,39 @@
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel
+@model EquipmentMonitoringViewModel
+
+<link href="~/Content/EquipmentMonitoringStyle.css" rel="stylesheet"/>
+
+<form method="post" action="/Equipment/UpdateEquipmentMonitoring">
+    <input type="hidden" name="EquipmentId" value="@Model.EquipmentId" />
+    <table>
+        <tr>
+            <td>Responsable:</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>Date:</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="submit" name="submitButton" value="Annuler" /> 
+                        </td>
+                        <td>
+                            <input type="submit" name="submitButton" value="Mettre à jour" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</form>

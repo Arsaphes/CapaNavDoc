@@ -21,6 +21,10 @@
 
 }
 
+.CenterActionsTable table {
+    width: 100%;
+}
+
 .CenterActionsTable table td {
     border: none;
     padding-top: 10px;

@@ -146,6 +146,19 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentCentersView", model);
         }
 
+        /// <summary>
+        /// Get a partial view used to define the equipment monitoring.
+        /// </summary>
+        /// <param name="equipmentId">The Equipment id.</param>
+        /// <returns>A partial view.</returns>
+        [HttpGet]
+        public PartialViewResult GetEquipmentMonitoring(string equipmentId)
+        {
+            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            Equipment equipment = ebl.Get(equipmentId.ToInt32());
+            EquipmentMonitoringViewModel model = equipment.ToEquipmentMonitoringViewModel();
 
+            return PartialView("EquipmentMonitoringView", model);
+        }
     }
 }

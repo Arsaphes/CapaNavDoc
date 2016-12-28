@@ -127,5 +127,22 @@ namespace CapaNavDoc.Extensions.ViewModels
             }
             return model;
         }
+
+        public static EquipmentMonitoringViewModel ToEquipmentMonitoringViewModel(this Equipment equipment)
+        {
+            //BusinessLayer<EquipmentMonitoring> embl = new BusinessLayer<EquipmentMonitoring>(new CapaNavDocDal());
+            //BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
+            //EquipmentMonitoring em = embl.Get(equipment.EquipmentMonitoringId);
+            
+
+
+            //EquipmentMonitoringViewModel model = new EquipmentMonitoringViewModel
+            //{
+            //    Date = em.Date,
+            //    UserId = em.UserId,
+            //    UserCalls = ubl.GetList().Select(u => new UserCallViewModel {UserId = u.Id.ToString(), UserCall = $"{u.FirstName} {u.LastName}"}).ToList()
+            //};
+            //return model;
+        }
     }
 }
