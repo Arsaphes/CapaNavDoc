@@ -1,0 +1,40 @@
+﻿.CenterActionsTable {
+    width: 100%;
+}
+
+.CenterActionsTable td {
+    width: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.CenterActionsTable td:first-child {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.CenterActionsTable tr:first-child td:first-child {
+    background-color: gray;
+}
+
+.CenterActionsTable input[type=checkbox] {
+
+}
+
+.CenterActionsTable table td {
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.CenterActionsTable table td:first-child {
+    text-align: center;
+}
+
+.CenterActionsTable table tr:first-child td:first-child {
+    background-color: transparent;
+}
+
+.CenterActionsTable table input[type=submit] {
+    width: 120px;
+}

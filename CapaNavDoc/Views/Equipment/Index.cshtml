@@ -1,4 +1,6 @@
-﻿@using CapaNavDoc.Extensions
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.Extensions
 @using CapaNavDoc.ViewModel
 @model EquipmentListViewModel
 
@@ -24,11 +26,13 @@
 {
     <div id="editDialog" style="display: none;"></div>
     <div id="confirmDialog" style="display: none;"></div>
+    <div id="editCenterActionDialog" style="display: none;"></div>
     <script type="text/javascript">
             $(document)
                 .ready(function() {
                     initDialod("#editDialog", 320);
                     initDialod("#confirmDialog", 340);
+                    initDialod("#editCenterActionDialog", 700);
                     document.getElementById("AdministrationLink").className += "ActiveLink";
                 });
     </script>
@@ -38,7 +42,6 @@
     </div>
 
     <div class="PageGridView">
-        @* ReSharper disable Html.PathError *@
         <table class="GridViewTable EquipmentTable">
             <tr>
                 <th>P/N</th>
@@ -66,7 +69,12 @@
                     <td>@equipment.MechanicsGroup</td>
                     <td>@equipment.DocumentsReferences</td>
                     <td>@equipment.DocumentsPartNumber</td>
-                    <td><a href="/Equipment/GetEquipmentCenters?centerId=@equipment.Id" title="Toto is happy !&#13;Titi too !"><img src="~/Content/Icons/maintenance-icon.png" alt="Users" /></a></td>
+                    @*<td><a href="/Equipment/GetEquipmentCenters?equipmentId=@equipment.Id" title="Toto is happy !&#13;Titi too !"><img src="~/Content/Icons/maintenance-icon.png" alt="Users" /></a></td>*@
+                    <td>
+                        @Ajax.HtmlActionLink("<img src='/Content/Icons/maintenance-icon.png' />", "GetEquipmentCenters",
+                                new { equipmentId = @equipment.Id },
+                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editCenterActionDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editCenterActionDialog');" }, null)
+                    </td>
                     <td>
                         @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetEquipmentUpdateView",
                                 new { equipmentId = @equipment.Id },

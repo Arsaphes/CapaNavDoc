@@ -69,6 +69,25 @@ namespace CapaNavDoc.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Update the Center/Action group linked to the Equipment.
+        /// </summary>
+        /// <param name="model">The EquipmentCenterViewModel.</param>
+        /// <param name="submitButton">The value of the submit button ('Annuler' or 'Mettre à jour').</param>
+        /// <returns>A redirection to the default view.</returns>
+        [HttpPost]
+        public ActionResult UpdateEquipmentCenters(EquipmentCenterViewModel model, string submitButton)
+        {
+            if(submitButton == "Annuler") return RedirectToAction("Index");
+
+            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            Equipment equipment = bl.Get(model.EquipmentId.ToInt32());
+            equipment.SetCenterActionGroups(model);
+            bl.Update(equipment);
+
+            return RedirectToAction("Index");
+        }
+
 
         /// <summary>
         /// Get a partial view used to insert an Equipment.
@@ -120,14 +139,13 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentCenters(string equipmentId)
         {
-            EquipmentCenterViewModel model = new EquipmentCenterViewModel { EquipmentId = equipmentId };
-            BusinessLayer<Action> abl = new BusinessLayer<Action>(new CapaNavDocDal());
-            BusinessLayer<Center> cbl = new BusinessLayer<Center>(new CapaNavDocDal());
-
-            model.ActionDescriptions = new List<string>(abl.GetList().Select(a => a.Description));
-            model.CenterNames = new List<string>(cbl.GetList().Select(c => c.Name));
+            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            Equipment equipment = ebl.Get(equipmentId.ToInt32());
+            EquipmentCenterViewModel model = equipment.ToEquipmentCenterViewModel();
 
             return PartialView("EquipmentCentersView", model);
         }
+
+
     }
 }

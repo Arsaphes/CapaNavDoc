@@ -1,4 +1,9 @@
-﻿using CapaNavDoc.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CapaNavDoc.Classes;
+using CapaNavDoc.DataAccessLayer;
+using CapaNavDoc.Models;
+using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 
 namespace CapaNavDoc.Extensions.ViewModels
@@ -72,6 +77,55 @@ namespace CapaNavDoc.Extensions.ViewModels
 
                 EditionMode = editionMode,
             };
+        }
+
+        /// <summary>
+        /// Set an Equipment Center/Action groups.
+        /// </summary>
+        /// <param name="equipment">The Equipment.</param>
+        /// <param name="model">The EquipmentCenterViewModel used to edit the Center/Action groups</param>
+        public static void SetCenterActionGroups(this Equipment equipment, EquipmentCenterViewModel model)
+        {
+            string centerActions = "";
+            for (int i = 0; i < model.Centers.Count; i++)
+                for (int j = 0; j < model.Actions.Count; j++)
+                {
+                    if (!model.Selections[i][j]) continue;
+                    centerActions += (centerActions.Length == 0 ? "" : ";") + $"{model.Centers[i].Id},{model.Actions[j].Id}";
+                }
+            equipment.EquipmentCenterActionList = centerActions;
+        }
+
+        /// <summary>
+        /// Get an EquipmentCenterViewModel from an Equipment used to edit the Center/Action groups.
+        /// </summary>
+        /// <param name="equipment">The Equipment.</param>
+        /// <returns>An EquipmentCenterViewModel.</returns>
+        public static EquipmentCenterViewModel ToEquipmentCenterViewModel(this Equipment equipment)
+        {
+            List<CenterActionCouple> couples = equipment.EquipmentCenterActionList.ToCenterActionGroups();
+            BusinessLayer<Action> abl = new BusinessLayer<Action>(new CapaNavDocDal());
+            BusinessLayer<Center> cbl = new BusinessLayer<Center>(new CapaNavDocDal());
+            EquipmentCenterViewModel model = new EquipmentCenterViewModel
+            {
+                EquipmentId = equipment.Id.ToString(),
+                Centers = new List<CenterDetailsViewModel>(cbl.GetList().Select(c => c.ToCenterDetailsViewModel())),
+                Actions = new List<ActionDetailsViewModel>(abl.GetList().Select(a => a.ToActionDetailsViewModel()))
+            };
+            model.Selections = new bool[model.Centers.Count][];
+            model.TableColumns = (model.Actions.Count + 1).ToString();
+
+            for (int i = 0; i < model.Centers.Count; i++)
+            {
+                model.Selections[i] = new bool[model.Actions.Count];
+                for (int j = 0; j < model.Actions.Count; j++)
+                {
+                    int index = couples.FindIndex(g => g.CenterId == model.Centers[i].Id && g.ActionId == model.Actions[j].Id);
+                    if(-1== index) continue;
+                    model.Selections[i][j] = true;
+                }
+            }
+            return model;
         }
     }
 }

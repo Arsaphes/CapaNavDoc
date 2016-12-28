@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\CenterActionsStyle.css" />
     <Content Include="Content\ConfirmationFormStyle.css" />
     <Content Include="Content\EditFormStyle.css" />
     <Content Include="Content\Icons\Actions-go-next-icon.png" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\CenterActionCouple.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\CenterController.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />

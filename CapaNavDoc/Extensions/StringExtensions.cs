@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CapaNavDoc.Classes;
 
 namespace CapaNavDoc.Extensions
 {
@@ -21,6 +23,16 @@ namespace CapaNavDoc.Extensions
             if (string.IsNullOrEmpty(str)) return null;
             string[] ids = str.Split(';');
             return ids.Where(theId => theId != theId.ToString()).Aggregate("", (current, i) => current + (current.Length == 0 ? i : $";{i}"));
+        }
+
+        public static List<CenterActionCouple> ToCenterActionGroups(this string str)
+        {
+            List<CenterActionCouple> couples = new List<CenterActionCouple>();
+            if (str == null) return couples;
+            string[] groups = str.Split(';');
+
+            couples.AddRange(groups.Select(g => g.Split(',')).Select(couple => new CenterActionCouple {CenterId = couple[0], ActionId = couple[1]}));
+            return couples;
         }
     }
 }

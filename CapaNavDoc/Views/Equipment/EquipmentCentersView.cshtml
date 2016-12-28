@@ -1,17 +1,54 @@
 ﻿@* ReSharper disable Html.PathError *@
+@* ReSharper disable AccessToModifiedClosure *@
 
 @using CapaNavDoc.ViewModel
 @model EquipmentCenterViewModel
 
-<form>
-    <table>
+<link href="~/Content/CenterActionsStyle.css" rel="stylesheet" /> 
+    
+<form method="post" action="/Equipment/UpdateEquipmentCenters">
+    <input type="hidden" name="EquipmentId" value="@Model.EquipmentId"/>
+    <table class="CenterActionsTable">
         <tr>
-            @foreach (string actionDescription in Model.ActionDescriptions)
+            <td></td>
+            @foreach (ActionDetailsViewModel action in Model.Actions)
             {
-                <th>
-                    @actionDescription
-                </th>
+                <td>
+                    @action.Description
+                </td>
             }
+        </tr>
+        @for (int i = 0; i < Model.Centers.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Model.Centers[i].Name
+                    @Html.HiddenFor(m => Model.Centers[i].Id)
+                    @Html.HiddenFor(m => Model.Centers[i].Name)
+                </td>
+                @for (int j = 0; j < Model.Actions.Count; j++)
+                {
+                    <td>
+                        @Html.CheckBoxFor(m => m.Selections[i][j])
+                        @Html.HiddenFor(m => Model.Actions[j].Id)
+                        @Html.HiddenFor(m => Model.Actions[j].Description)
+                    </td>
+                }
+            </tr>
+        }
+        <tr>
+            <td colspan="@Model.TableColumns">
+                <table>
+                    <tr>
+                        <td style="width: 50%;">
+                            <input type="submit" name="submitButton" value="Annuler" />                
+                        </td>
+                        <td>
+                            <input type="submit" name="submitButton" value="Mettre à jour" />                
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
     </table>
 </form>
