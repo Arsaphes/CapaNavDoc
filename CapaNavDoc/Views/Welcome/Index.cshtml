@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@* ReSharper disable Html.PathError *@
+
+@{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 
@@ -10,20 +11,16 @@
 
 @section HeaderSection
 {
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+                document.getElementById("AdministrationLink").className += "ActiveLink";
+            });
+    </script>
 }
 
 @section ContentBody
 {
-    <script type="text/javascript">
-        $(document)
-            .ready(function() {
-                document.getElementById("AdministrationLink").className += "ActiveLink";
-            });
-    </script>
-
-    @* ReSharper disable Html.PathError *@
-    <form id="WelcomeForm" action="/Welcome/InitializeDatabase" method="post">
+    <form action="/Welcome/InitializeDatabase" method="post">
         <input type="submit" value="Init DB"/>
     </form>
 }

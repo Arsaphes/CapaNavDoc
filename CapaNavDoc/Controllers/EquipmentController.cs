@@ -88,6 +88,28 @@ namespace CapaNavDoc.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Update the Equipment monitoring status.
+        /// </summary>
+        /// <param name="model">The EquipmentMonitoringViewModel.</param>
+        /// <param name="userId">The id of the selected user.</param>
+        /// <param name="editionMode">The dialog box result ('Annuler' or 'Mettre à jour').</param>
+        /// <returns>A redirection to the default view.</returns>
+        [HttpPost]
+        public ActionResult UpdateEquipmentMonitoring(EquipmentMonitoringViewModel model,string userId, string editionMode)
+        {
+            if (editionMode == "Annuler") return RedirectToAction("Index");
+
+            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            Equipment equipment = ebl.Get(model.EquipmentId.ToInt32());
+
+            equipment.MonitoringUserId = userId.ToInt32();
+            //equipment.MonitoringDate = model.Date
+
+
+            return RedirectToAction("Index");
+        }
+
 
         /// <summary>
         /// Get a partial view used to insert an Equipment.

@@ -30,41 +30,35 @@ namespace CapaNavDoc.Controllers
         /// Insert or update a user.
         /// </summary>
         /// <param name="model">The UserEditionViewModel used to edit a user.</param>
-        /// <param name="editionMode">The edition mode.</param>
         /// <returns>A redirection to the default view.</returns>
         [HttpPost]
-        public ActionResult EditUser(UserEditionViewModel model, string editionMode)
+        public ActionResult EditUser(UserEditionViewModel model)
         {
             UserBusinessLayer bl;
 
-            switch (editionMode)
+            switch (model.EditionMode)
             {
                 case "Ajouter":
                     bl = new UserBusinessLayer();
                     bl.InsertUser(model.ToUser());
-                    return RedirectToAction("Index");
+                    break;
 
                 case "Changer":
                     bl = new UserBusinessLayer();
                     bl.UpdateUser(model.ToUser());
-                    return RedirectToAction("Index");
-
-                default:  // Annuler
-                    return RedirectToAction("Index");
+                    break;
             }
+            return RedirectToAction("Index");
         }
 
         /// <summary>
         /// Delete a user.
         /// </summary>
         /// <param name="model">The ConfirmationViewModel used to display the dialog box.</param>
-        /// <param name="dialogResult">The confirmation result.</param>
         /// <returns>A redirection to the default view.</returns>
         [HttpPost]
-        public ActionResult DeleteUser(ConfirmationViewModel model, string dialogResult)
+        public ActionResult DeleteUser(ConfirmationViewModel model)
         {
-            if(dialogResult == "Non") return RedirectToAction("Index");
-
             UserBusinessLayer bl = new UserBusinessLayer();
             bl.DeleteUser(model.Id.ToInt32());
             return RedirectToAction("Index");
@@ -78,20 +72,20 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetUserInsertView()
         {
-            UserEditionViewModel model = new UserEditionViewModel {EditionMode = "Ajouter"};
+            UserEditionViewModel model = new UserEditionViewModel { EditionMode = "Ajouter" };
             return PartialView("UserEditionView", model);
         }
 
         /// <summary>
         /// Get a partial view used to update a User.
         /// </summary>
-        /// <param name="userId">The id of the User to update.</param>
+        /// <param name="id">The id of the User to update.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetUserUpdateView(string userId)
+        public PartialViewResult GetUserUpdateView(string id)
         {
             UserBusinessLayer ubl = new UserBusinessLayer();
-            User user = ubl.GetUser(userId.ToInt32());
+            User user = ubl.GetUser(id.ToInt32());
             UserEditionViewModel model = user.ToUserEditionViewModel("Changer");
 
             return PartialView("UserEditionView", model);
@@ -100,15 +94,15 @@ namespace CapaNavDoc.Controllers
         /// <summary>
         /// Get a partial view used to confirm a User deletation.
         /// </summary>
-        /// <param name="userId">The id of the User to delete.</param>
+        /// <param name="id">The id of the User to delete.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetConfirmationView(string userId)
+        public PartialViewResult GetConfirmationView(string id)
         {
             UserBusinessLayer bl = new UserBusinessLayer();
-            User user = bl.GetUser(userId.ToInt32());
+            User user = bl.GetUser(id.ToInt32());
             string userCall = $"{user.FirstName} {user.LastName}";
-            ConfirmationViewModel model = new ConfirmationViewModel {ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = userId, Controler = "User", Action = "DeleteUser"};
+            ConfirmationViewModel model = new ConfirmationViewModel {ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = id, Controler = "User", Action = "DeleteUser"};
 
             return PartialView("ConfirmationView", model);
         }

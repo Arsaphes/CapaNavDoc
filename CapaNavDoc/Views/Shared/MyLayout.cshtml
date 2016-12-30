@@ -9,11 +9,14 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@RenderSection("TitleSection")</title>
-    
-    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+
     <link href="~/Content/Site.css" rel="stylesheet" />
-    <link href="~/Content/NavigationBarStyle.css" rel="stylesheet"/>
+    <link href="~/Content/NavigationBarStyle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+
+    <link href="~/Content/Theme/Base/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
 
     @RenderSection("HeaderSection", false)
 </head>

@@ -1,5 +1,4 @@
-﻿@using CapaNavDoc.Extensions
-@using CapaNavDoc.ViewModel
+﻿@using CapaNavDoc.ViewModel
 @model UserListViewModel
 
 @{
@@ -14,28 +13,20 @@
 @section HeaderSection
 {
     <link href="~/Content/GridViewStyle.css" rel="stylesheet"/>
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/Validations.js"></script>
     <script src="~/Scripts/Dialog.js"></script>
+
+    <script>
+        $(function() {
+            InitDialog("UserInsertion", "Ajout d'un utilisateur", "EditForm", 380);
+            InitDialogs("UserUpdate", "Mide à jour d'un utilisateur", "EditForm", 380);
+            InitDialogs("UserDeletion", "Suppression d'un utilisateur", "ConfirmationForm", 430);
+        });
+    </script>
 }
 
 @section ContentBody
 {
-    <div id="editDialog" style="display: none;"></div>
-    <div id="confirmDialog" style="display: none;"></div>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            initDialod("#editDialog", 320);
-            initDialod("#confirmDialog", 340);
-            document.getElementById("AdministrationLink").className += "ActiveLink";
-        });
-    </script>
-
-    <div style="padding: 10px;">
-        
-    </div>
-
     <div>
         <table class="GridViewTable UsersTable">
             <tr>
@@ -58,36 +49,35 @@
                     Supprimer
                 </th>
             </tr>
-            @foreach (UserDetailsViewModel user in Model.UsersDetails)
+            @for (int i = 0; i < Model.UsersDetails.Count; i++)
             {
                 <tr>
                     <td>
-                        @user.LastName
+                        @Model.UsersDetails[i].LastName
                     </td>
                     <td>
-                        @user.FirstName
+                        @Model.UsersDetails[i].FirstName
                     </td>
                     <td>
-                        @user.UserName
+                        @Model.UsersDetails[i].UserName
                     </td>
                     <td>
-                        @user.Password
+                        @Model.UsersDetails[i].Password
                     </td>
                     <td>
-                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetUserUpdateView", 
-                       new {userId = @user.Id}, 
-                       new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');"}, null)
+                        <img id="@("UserUpdate-" + @i + "-Opener")" src='/Content/Icons/Pencil-icon.png' alt="Crayon" data-request-id="@Model.UsersDetails[i].Id" />
+                        <div id="@("UserUpdate-"+@i)" data-request-url="@Url.Action("GetUserUpdateView")" ></div>
                     </td>
                     <td>
-                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView", 
-                       new {userId = @user.Id}, 
-                       new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');"}, null)
+                        <img id="@("UserDeletion-" + @i + "-Opener")" src='/Content/Icons/Close-2-icon.png' alt="Croix" data-request-id="@Model.UsersDetails[i].Id" />
+                        <div id="@("UserDeletion-"+@i)" data-request-url="@Url.Action("GetConfirmationView")"></div>
                     </td>
                 </tr>
             }
             <tr>
                 <td colspan="6">
-                    @Ajax.ActionLink("Ajouter un utilisateur", "GetUserInsertView", "", new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');"}, new {@class = "btn btn-success"})
+                    <button id="UserInsertion-Opener">Ajouter un utilisateur</button>
+                    <div id="UserInsertion" data-request-url="@Url.Action("GetUserInsertView")"></div>
                 </td>
             </tr>
         </table>

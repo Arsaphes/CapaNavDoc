@@ -1,23 +1,16 @@
-﻿@using CapaNavDoc.ViewModel
+﻿@* ReSharper disable once Html.PathError *@
+
+@using CapaNavDoc.ViewModel
 @model ConfirmationViewModel
 
 <link href="~/Content/ConfirmationFormStyle.css" rel="stylesheet" />
 
-@* ReSharper disable once Html.PathError *@
 <form id="ConfirmationForm" action="/@Model.Controler/@Model.Action" method="post">
     <input id="UserId" type="hidden" name="Id" value="@Model.Id"/>
     <table class="ConfirmationFormTable">
         <tr>
-            <td colspan="2">
+            <td>
                 @Model.ConfirmationMessage
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" name="dialogResult" value="Non"/>
-            </td>
-            <td>
-                <input type="submit" name="dialogResult" value="Oui"/>
             </td>
         </tr>
     </table>

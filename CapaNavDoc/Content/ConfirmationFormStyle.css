@@ -6,11 +6,5 @@
 
 .ConfirmationFormTable td {
     padding-bottom: 5px;
-    text-align: center;
+    text-align: left;
 }
-
-.ConfirmationFormTable input[type="submit"] {
-    width: 100px;
-    margin-top: 20px;
-}
-

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CapaNavDoc.Models
 {
@@ -17,6 +18,7 @@ namespace CapaNavDoc.Models
 	    public string DocumentsReferences { get; set; }
 	    public string DocumentsPartNumber { get; set; }
 	    public string EquipmentCenterActionList { get; set; } // "n,m;" where 'n' is the center id, 'm' the action id, ',' the center/action separator, ';' the center/action group separator
-	    public int EquipmentMonitoringId { get; set; }
+	    public DateTime MonitoringDate { get; set; }
+	    public int MonitoringUserId { get; set; }
 	}
 }

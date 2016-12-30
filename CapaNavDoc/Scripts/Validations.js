@@ -5,14 +5,32 @@
         validatorLabel.style.display = "inherit";
         validatorLabel.innerHTML = element.getAttribute("message");
         return false;
-    } else {
-        validatorLabel = document.getElementById(element.getAttribute("validatorLabelId"));
-        validatorLabel.style.display = "none";
-        return true;
-    }
+    } 
+    validatorLabel = document.getElementById(element.getAttribute("validatorLabelId"));
+    validatorLabel.style.display = "none";
+    return true;
 }
 
-function Validate(validationMode) {
+function ValidateDateFormat(element) {
+    var validatorLabel;
+    if (element.value === "") {
+        validatorLabel = document.getElementById(element.getAttribute("validatorLabelId"));
+        validatorLabel.style.display = "inherit";
+        validatorLabel.innerHTML = element.getAttribute("message");
+        return false;
+    }
+    if (element.value.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/) == null) {
+        validatorLabel = document.getElementById(element.getAttribute("validatorLabelId"));
+        validatorLabel.style.display = "inherit";
+        validatorLabel.innerHTML = element.getAttribute("message");
+        return false;
+    }
+    validatorLabel = document.getElementById(element.getAttribute("validatorLabelId"));
+    validatorLabel.style.display = "none";
+    return true;
+}
+
+function Validate() {
 
     var isValid = true;
     var elems = document.getElementsByTagName("*");
@@ -28,6 +46,9 @@ function Validate(validationMode) {
                 case "Required":
                     isValid &= ValidateRequired(elems[i]);
                     break;
+                case "DateFormat":
+                    isValid &= ValidateDateFormat(elems[i]);
+                    break;
                 default:
                     break;
             }
@@ -35,7 +56,7 @@ function Validate(validationMode) {
     }
 
     if (isValid) {
-        document.getElementById("EditionModeInput").value = validationMode;
-        document.getElementById("EditForm").submit();
+        return true;
     }
+    return false;
 }

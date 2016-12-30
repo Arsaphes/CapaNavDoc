@@ -4,20 +4,46 @@
 @model EquipmentMonitoringViewModel
 
 <link href="~/Content/EquipmentMonitoringStyle.css" rel="stylesheet"/>
+<script src="~/Scripts/Validations.js"></script>
 
-<form method="post" action="/Equipment/UpdateEquipmentMonitoring">
-    <input type="hidden" name="EquipmentId" value="@Model.EquipmentId" />
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
+
+
+<script>
+    
+
+    $(document).load(function () {
+        $("#Date-val.DateFormat").datepicker();
+    });
+
+
+</script>
+
+<form id="EditForm" method="post" action="/Equipment/UpdateEquipmentMonitoring">
+    <input type="hidden" name="EquipmentId" value="@Model.EquipmentId"/>
+    <input id="EditionModeInput" type="hidden" name="editionMode" value="Annuler" />
     <table>
         <tr>
             <td>Responsable:</td>
             <td>
-
+                <select name="userId">
+                    @foreach (UserCallViewModel userCall in Model.UserCalls)
+                    {
+                        <option value="@userCall.UserId">@userCall.UserCall</option>
+                    }
+                </select>
             </td>
         </tr>
         <tr>
             <td>Date:</td>
             <td>
-                
+                <input id="Date-val.DateFormat" type="text" name="Date" value="@Model.Date"
+                       message="La date doit être au format 'jj-mm-aaaa'." 
+                       validatorLabelId="Date-ValidationMessage"/><br/>
+                <label id="Date-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
@@ -25,10 +51,10 @@
                 <table>
                     <tr>
                         <td>
-                            <input type="submit" name="submitButton" value="Annuler" /> 
+                            <input type="submit" value="Annuler" /> 
                         </td>
                         <td>
-                            <input type="submit" name="submitButton" value="Mettre à jour" />
+                            <input type="button" value="Mettre à jour" onclick="Validate('Mettre à jour')" />
                         </td>
                     </tr>
                 </table>

@@ -128,21 +128,23 @@ namespace CapaNavDoc.Extensions.ViewModels
             return model;
         }
 
+        /// <summary>
+        /// Get an EquipmentMonitoringViewModel from an Equipment used to edit the monitoring.
+        /// </summary>
+        /// <param name="equipment">The Equipment.</param>
+        /// <returns>An EquipmentMonitoringViewModel.</returns>
         public static EquipmentMonitoringViewModel ToEquipmentMonitoringViewModel(this Equipment equipment)
         {
-            //BusinessLayer<EquipmentMonitoring> embl = new BusinessLayer<EquipmentMonitoring>(new CapaNavDocDal());
-            //BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
-            //EquipmentMonitoring em = embl.Get(equipment.EquipmentMonitoringId);
-            
+            BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
 
-
-            //EquipmentMonitoringViewModel model = new EquipmentMonitoringViewModel
-            //{
-            //    Date = em.Date,
-            //    UserId = em.UserId,
-            //    UserCalls = ubl.GetList().Select(u => new UserCallViewModel {UserId = u.Id.ToString(), UserCall = $"{u.FirstName} {u.LastName}"}).ToList()
-            //};
-            //return model;
+            EquipmentMonitoringViewModel model = new EquipmentMonitoringViewModel
+            {
+                Date = equipment.MonitoringDate.ToString("yyyy-mm-dd"),
+                UserId = equipment.MonitoringUserId.ToString(),
+                UserCalls = ubl.GetList().Select(u => new UserCallViewModel { UserId = u.Id.ToString(), UserCall = $"{u.FirstName} {u.LastName}" }).ToList(),
+                EquipmentId = equipment.Id.ToString()
+            };
+            return model;
         }
     }
 }

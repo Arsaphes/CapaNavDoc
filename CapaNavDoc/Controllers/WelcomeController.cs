@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Data.SqlTypes;
+using System.Web.Mvc;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
@@ -24,6 +25,19 @@ namespace CapaNavDoc.Controllers
         [HttpPost]
         public ActionResult InitializeDatabase()
         {
+            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            ebl.Insert(new Equipment
+            {
+                ActivityField = "Moteurs à pistons",
+                Ata = 72,
+                MechanicsGroup = "moteurs pistons",
+                Name = "Adaptateur Magnéto",
+                Manufacturer = "TCM",
+                PartNumber = "632653A1",
+                DocumentsReferences = "M-16",
+                MonitoringDate = SqlDateTime.MinValue.Value
+            });
+
             UserBusinessLayer ubl = new UserBusinessLayer();
             ubl.InsertUser(new User
             {
@@ -110,18 +124,6 @@ namespace CapaNavDoc.Controllers
                 Description = "Réglage"
             });
 
-            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            ebl.Insert(new Equipment
-            {
-                ActivityField = "Moteurs à pistons",
-                Ata = 72,
-                MechanicsGroup = "moteurs pistons",
-                Name = "Adaptateur Magnéto",
-                Manufacturer = "TCM",
-                PartNumber = "632653A1",
-                DocumentsReferences = "M-16",
-            });
-            
             return RedirectToAction("Index");
         }
     }

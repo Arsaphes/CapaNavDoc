@@ -1,5 +1,6 @@
 ﻿.EditFormTable {
     margin: 10px;
+    width: 100%;
 }
 
 .EditFormTable td {
@@ -8,11 +9,6 @@
 
 .EditFormTable td:first-child {
     padding-right: 15px;
-}
-
-.EditFormTable tr:last-child td {
-    text-align: center;
-    padding-top: 10px;
 }
 
 .EditFormTable input[type="text"] {
