@@ -37,7 +37,7 @@
             //    aoData.push({ "name": "mycolumn1", "value": $('#col1').val() });
             //    aoData.push({ "name": "mycolumn2", "value": $('#col2').val() });
             //},
-            "columnDefs": [{ "className": "CenteredColumn", "targets": [5, 6] }]
+            "columnDefs": [{ "className": "CenteredColumn", "targets": [all.length-2, all.length-1] }]
         });
 
     //$("#col1, #col2")

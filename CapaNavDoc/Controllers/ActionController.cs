@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Extensions.ViewModels;
@@ -29,27 +30,22 @@ namespace CapaNavDoc.Controllers
         /// Insert or update an Action.
         /// </summary>
         /// <param name="model">The ActionEditionViewModel used to edit an Action.</param>
-        /// <param name="editionMode">The edition mode.</param>
-        /// <returns>A redirection to the default view.</returns>
         [HttpPost]
-        public ActionResult EditAction(ActionEditionViewModel model, string editionMode)
+        public void EditAction(ActionEditionViewModel model)
         {
             BusinessLayer<Action> bl;
 
-            switch (editionMode)
+            switch (model.EditionMode)
             {
                 case "Ajouter":
                     bl = new BusinessLayer<Action>(new CapaNavDocDal());
                     bl.Insert(model.ToAction());
-                    return RedirectToAction("Index");
+                    break;
 
                 case "Changer":
                     bl = new BusinessLayer<Action>(new CapaNavDocDal());
                     bl.Update(model.ToAction());
-                    return RedirectToAction("Index");
-
-                default:  // Annuler
-                    return RedirectToAction("Index");
+                    break;
             }
         }
 
@@ -57,16 +53,11 @@ namespace CapaNavDoc.Controllers
         /// Delete an Action.
         /// </summary>
         /// <param name="model">The ConfirmationViewModel used to display the dialog box.</param>
-        /// <param name="dialogResult">The confirmation result.</param>
-        /// <returns>A redirection to the default view.</returns>
         [HttpPost]
-        public ActionResult DeleteAction(ConfirmationViewModel model, string dialogResult)
+        public void DeleteAction(ConfirmationViewModel model)
         {
-            if (dialogResult == "Non") return RedirectToAction("Index");
-
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
             bl.Delete(model.Id.ToInt32());
-            return RedirectToAction("Index");
         }
 
 
@@ -84,13 +75,13 @@ namespace CapaNavDoc.Controllers
         /// <summary>
         /// Get a partial view used to update an Action.
         /// </summary>
-        /// <param name="actionId">The id of the Action to update.</param>
+        /// <param name="id">The id of the Action to update.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetActionUpdateView(string actionId)
+        public PartialViewResult GetActionUpdateView(string id)
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
-            Action action = bl.Get(actionId.ToInt32());
+            Action action = bl.Get(id.ToInt32());
             ActionEditionViewModel model = action.ToActionEditionViewModel("Changer");
 
             return PartialView("ActionEditionView", model);
@@ -99,17 +90,36 @@ namespace CapaNavDoc.Controllers
         /// <summary>
         /// Get a partial view used to confirm an Action deletation.
         /// </summary>
-        /// <param name="actionId">The id of the Action to delete.</param>
+        /// <param name="id">The id of the Action to delete.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetConfirmationView(string actionId)
+        public PartialViewResult GetConfirmationView(string id)
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
-            Action action = bl.Get(actionId.ToInt32());
-            string userCall = $"{action.Description}";
-            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = actionId, Controler = "Action", Action = "DeleteAction" };
+            Action action = bl.Get(id.ToInt32());
+            string call = $"{action.Description}";
+            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'action {call} ?", Id = id, Controler = "Action", Action = "DeleteAction" };
 
             return PartialView("ConfirmationView", model);
+        }
+
+        /// <summary>
+        /// Get the datas used to display the Action data table.
+        /// </summary>
+        /// <param name="param">The data table common properties.</param>
+        /// <returns>A serialized set of data for the data table.</returns>
+        [HttpGet]
+        public ActionResult AjaxHandler(JQueryDataTableParam param)
+        {
+            List<Action> actions = TableDataAdapter.SearchInActions(param.sSearch).Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
+            string[][] data = actions.Select(a => new[] { a.Id.ToString(), a.Description }).ToArray();
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = actions.Count,
+                iTotalDisplayRecords = param.iDisplayLength,
+                aaData = data
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using CapaNavDoc.Extensions
-@using CapaNavDoc.ViewModel
+﻿@using CapaNavDoc.ViewModel
 @model ActionListViewModel
 
 @{
@@ -13,56 +12,59 @@
 
 @section HeaderSection
 {
-    <link href="~/Content/GridViewStyle.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/Scripts/Dialog.js"></script>
+<link href="~/Content/GridViewStyle.css" rel="stylesheet" />
+<link href="~/Content/datatables.css" rel="stylesheet" />
+
+<script src="~/Scripts/datatables.js"></script>
+<script src="~/Scripts/Validations.js"></script>
+<script src="~/Scripts/Dialog.js"></script>
+<script src="~/Scripts/MyDataTable.js"></script>
+
+<script>
+        $(function() {
+            SetDataTable(
+                "ActionDataTable",
+                "/Action/AjaxHandler",
+                [
+                    { "sName: ": "Description" }
+                ],
+                "@Url.Action("GetActionUpdateView")",
+                "Mise à jour d*une action",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d*une action",
+                460
+            );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
+        });
+</script>
 }
 
 @section ContentBody
 {
-    <div id="editDialog" style="display: none;"></div>
-    <div id="confirmDialog" style="display: none;"></div>
-    <script type="text/javascript">
-        $(document)
-            .ready(function() {
-                initDialod("#editDialog", 320);
-                initDialod("#confirmDialog", 340);
-                document.getElementById("AdministrationLink").className += "ActiveLink";
-            });
-    </script>
-
-    <table class="GridViewTable ActionsTable">
-        <tr>
-            <th>
-                Description
-            </th>
-            <th>
-                Editer
-            </th>
-            <th>
-                Supprimer
-            </th>
-        </tr>
-        @foreach (ActionDetailsViewModel action in Model.ActionsDetails)
-        {
+    <div class="PageTitle">
+        Gestion des actions.
+    </div>
+    
+    <div style="padding: 15px;">
+        <table id="ActionDataTable" class="display">
+            <thead>
             <tr>
-                <td>
-                    @action.Description
-                </td>
-                <td>
-                    @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetActionUpdateView", new { actionId = @action.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, null)
-                </td>
-                <td>
-                    @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView", new { actionId = @action.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');" }, null)
-                </td>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
-        }
-        <tr>
-            <td colspan="6">
-                @Ajax.ActionLink("Ajouter une action", "GetActionInsertView", "", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, new { @class = "btn btn-success" })
-            </td>
-        </tr>
-    </table>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" onclick="ShowDialog('Ajout d\'une action', 380, '@Url.Action("GetActionInsertView")', 'EditForm', 'ActionDataTable');">Ajouter une action</button></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 }

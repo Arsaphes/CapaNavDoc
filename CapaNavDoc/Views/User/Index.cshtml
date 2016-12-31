@@ -38,15 +38,18 @@
                 "Suppression d*un utilisateur",
                 460
             );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
         });
     </script>
 }
 
 @section ContentBody
 {
+    <div class="PageTitle">
+        Gestion des utilisateurs.
+    </div>
 
-    <div id="DataTable" style="border: 3px solid green;">
-
+    <div style="padding: 15px;">
         <table id="UserDataTable" class="display">
             <thead>
             <tr>
@@ -64,7 +67,7 @@
             <tr>
                 <td></td>
                 @*<td><input id="col1" type="text" style="width: 100%;"/></td>
-                <td><input id="col2" type="text" style="width: 100%;"/></td>*@
+            <td><input id="col2" type="text" style="width: 100%;"/></td>*@
                 <td></td>
                 <td></td>
                 <td></td>
@@ -74,6 +77,5 @@
             </tr>
             </tfoot>
         </table>
-
     </div>
 }
