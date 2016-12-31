@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using CapaNavDoc.Classes;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
@@ -28,27 +29,22 @@ namespace CapaNavDoc.Controllers
         /// Insert or update a Center.
         /// </summary>
         /// <param name="model">The CenterEditionViewModel used to edit a Center.</param>
-        /// <param name="editionMode">The edition mode.</param>
-        /// <returns>A redirection to the default view.</returns>
         [HttpPost]
-        public ActionResult EditCenter(CenterEditionViewModel model, string editionMode)
+        public void EditCenter(CenterEditionViewModel model)
         {
             CenterBusinessLayer bl;
 
-            switch (editionMode)
+            switch (model.EditionMode)
             {
                 case "Ajouter":
                     bl = new CenterBusinessLayer();
                     bl.InsertCenter(model.ToCenter());
-                    return RedirectToAction("Index");
+                    break;
 
                 case "Changer":
                     bl = new CenterBusinessLayer();
                     bl.UpdateCenter(model.ToCenter());
-                    return RedirectToAction("Index");
-
-                default:  // Annuler
-                    return RedirectToAction("Index");
+                    break;
             }
         }
 
@@ -56,16 +52,11 @@ namespace CapaNavDoc.Controllers
         /// Delete a Center.
         /// </summary>
         /// <param name="model">The ConfirmationViewModel used to display the dialog box.</param>
-        /// <param name="dialogResult">The confirmation result.</param>
-        /// <returns>A redirection to the default view.</returns>
         [HttpPost]
-        public ActionResult DeleteCenter(ConfirmationViewModel model, string dialogResult)
+        public void DeleteCenter(ConfirmationViewModel model)
         {
-            if (dialogResult == "Non") return RedirectToAction("Index");
-
             CenterBusinessLayer bl = new CenterBusinessLayer();
             bl.DeleteCenter(model.Id.ToInt32());
-            return RedirectToAction("Index");
         }
 
 
@@ -112,6 +103,7 @@ namespace CapaNavDoc.Controllers
             return RedirectToAction("ManageUsers", new {centerId});
         }
 
+
         /// <summary>
         /// Get a partial view used to insert a Center.
         /// </summary>
@@ -126,13 +118,13 @@ namespace CapaNavDoc.Controllers
         /// <summary>
         /// Get a partial view used to update a Center.
         /// </summary>
-        /// <param name="centerId">The id of the Center to update.</param>
+        /// <param name="id">The id of the Center to update.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetCenterUpdateView(string centerId)
+        public PartialViewResult GetCenterUpdateView(string id)
         {
             CenterBusinessLayer bl = new CenterBusinessLayer();
-            Center center = bl.GetCenter(centerId.ToInt32());
+            Center center = bl.GetCenter(id.ToInt32());
             CenterEditionViewModel model = center.ToCenterEditionViewModel("Changer");
 
             return PartialView("CenterEditionView", model);
@@ -141,17 +133,36 @@ namespace CapaNavDoc.Controllers
         /// <summary>
         /// Get a partial view used to confirm a Center deletation.
         /// </summary>
-        /// <param name="centerId">The id of the Center to delete.</param>
+        /// <param name="id">The id of the Center to delete.</param>
         /// <returns>A partial view.</returns>
         [HttpGet]
-        public PartialViewResult GetConfirmationView(string centerId)
+        public PartialViewResult GetConfirmationView(string id)
         {
             CenterBusinessLayer bl = new CenterBusinessLayer();
-            Center center = bl.GetCenter(centerId.ToInt32());
+            Center center = bl.GetCenter(id.ToInt32());
             string userCall = $"{center.Name}";
-            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = centerId, Controler = "Center", Action = "DeleteCenter" };
+            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'atelier {userCall} ?", Id = id, Controler = "Center", Action = "DeleteCenter" };
 
             return PartialView("ConfirmationView", model);
+        }
+
+        /// <summary>
+        /// Get the datas used to display the Center data table.
+        /// </summary>
+        /// <param name="param">The data table common properties.</param>
+        /// <returns>A serialized set of data for the data table.</returns>
+        [HttpGet]
+        public ActionResult AjaxHandler(JQueryDataTableParam param)
+        {
+            List<Center> centers = TableDataAdapter.SearchInCenters(param.sSearch).Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
+            string[][] data = centers.Select(c => new[] { c.Id.ToString(), c.Name }).ToArray();
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = centers.Count,
+                iTotalDisplayRecords = param.iDisplayLength,
+                aaData = data
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

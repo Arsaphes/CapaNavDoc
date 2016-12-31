@@ -1,6 +1,4 @@
 ﻿@* ReSharper disable Html.PathError *@
-
-@using CapaNavDoc.Extensions
 @using CapaNavDoc.ViewModel
 @model CenterListViewModel
 
@@ -15,64 +13,61 @@
 
 @section HeaderSection
 {
-    <link href="~/Content/GridViewStyle.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/Scripts/Dialog.js"></script>
+<link href="~/Content/GridViewStyle.css" rel="stylesheet" />
+<link href="~/Content/datatables.css" rel="stylesheet" />
+
+<script src="~/Scripts/datatables.js"></script>
+<script src="~/Scripts/Validations.js"></script>
+<script src="~/Scripts/Dialog.js"></script>
+<script src="~/Scripts/MyDataTable.js"></script>
+
+<script>
+        $(function() {
+            SetDataTable(
+                "CenterDataTable",
+                "/Center/AjaxHandler",
+                [
+                    { "sName: ": "Name" }
+                ],
+                "@Url.Action("GetCenterUpdateView")",
+                "Mise à jour d*un atelier",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d*un atelier",
+                460
+            );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
+        });
+</script>
 }
 
 @section ContentBody
 {
-    <div id="editDialog" style="display: none;"></div>
-    <div id="confirmDialog" style="display: none;"></div>
-    <script type="text/javascript">
-        $(document)
-            .ready(function() {
-                initDialod("#editDialog", 320);
-                initDialod("#confirmDialog", 340);
-                document.getElementById("AdministrationLink").className += "ActiveLink";
-            });
-    </script>
+<div class="PageTitle">
+    Gestion des ateliers.
+</div>
 
-    <div class="PageTitle">
-        Gestion des atelier.
-    </div>
-
-    <div class="PageGridView">
-        <table class="GridViewTable CentersTable">
+<div style="padding: 15px;">
+    <table id="CenterDataTable" class="display">
+        <thead>
             <tr>
-                <th>Code</th>
-                <th>Utilisateurs</th>
-                <th>Editer</th>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
-            @foreach (CenterDetailsViewModel center in Model.CentersDetails)
-            {
-                <tr>
-                    <td>@center.Name</td>
-                    <td><a href="/Center/ManageUsers?centerId=@center.Id"><img src="~/Content/Icons/User-Group-icon.png" alt="Users" /></a></td>
-                    <td>
-                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Pencil-icon.png' />", "GetCenterUpdateView",
-                            new { centerId = @center.Id },
-                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" }, null)
-                    </td>
-                    <td>
-                        @Ajax.HtmlActionLink("<img src='/Content/Icons/Close-2-icon.png' />", "GetConfirmationView",
-                            new { centerId = @center.Id },
-                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "confirmDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#confirmDialog');" }, null)
-                    </td>
-                </tr>
-            }
+        </thead>
+        <tbody></tbody>
+        <tfoot>
             <tr>
-                <td colspan="6">
-                    @Ajax.ActionLink("Ajouter un atelier", "GetCenterInsertView", "",
-                        new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "editDialog", InsertionMode = InsertionMode.Replace, OnSuccess = "openPopup('#editDialog');" },
-                        new { @class = "btn btn-success" })
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" onclick="ShowDialog('Ajout d\'un atelier', 380, '@Url.Action("GetCenterInsertView")', 'EditForm', 'CenterDataTable');">Ajouter un atelier</button></td>
             </tr>
-        </table>
-    </div>
+        </tfoot>
+    </table>
+</div>
 }
 
 

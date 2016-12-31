@@ -26,5 +26,13 @@ namespace CapaNavDoc.Classes
             return bl.GetList().Where(a =>
                 a.Description.Contains(str)).ToList();
         }
+
+        public static List<Center> SearchInCenters(string str)
+        {
+            BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
+            if (string.IsNullOrEmpty(str)) return bl.GetList();
+            return bl.GetList().Where(c =>
+                c.Name.Contains(str)).ToList();
+        }
     }
 }
