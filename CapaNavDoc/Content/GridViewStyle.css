@@ -1,5 +1,9 @@
 ﻿/* ReSharper disable CssBrowserCompatibility */
 
+.CenteredColumn {
+    text-align: center;
+}
+
 .GridViewTable {
     border: 1px solid lightgray;
     -ms-border-radius: 4px;

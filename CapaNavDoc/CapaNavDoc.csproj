@@ -103,6 +103,7 @@
   <ItemGroup>
     <Content Include="Content\CenterActionsStyle.css" />
     <Content Include="Content\ConfirmationFormStyle.css" />
+    <Content Include="Content\datatables.css" />
     <Content Include="Content\EditFormStyle.css" />
     <Content Include="Content\EquipmentMonitoringStyle.css" />
     <Content Include="Content\Icons\Actions-go-next-icon.png" />
@@ -125,9 +126,11 @@
     <Content Include="Content\Theme\Base\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\Theme\Base\jquery-ui.css" />
     <Content Include="Content\ToggleButton.css" />
+    <Content Include="Scripts\datatables.js" />
     <Content Include="Scripts\Dialog.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\MyDataTable.js" />
     <Content Include="Scripts\Validations.js" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\CapaNavDoc.pubxml" />
@@ -160,6 +163,7 @@
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\BusinessLayers\CenterBusinessLayer.cs" />
     <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\JQueryDataTableParam.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BusinessLayers\UserBusinessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

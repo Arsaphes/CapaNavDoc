@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
@@ -105,6 +107,52 @@ namespace CapaNavDoc.Controllers
             ConfirmationViewModel model = new ConfirmationViewModel {ConfirmationMessage = $"Supprimer l'utilisateur {userCall} ?", Id = id, Controler = "User", Action = "DeleteUser"};
 
             return PartialView("ConfirmationView", model);
+        }
+
+
+
+        public ActionResult AjaxHandler(JQueryDataTableParam param)
+        {
+            BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
+            List<User> users;
+
+            // Global Search
+            if (string.IsNullOrEmpty(param.sSearch))
+            {
+                users = bl.GetList();
+            }
+            else
+            {
+                users = bl.GetList().Where(u=>u.FirstName.Contains(param.sSearch) || u.LastName.Contains(param.sSearch)).ToList();
+            }
+
+            // Columns Search
+            string col1Filter = Request["mycolumn1"];
+
+            // Pagination
+            users = users.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
+
+            // Sorting
+            int sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
+            Func<User, string> orderingFunction = (u => sortColumnIndex == 1 ? u.FirstName :
+                                                    sortColumnIndex == 2 ? u.LastName :
+                                                    u.UserName);
+            string sortDirection = Request["sSortDir_0"]; // asc or desc
+            if (sortDirection == "asc")
+                users = users.OrderBy(orderingFunction).ToList();
+            else
+                users = users.OrderByDescending(orderingFunction).ToList();
+
+
+
+            string[][] data = users.Select(u => new string[] {u.Id.ToString() ,u.FirstName, u.LastName, u.UserName, u.Password }).ToArray();
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = users.Count,
+                iTotalDisplayRecords = param.iDisplayLength,
+                aaData = data
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

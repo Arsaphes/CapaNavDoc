@@ -13,74 +13,67 @@
 @section HeaderSection
 {
     <link href="~/Content/GridViewStyle.css" rel="stylesheet"/>
+    <link href="~/Content/datatables.css" rel="stylesheet" />
+
+    <script src="~/Scripts/datatables.js"></script>
     <script src="~/Scripts/Validations.js"></script>
     <script src="~/Scripts/Dialog.js"></script>
+    <script src="~/Scripts/MyDataTable.js"></script>
 
     <script>
         $(function() {
-            InitDialog("UserInsertion", "Ajout d'un utilisateur", "EditForm", 380);
-            InitDialogs("UserUpdate", "Mide à jour d'un utilisateur", "EditForm", 380);
-            InitDialogs("UserDeletion", "Suppression d'un utilisateur", "ConfirmationForm", 430);
+            SetDataTable(
+                "UserDataTable",
+                "/User/AjaxHandler",
+                [
+                    { "sName: ": "FirstName" },
+                    { "sName": "LastName" },
+                    { "sName": "UserName" },
+                    { "sName": "Password" }
+                ],
+                "@Url.Action("GetUserUpdateView")",
+                "Mise à jour d*un utilisateur",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d*un utilisateur",
+                460
+            );
         });
     </script>
 }
 
 @section ContentBody
 {
-    <div>
-        <table class="GridViewTable UsersTable">
+
+    <div id="DataTable" style="border: 3px solid green;">
+
+        <table id="UserDataTable" class="display">
+            <thead>
             <tr>
-                <th>
-                    Nom
-                </th>
-                <th>
-                    Prénom
-                </th>
-                <th>
-                    Identifiant
-                </th>
-                <th>
-                    Mot de passe
-                </th>
-                <th>
-                    Editer
-                </th>
-                <th>
-                    Supprimer
-                </th>
+                <th>ID</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Identifiant</th>
+                <th>Mot de passe</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
-            @for (int i = 0; i < Model.UsersDetails.Count; i++)
-            {
-                <tr>
-                    <td>
-                        @Model.UsersDetails[i].LastName
-                    </td>
-                    <td>
-                        @Model.UsersDetails[i].FirstName
-                    </td>
-                    <td>
-                        @Model.UsersDetails[i].UserName
-                    </td>
-                    <td>
-                        @Model.UsersDetails[i].Password
-                    </td>
-                    <td>
-                        <img id="@("UserUpdate-" + @i + "-Opener")" src='/Content/Icons/Pencil-icon.png' alt="Crayon" data-request-id="@Model.UsersDetails[i].Id" />
-                        <div id="@("UserUpdate-"+@i)" data-request-url="@Url.Action("GetUserUpdateView")" ></div>
-                    </td>
-                    <td>
-                        <img id="@("UserDeletion-" + @i + "-Opener")" src='/Content/Icons/Close-2-icon.png' alt="Croix" data-request-id="@Model.UsersDetails[i].Id" />
-                        <div id="@("UserDeletion-"+@i)" data-request-url="@Url.Action("GetConfirmationView")"></div>
-                    </td>
-                </tr>
-            }
+            </thead>
+            <tbody></tbody>
+            <tfoot>
             <tr>
-                <td colspan="6">
-                    <button id="UserInsertion-Opener">Ajouter un utilisateur</button>
-                    <div id="UserInsertion" data-request-url="@Url.Action("GetUserInsertView")"></div>
-                </td>
+                <td></td>
+                @*<td><input id="col1" type="text" style="width: 100%;"/></td>
+                <td><input id="col2" type="text" style="width: 100%;"/></td>*@
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" onclick="ShowDialog('Ajout d\'un utilisateur', 380, '@Url.Action("GetUserInsertView")', 'EditForm', 'UserDataTable');">Ajouter un utilisateur</button></td>
             </tr>
+            </tfoot>
         </table>
+
     </div>
 }
-

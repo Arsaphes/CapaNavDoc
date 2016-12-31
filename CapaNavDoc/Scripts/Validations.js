@@ -30,10 +30,11 @@ function ValidateDateFormat(element) {
     return true;
 }
 
-function Validate() {
+function Validate(editFormId) {
 
     var isValid = true;
-    var elems = document.getElementsByTagName("*");
+    var editForm = document.getElementById(editFormId);
+    var elems = editForm.getElementsByTagName("*");
 
     for (var i = 0; i < elems.length; i++) {
         if (elems[i] == null) {
