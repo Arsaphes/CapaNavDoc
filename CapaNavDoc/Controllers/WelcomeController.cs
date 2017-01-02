@@ -75,33 +75,33 @@ namespace CapaNavDoc.Controllers
                 UserName = "regis"
             });
 
-            CenterBusinessLayer cbl = new CenterBusinessLayer();
-            cbl.InsertCenter(new Center
+            CenterBusinessLayer cbl = new CenterBusinessLayer(new CapaNavDocDal());
+            cbl.Insert(new Center
             {
                 Name = "Biscarrosse"
             });
 
-            cbl.InsertCenter(new Center
+            cbl.Insert(new Center
             {
                 Name = "Grenoble"
             });
 
-            cbl.InsertCenter(new Center
+            cbl.Insert(new Center
             {
                 Name = "Muret"
             });
 
-            cbl.InsertCenter(new Center
+            cbl.Insert(new Center
             {
                 Name = "Carcassonne"
             });
 
-            cbl.InsertCenter(new Center
+            cbl.Insert(new Center
             {
                 Name = "Castelnaudary"
             });
 
-            cbl.InsertCenter(new Center
+            cbl.Insert(new Center
             {
                 Name = "Montpellier"
             });

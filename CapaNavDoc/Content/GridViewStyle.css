@@ -4,6 +4,12 @@
     text-align: center;
 }
 
+.DetailedRow {
+    background-color: #ddd;
+    border: 1px solid #bbb
+}
+
+
 .GridViewTable {
     border: 1px solid lightgray;
     -ms-border-radius: 4px;

@@ -22,22 +22,24 @@
 <script src="~/Scripts/MyDataTable.js"></script>
 
 <script>
-        $(function() {
-            SetDataTable(
-                "CenterDataTable",
-                "/Center/AjaxHandler",
-                [
-                    { "sName: ": "Name" }
-                ],
-                "@Url.Action("GetCenterUpdateView")",
-                "Mise à jour d*un atelier",
-                380,
-                "@Url.Action("GetConfirmationView")",
-                "Suppression d*un atelier",
-                460
-            );
-            document.getElementById("AdministrationLink").className += "ActiveLink";
-        });
+    $(function() {
+        SetMasterDataTable(
+            "CenterDataTable",
+            "/Center/AjaxHandler",
+            [
+                { "sName: ": "Name" }
+            ],
+            "@Url.Action("GetCenterUpdateView")",
+            "Mise à jour d*un atelier",
+            380,
+            "@Url.Action("GetConfirmationView")",
+            "Suppression d*un atelier",
+            460,
+            "@Url.Action("GetCenterUsersView")",
+            "@Url.Action("SetCenterUsers")"
+        );
+        document.getElementById("AdministrationLink").className += "ActiveLink";
+    });
 </script>
 }
 
@@ -47,27 +49,33 @@
     Gestion des ateliers.
 </div>
 
-<div style="padding: 15px;">
-    <table id="CenterDataTable" class="display">
-        <thead>
+    <div style="padding: 15px;">
+        <table id="CenterDataTable" class="display">
+            <thead>
             <tr>
                 <th>ID</th>
+                <th>Détail</th>
                 <th>Nom</th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
             <tr>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><button type="button" onclick="ShowDialog('Ajout d\'un atelier', 380, '@Url.Action("GetCenterInsertView")', 'EditForm', 'CenterDataTable');">Ajouter un atelier</button></td>
+                <td></td>
+                <td><button id="AddCenterButton" type="button" onclick="ShowDialog('Ajout d\'un atelier', 380, '@Url.Action("GetCenterInsertView")', 'EditForm', 'CenterDataTable');">Ajouter un atelier</button></td>
             </tr>
-        </tfoot>
-    </table>
-</div>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        $("#AddCenterButton").button();
+    </script>
 }
 
 

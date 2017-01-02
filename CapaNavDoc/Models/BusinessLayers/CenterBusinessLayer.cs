@@ -1,58 +1,61 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 
 namespace CapaNavDoc.Models.BusinessLayers
 {
-    public class CenterBusinessLayer
+    public class CenterBusinessLayer:BusinessLayer<Center>
     {
-        public List<Center> GetCenters()
+        public CenterBusinessLayer(DbContext context) : base(context)
         {
-            CapaNavDocDal dal = new CapaNavDocDal();
-            return dal.Centers.ToList();
         }
 
-        public Center InsertCenter(Center center)
-        {
-            CapaNavDocDal dal = new CapaNavDocDal();
-            dal.Centers.Add(center);
-            dal.SaveChanges();
-            return center;
-        }
+        //public List<Center> GetCenters()
+        //{
+        //    CapaNavDocDal dal = new CapaNavDocDal();
+        //    return dal.Centers.ToList();
+        //}
 
-        public Center UpdateCenter(Center center)
-        {
-            CapaNavDocDal dal = new CapaNavDocDal();
-            dal.Entry(center).State = EntityState.Modified;
-            dal.SaveChanges();
-            return center;
-        }
+        //public Center InsertCenter(Center center)
+        //{
+        //    CapaNavDocDal dal = new CapaNavDocDal();
+        //    dal.Centers.Add(center);
+        //    dal.SaveChanges();
+        //    return center;
+        //}
 
-        public void DeleteCenter(Center center)
-        {
-            CapaNavDocDal dal = new CapaNavDocDal();
-            dal.Entry(center).State = EntityState.Deleted;
-            dal.SaveChanges();
-        }
+        //public Center UpdateCenter(Center center)
+        //{
+        //    CapaNavDocDal dal = new CapaNavDocDal();
+        //    dal.Entry(center).State = EntityState.Modified;
+        //    dal.SaveChanges();
+        //    return center;
+        //}
+
+        //public void DeleteCenter(Center center)
+        //{
+        //    CapaNavDocDal dal = new CapaNavDocDal();
+        //    dal.Entry(center).State = EntityState.Deleted;
+        //    dal.SaveChanges();
+        //}
 
 
-        public void DeleteCenter(int id)
-        {
-            DeleteCenter(GetCenter(id));
-        }
-        
-        public Center GetCenter(int id)
-        {
-            return GetCenters().FirstOrDefault(c => c.Id == id);
-        }
+        //public void DeleteCenter(int id)
+        //{
+        //    DeleteCenter(GetCenter(id));
+        //}
+
+        //public Center GetCenter(int id)
+        //{
+        //    return GetCenters().FirstOrDefault(c => c.Id == id);
+        //}
 
 
 
         public List<User> GetCenterUsers(int centerId)
         {
-            Center center = GetCenter(centerId);
+            Center center = Get(centerId);
             if(center.UserList == null) return new List<User>();
 
             string[] ids = center.UserList.Split(';');
@@ -71,5 +74,6 @@ namespace CapaNavDoc.Models.BusinessLayers
         {
             center.UserList = center.UserList.RemoveId(userId);
         }
+
     }
 }

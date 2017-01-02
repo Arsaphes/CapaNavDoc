@@ -1,0 +1,44 @@
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel
+@model CenterUsersViewModel
+
+<link href="~/Content/DetailTable.css" rel="stylesheet" />
+
+<form id="DetailForm" action="/Center/SetCenterUsers" method="post">
+    <input type="hidden" name="CenterId" value="@Model.CenterId"/>
+    <table class="DetailTable">
+        <tr>
+            <td>Prénom</td>
+            <td>Nom</td>
+            <td>Rataché à l'atelier</td>
+        </tr>
+        @for (int i = 0; i < Model.CenterUsersDetails.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Model.CenterUsersDetails[i].FirstName
+                    @Html.HiddenFor(m => m.CenterUsersDetails[i].Id)
+                    @Html.HiddenFor(m => m.CenterUsersDetails[i].FirstName)
+                </td>
+                <td>
+                    @Model.CenterUsersDetails[i].LastName
+                    @Html.HiddenFor(m => m.CenterUsersDetails[i].LastName)
+                </td>
+                <td class="CenteredColumn">
+                    @Html.CheckBoxFor(m => m.CenterUsersDetails[i].Selected)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3">
+                <input id="DetailFormSubmitButton" type="button" value="Enregister les modifications"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script>
+    $("#DetailFormSubmitButton").button();
+</script>
+
