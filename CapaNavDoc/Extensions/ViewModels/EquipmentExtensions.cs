@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
@@ -17,7 +18,7 @@ namespace CapaNavDoc.Extensions.ViewModels
         /// <returns>An Equipment.</returns>
         public static Equipment ToEquipment(this EquipmentEditionViewModel model)
         {
-            return new Equipment
+            Equipment equipment =  new Equipment
             {
                 Id = model.Id.ToInt32(),
                 Name = model.Name,
@@ -30,6 +31,9 @@ namespace CapaNavDoc.Extensions.ViewModels
                 MechanicsGroup = model.MechanicsGroup,
                 Type = model.Type
             };
+            if (string.IsNullOrEmpty(model.MonitoringDate)) equipment.MonitoringDate = SqlDateTime.MinValue.Value;
+
+            return equipment;
         }
 
         /// <summary>
@@ -121,7 +125,7 @@ namespace CapaNavDoc.Extensions.ViewModels
                 for (int j = 0; j < model.Actions.Count; j++)
                 {
                     int index = couples.FindIndex(g => g.CenterId == model.Centers[i].Id && g.ActionId == model.Actions[j].Id);
-                    if(-1== index) continue;
+                    if (-1 == index) continue;
                     model.Selections[i][j] = true;
                 }
             }
@@ -135,16 +139,15 @@ namespace CapaNavDoc.Extensions.ViewModels
         /// <returns>An EquipmentMonitoringViewModel.</returns>
         public static EquipmentMonitoringViewModel ToEquipmentMonitoringViewModel(this Equipment equipment)
         {
-            BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
+            BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
 
-            EquipmentMonitoringViewModel model = new EquipmentMonitoringViewModel
+            return new EquipmentMonitoringViewModel
             {
-                Date = equipment.MonitoringDate.ToString("yyyy-mm-dd"),
-                UserId = equipment.MonitoringUserId.ToString(),
-                UserCalls = ubl.GetList().Select(u => new UserCallViewModel { UserId = u.Id.ToString(), UserCall = $"{u.FirstName} {u.LastName}" }).ToList(),
-                EquipmentId = equipment.Id.ToString()
+                EquipmentId = equipment.Id.ToString(),
+                SelectedUserCall = bl.GetList().FirstOrDefault(u => u.Id == equipment.MonitoringUserId).ToUserCallViewModel().UserCall,
+                Date = equipment.MonitoringDate.ToString("dd-mm-yyyy"),
+                Users = bl.GetList().Select(u => u.ToUserCallViewModel().UserCall).ToList()
             };
-            return model;
         }
     }
 }

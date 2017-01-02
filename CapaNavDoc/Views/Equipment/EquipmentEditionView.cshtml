@@ -4,10 +4,9 @@
 @model EquipmentEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
-<script src="~/Scripts/Validations.js"></script>
 
 <form id="EditForm" action="/Equipment/EditEquipment" method="post">
-    <input id="EditionModeInput" type="hidden" name="editionMode" value="Annuler" />
+    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode" />
     <input id="EquipmentId" type="hidden" name="Id" value="@Model.Id" />
     <table class="EditFormTable">
         <tr>
@@ -69,16 +68,6 @@
             <td>Documentation P/N:</td>
             <td>
                 <input id="DocumentsPartNumber-TextBox" type="text" name="DocumentsPartNumber" value="@Model.DocumentsPartNumber" /><br />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <table style="width: 100%;">
-                    <tr>
-                        <td><input type="submit" value="Annuler" /></td>
-                        <td><input type="button" value=@Model.EditionMode onclick="Validate('@Model.EditionMode');" /></td>
-                    </tr>
-                </table>
             </td>
         </tr>
     </table>

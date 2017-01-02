@@ -122,7 +122,11 @@ namespace CapaNavDoc.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// Get a partial view used to list all the user and display a Center users.
+        /// </summary>
+        /// <param name="id">The Center id.</param>
+        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetCenterUsersView(string id)
         {
@@ -144,6 +148,10 @@ namespace CapaNavDoc.Controllers
             return PartialView("CenterUsersView", model);
         }
 
+        /// <summary>
+        /// Save the selected Center users.
+        /// </summary>
+        /// <param name="model">The CenterUsersViewModel used to display and select the Center users.</param>
         [HttpPost]
         public void SetCenterUsers(CenterUsersViewModel model)
         {

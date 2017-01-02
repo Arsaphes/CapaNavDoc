@@ -1,5 +1,6 @@
 ﻿.CenterActionsTable {
     width: 100%;
+    border-collapse: collapse;
 }
 
 .CenterActionsTable td {

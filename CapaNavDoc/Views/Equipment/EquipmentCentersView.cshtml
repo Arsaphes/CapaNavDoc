@@ -6,7 +6,7 @@
 
 <link href="~/Content/CenterActionsStyle.css" rel="stylesheet" /> 
     
-<form method="post" action="/Equipment/UpdateEquipmentCenters">
+<form id="EditForm" method="post" action="/Equipment/UpdateEquipmentCenters">
     <input type="hidden" name="EquipmentId" value="@Model.EquipmentId"/>
     <table class="CenterActionsTable">
         <tr>
@@ -36,19 +36,5 @@
                 }
             </tr>
         }
-        <tr>
-            <td colspan="@Model.TableColumns">
-                <table>
-                    <tr>
-                        <td style="width: 50%;">
-                            <input type="submit" name="submitButton" value="Annuler" />                
-                        </td>
-                        <td>
-                            <input type="submit" name="submitButton" value="Mettre à jour" />                
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
     </table>
 </form>

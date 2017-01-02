@@ -58,5 +58,16 @@ namespace CapaNavDoc.Extensions.ViewModels
                 EditionMode = editionMode,
             };
         }
+
+        public static UserCallViewModel ToUserCallViewModel(this User user)
+        {
+            if (user == null) return new UserCallViewModel();
+
+            return new UserCallViewModel
+            {
+                UserId = user.Id.ToString(),
+                UserCall = $"{user.FirstName} {user.LastName}"
+            };
+        }
     }
 }

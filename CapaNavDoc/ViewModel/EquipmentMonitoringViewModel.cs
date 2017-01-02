@@ -6,7 +6,7 @@ namespace CapaNavDoc.ViewModel
     {
         public string EquipmentId { get; set; }
         public string Date { get; set; }
-        public string UserId { get; set; }
-        public List<UserCallViewModel> UserCalls { get; set; }
+        public string SelectedUserCall { get; set; } 
+        public List<string> Users { get; set; }
     }
 }

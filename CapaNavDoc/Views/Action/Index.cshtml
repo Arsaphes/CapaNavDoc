@@ -21,22 +21,22 @@
 <script src="~/Scripts/MyDataTable.js"></script>
 
 <script>
-        $(function() {
-            SetDataTable(
-                "ActionDataTable",
-                "/Action/AjaxHandler",
-                [
-                    { "sName: ": "Description" }
-                ],
-                "@Url.Action("GetActionUpdateView")",
-                "Mise à jour d*une action",
-                380,
-                "@Url.Action("GetConfirmationView")",
-                "Suppression d*une action",
-                460
-            );
-            document.getElementById("AdministrationLink").className += "ActiveLink";
-        });
+    $(function() {
+        SetDataTable(
+            "ActionDataTable",
+            "/Action/AjaxHandler",
+            [
+                { "sName: ": "Description" }
+            ],
+            "@Url.Action("GetActionUpdateView")",
+            "Mise à jour d*une action",
+            380,
+            "@Url.Action("GetConfirmationView")",
+            "Suppression d*une action",
+            460
+        );
+        document.getElementById("AdministrationLink").className += "ActiveLink";
+    });
 </script>
 }
 
@@ -45,7 +45,7 @@
     <div class="PageTitle">
         Gestion des actions.
     </div>
-    
+
     <div style="padding: 15px;">
         <table id="ActionDataTable" class="display">
             <thead>
@@ -62,9 +62,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><button type="button" onclick="ShowDialog('Ajout d\'une action', 380, '@Url.Action("GetActionInsertView")', 'EditForm', 'ActionDataTable');">Ajouter une action</button></td>
+                <td><button id="AddActionButton" type="button" onclick="ShowDialog('Ajout d\'une action', 380, '@Url.Action("GetActionInsertView")', 'EditForm', 'ActionDataTable');">Ajouter une action</button></td>
             </tr>
             </tfoot>
         </table>
     </div>
+
+    <script>
+        $("#AddActionButton").button();
+    </script>
 }

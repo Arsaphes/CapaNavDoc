@@ -5,6 +5,9 @@
     font-family: Calibri;
 }
 
+.CursorPointer {
+    cursor: pointer;
+}
 
 .LoginTable {
     border: 1px solid #ddd;

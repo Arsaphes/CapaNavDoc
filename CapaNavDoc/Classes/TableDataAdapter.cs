@@ -34,5 +34,21 @@ namespace CapaNavDoc.Classes
             return bl.GetList().Where(c =>
                 c.Name.Contains(str)).ToList();
         }
+
+        public static List<Equipment> SearchInEquipments(string str)
+        {
+            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            if (string.IsNullOrEmpty(str)) return bl.GetList();
+            return bl.GetList().Where(e =>
+                e.Name.Contains(str) ||
+                e.ActivityField.Contains(str) ||
+                e.Ata.ToString().Contains(str) ||
+                e.DocumentsPartNumber.Contains(str) ||
+                e.DocumentsReferences.Contains(str) ||
+                e.Manufacturer.Contains(str) ||
+                e.MechanicsGroup.Contains(str) ||
+                e.PartNumber.Contains(str) ||
+                e.Type.Contains(str)).ToList();
+        }
     }
 }

@@ -104,6 +104,7 @@ namespace CapaNavDoc.Controllers
             return PartialView("ConfirmationView", model);
         }
 
+
         /// <summary>
         /// Get the datas used to display the User data table.
         /// </summary>

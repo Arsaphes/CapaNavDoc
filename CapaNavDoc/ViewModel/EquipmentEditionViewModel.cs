@@ -12,6 +12,8 @@
         public string MechanicsGroup { get; set; }
         public string DocumentsReferences { get; set; }
         public string DocumentsPartNumber { get; set; }
+        public string MonitoringUserId { get; set; }
+        public string MonitoringDate { get; set; }
 
         public string EditionMode { get; set; }
     }
