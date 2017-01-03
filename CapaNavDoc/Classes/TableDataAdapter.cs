@@ -17,7 +17,9 @@ namespace CapaNavDoc.Classes
             foreach (T t in list)
                 foreach (PropertyInfo property in properties)
                 {
-                    if (!((string) property.GetValue(t)).ToUpper().Contains(param.sSearch.ToUpper())) continue;
+                    string value = ((string) property.GetValue(t));
+                    if(string.IsNullOrEmpty(value)) continue;
+                    if (!value.ToUpper().Contains(param.sSearch.ToUpper())) continue;
                     result.Add(t);
                     break;
                 }
