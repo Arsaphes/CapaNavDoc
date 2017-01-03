@@ -61,7 +61,7 @@ function SetDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmT
             //    aoData.push({ "name": "mycolumn1", "value": $('#col1').val() });
             //    aoData.push({ "name": "mycolumn2", "value": $('#col2').val() });
             //},
-            "columnDefs": [{ "className": "CenteredColumn", "targets": [all.length-2, all.length-1] }]});
+            "columnDefs": [{ "className": "Column-Center", "targets": [all.length-2, all.length-1] }]});
     //$("#col1, #col2")
     //    .bind("keyup",
     //        function () {
@@ -104,7 +104,7 @@ function SetMasterDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
             "aoColumns": all,
-            "columnDefs": [{ "className": "CenteredColumn", "targets": [all.length - 2, all.length - 1] }]
+            "columnDefs": [{ "className": "Column-Center", "targets": [all.length - 2, all.length - 1] }]
         });
 
     $("#" + dtId + " tbody").on("click", "tr td img", function () {
@@ -176,5 +176,5 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
             "aoColumns": all,
-            "columnDefs": [{ "className": "CenteredColumn", "targets": [all.length-4, all.length-2, all.length-1] }]});
+            "columnDefs": [{ "className": "Column-Center", "targets": [all.length-4, all.length-2, all.length-1] }]});
 };

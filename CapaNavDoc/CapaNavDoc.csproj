@@ -137,7 +137,6 @@
     <Content Include="Scripts\Validations.js" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\CapaNavDoc.pubxml" />
-    <Content Include="Content\GridViewStyle.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Web.config" />
   </ItemGroup>

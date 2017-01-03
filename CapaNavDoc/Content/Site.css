@@ -34,11 +34,6 @@
 }
 
 
-.Cursor-Pointer {
-    cursor: pointer;
-}
-
-
 .PageTitle {
     color: gray;
     font-size: 20px;
@@ -48,4 +43,18 @@
     -o-font-variant: small-caps;
     font-variant: small-caps;
     padding: 0 0 20px 20px;
+}
+
+
+.Cursor-Pointer {
+    cursor: pointer;
+}
+
+.Column-Center {
+    text-align: center;
+}
+
+.DetailedRow {
+    background-color: #ddd;
+    border: 1px solid #bbb
 }
