@@ -65,15 +65,9 @@
             <tbody></tbody>
             <tfoot>
             <tr>
-                <td></td>
                 @*<td><input id="col1" type="text" style="width: 100%;"/></td>
             <td><input id="col2" type="text" style="width: 100%;"/></td>*@
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button id="AddUserButton" type="button" onclick="ShowDialog('Ajout d\'un utilisateur', 380, '@Url.Action("GetUserInsertView")', 'EditForm', 'UserDataTable');">Ajouter un utilisateur</button></td>
+                <td colspan="7"><button id="AddUserButton" type="button" onclick="ShowDialog('Ajout d\'un utilisateur', 380, '@Url.Action("GetUserInsertView")', 'EditForm', 'UserDataTable');">Ajouter un utilisateur</button></td>
             </tr>
             </tfoot>
         </table>
