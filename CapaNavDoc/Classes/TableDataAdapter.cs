@@ -1,54 +1,45 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using CapaNavDoc.DataAccessLayer;
+using System.Reflection;
 using CapaNavDoc.Models;
-using CapaNavDoc.Models.BusinessLayers;
 
 namespace CapaNavDoc.Classes
 {
 	public class TableDataAdapter
 	{
-	    public static List<User> SearchInUsers(string str)
+	    public static List<T> Search<T>(List<T> list, JQueryDataTableParam param)
 	    {
-	        BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
-	        if (string.IsNullOrEmpty(str)) return bl.GetList();
-	        return bl.GetList().Where(u =>
-	            u.FirstName.Contains(str) ||
-	            u.LastName.Contains(str) ||
-	            u.UserName.Contains(str) ||
-	            u.Password.Contains(str)).ToList();
+            List<T> result = new List<T>();
+            List<PropertyInfo> properties = typeof(T).GetProperties().Where(p => p.PropertyType == typeof(string)).ToList();
+	        if (properties.Count == 0 || string.IsNullOrEmpty(param.sSearch)) return list;
+
+            foreach (T t in list)
+                foreach (PropertyInfo property in properties)
+                {
+                    if (!((string) property.GetValue(t)).ToUpper().Contains(param.sSearch.ToUpper())) continue;
+                    result.Add(t);
+                    break;
+                }
+            return result;
 	    }
 
-        public static List<Action> SearchInActions(string str)
+        public static List<T> SortList<T>(List<T> list, JQueryDataTableParam param)
         {
-            BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
-            if (string.IsNullOrEmpty(str)) return bl.GetList();
-            return bl.GetList().Where(a =>
-                a.Description.Contains(str)).ToList();
+            IEnumerable<PropertyInfo> properties = typeof(T).GetProperties().Where(p => p.GetCustomAttributes(typeof(ColumnAttribute)).Count() == 1);
+            PropertyInfo property = properties.FirstOrDefault(p => ((ColumnAttribute[]) p.GetCustomAttributes(typeof(ColumnAttribute)))[0].Column == param.iSortCol_0);
+            if (property == null) return list;
+
+            Type t = list[0].GetType();
+
+            return param.sSortDir_0 == "asc" ?
+                   list.OrderBy(u => t.InvokeMember(property.Name, BindingFlags.GetProperty, null, u, null)).ToList() :
+                   list.OrderByDescending(u => t.InvokeMember(property.Name, BindingFlags.GetProperty, null, u, null)).ToList();
         }
 
-        public static List<Center> SearchInCenters(string str)
+	    public static List<T> PageList<T>(List<T> list, JQueryDataTableParam param)
         {
-            BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
-            if (string.IsNullOrEmpty(str)) return bl.GetList();
-            return bl.GetList().Where(c =>
-                c.Name.Contains(str)).ToList();
-        }
-
-        public static List<Equipment> SearchInEquipments(string str)
-        {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            if (string.IsNullOrEmpty(str)) return bl.GetList();
-            return bl.GetList().Where(e =>
-                e.Name.Contains(str) ||
-                e.ActivityField.Contains(str) ||
-                e.Ata.ToString().Contains(str) ||
-                e.DocumentsPartNumber.Contains(str) ||
-                e.DocumentsReferences.Contains(str) ||
-                e.Manufacturer.Contains(str) ||
-                e.MechanicsGroup.Contains(str) ||
-                e.PartNumber.Contains(str) ||
-                e.Type.Contains(str)).ToList();
+            return list.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
         }
     }
 }

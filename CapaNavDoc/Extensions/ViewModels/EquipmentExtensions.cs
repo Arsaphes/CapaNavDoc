@@ -54,7 +54,8 @@ namespace CapaNavDoc.Extensions.ViewModels
                 MechanicsGroup = equipment.MechanicsGroup,
                 Type = equipment.Type,
                 Manufacturer = equipment.Manufacturer,
-                DocumentsReferences = equipment.DocumentsReferences
+                DocumentsReferences = equipment.DocumentsReferences,
+                MonitoringDate = equipment.MonitoringDate.ToString("dd-mm-yyyy")
             };
         }
 

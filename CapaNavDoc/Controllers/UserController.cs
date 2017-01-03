@@ -7,6 +7,7 @@ using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 using CapaNavDoc.Classes;
+using CapaNavDoc.DataAccessLayer;
 
 namespace CapaNavDoc.Controllers
 {
@@ -113,12 +114,18 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
-            List<User> users = TableDataAdapter.SearchInUsers(param.sSearch).Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-            string[][] data = users.Select(u => new[] {u.Id.ToString() ,u.FirstName, u.LastName, u.UserName, u.Password }).ToArray();
+            BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
+            List<UserDetailsViewModel> model = new List<UserDetailsViewModel>(bl.GetList().Select(u => u.ToUserDetailsViewModel()));
+
+            model = TableDataAdapter.Search(model, param);
+            model = TableDataAdapter.SortList(model, param);
+            model = TableDataAdapter.PageList(model, param);
+
+            string[][] data = model.Select(m => new[] {m.Id.ToString(), m.FirstName, m.LastName, m.UserName, m.Password }).ToArray();
             return Json(new
             {
                 param.sEcho,
-                iTotalRecords = users.Count,
+                iTotalRecords = model.Count,
                 iTotalDisplayRecords = param.iDisplayLength,
                 aaData = data
             }, JsonRequestBehavior.AllowGet);

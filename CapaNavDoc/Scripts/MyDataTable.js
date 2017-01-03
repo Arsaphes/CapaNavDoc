@@ -39,11 +39,13 @@ function SetDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmT
     var idColumn = [{"sName": "ID", "visible": false}];
     var specialColumns = [
         {   "sName": "Update",
+            "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = uUrl + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Pencil-icon.png", "Pencil", uFrmTitle, uFrmW, url, editForm, dtId);
             }},
         {   "sName": "Delete",
+            "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = dUrl + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Close-2-icon.png", "Cross", dFrmTitle, dFrmW, url, confirmForm, dtId);

@@ -114,12 +114,18 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
-            List<Equipment> equipments = TableDataAdapter.SearchInEquipments(param.sSearch).Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-            string[][] data = equipments.Select(e => new[] { e.Id.ToString(), e.PartNumber, e.Manufacturer, e.Name, e.Type, e.Ata.ToString(), e.ActivityField, e.MechanicsGroup, e.DocumentsReferences, e.DocumentsPartNumber, e.MonitoringDate.ToString("dd-mm-yyyy") }).ToArray();
+            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => e.ToEquipmentDetailsViewModel()));
+
+            model = TableDataAdapter.Search(model, param);
+            model = TableDataAdapter.SortList(model, param);
+            model = TableDataAdapter.PageList(model, param);
+
+            string[][] data = model.Select(m => new[] { m.Id.ToString(), m.PartNumber, m.Manufacturer, m.Name, m.Type, m.Ata.ToString(), m.ActivityField, m.MechanicsGroup, m.DocumentsReferences, m.DocumentsPartNumber, m.MonitoringDate }).ToArray();
             return Json(new
             {
                 param.sEcho,
-                iTotalRecords = equipments.Count,
+                iTotalRecords = model.Count,
                 iTotalDisplayRecords = param.iDisplayLength,
                 aaData = data
             }, JsonRequestBehavior.AllowGet);

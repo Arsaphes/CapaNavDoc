@@ -111,12 +111,18 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
-            List<Center> centers = TableDataAdapter.SearchInCenters(param.sSearch).Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-            string[][] data = centers.Select(c => new[] {c.Id.ToString(), null, c.Name }).ToArray();
+            BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
+            List<CenterDetailsViewModel> model = new List<CenterDetailsViewModel>(bl.GetList().Select(c => c.ToCenterDetailsViewModel()));
+
+            model = TableDataAdapter.Search(model, param);
+            model = TableDataAdapter.SortList(model, param);
+            model = TableDataAdapter.PageList(model, param);
+
+            string[][] data = model.Select(m => new[] {m.Id.ToString(), null, m.Name }).ToArray();
             return Json(new
             {
                 param.sEcho,
-                iTotalRecords = centers.Count,
+                iTotalRecords = model.Count,
                 iTotalDisplayRecords = param.iDisplayLength,
                 aaData = data
             }, JsonRequestBehavior.AllowGet);

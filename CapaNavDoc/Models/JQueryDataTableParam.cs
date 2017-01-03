@@ -40,5 +40,8 @@
         /// Comma separated list of column names
         /// </summary>
         public string sColumns { get; set; }
+
+        public int iSortCol_0 { get; set; }
+        public string sSortDir_0 { get; set; }
     }
 }

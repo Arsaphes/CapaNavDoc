@@ -1,13 +1,21 @@
-﻿using CapaNavDoc.Extensions;
+﻿using CapaNavDoc.Classes;
+using CapaNavDoc.Extensions;
 
 namespace CapaNavDoc.ViewModel
 {
     public class UserDetailsViewModel
     {
         public string Id { get; set; } 
+
+        [Column(Column = 1)]
         public string FirstName { get; set; }
+
+        [Column(Column = 2)]
         public string LastName { get; set; }
+
+        [Column(Column = 3)]
         public string UserName { get; set; }
+
         public string Password { get; set; }
 
 
