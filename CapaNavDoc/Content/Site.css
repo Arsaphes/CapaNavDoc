@@ -54,7 +54,11 @@
     text-align: center;
 }
 
-.DetailedRow {
-    background-color: #ddd;
-    border: 1px solid #bbb
+.Background-Red {
+    background-color: lightcoral;
 }
+
+.Background-Green {
+    background-color: lightgreen;
+}
+

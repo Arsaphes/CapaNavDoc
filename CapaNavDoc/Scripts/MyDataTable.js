@@ -141,7 +141,8 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
 
     var editForm = "EditForm";
     var confirmForm = "ConfirmationForm";
-    var monitoringCssClass = "Cursor-Pointer";
+    var monitoringCssClassRed = "Cursor-Pointer Background-Red";
+    var monitoringCssClassGreen = "Cursor-Pointer Background-Green";
 
     var idColumn = [{"sName": "ID", "visible": false}];
     var specialColumns = [
@@ -155,7 +156,11 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
             "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = uUrl2 + "?id=" + full[0];
-                return GetHtmlLink(monitoringCssClass, full[10], uFrmTitle2, uFrmW2, url, editForm, dtId);
+                var dateItems = full[10].split("-");
+                var date = new Date(parseInt(dateItems[2]), parseInt(dateItems[1]) - 1, parseInt(dateItems[0]));
+                var today = new Date();
+                var cssClass = date > today ? monitoringCssClassGreen : monitoringCssClassRed;
+                return GetHtmlLink(cssClass, full[10], uFrmTitle2, uFrmW2, url, editForm, dtId);
             }},
         {   "sName": "Update",
             "bSortable": false,

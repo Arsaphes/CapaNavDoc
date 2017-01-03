@@ -13,3 +13,9 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+
+.DetailedRow {
+    background-color: #ddd;
+    border: 1px solid #bbb
+}
