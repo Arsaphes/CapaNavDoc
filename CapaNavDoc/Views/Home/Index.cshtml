@@ -1,4 +1,6 @@
-﻿@using CapaNavDoc.ViewModel 
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel 
 @model LoginUserViewModel
 
 @{
@@ -14,12 +16,9 @@
 </head>
 <body>
 
-
-
-<div>
-    @* ReSharper disable Html.PathError *@
+<div class="HomeBackground">
     <form action="/Home/DoLogin" method="post">
-        <table class="LoginTable">
+        <table class="HomeLoginTable">
             <tr>
                 <td>
                     Identifiant:

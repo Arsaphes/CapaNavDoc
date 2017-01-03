@@ -5,39 +5,37 @@
     font-family: Calibri;
 }
 
-.CursorPointer {
-    cursor: pointer;
+
+.HomeBackground {
+    background-image: url("/Content/Images/pexels-photo-warehouse-stock.jpg");
+    background-size: cover;
+    height: 100%;
 }
 
-.LoginTable {
-    border: 1px solid #ddd;
+.HomeLoginTable {
+    border: 2px solid #888;
     -ms-border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    width: 300px;
-    height: 100px;
+    padding: 10px;
+    width: 340px;
+    height: 120px;
     background-color: #f3f3f3;
     position: fixed;
-    margin-left: -150px;
-    margin-top: -50px;
+    margin-left: -170px;
+    margin-top: -60px;
     left: 50%;
     top: 50%;
 }
 
-
-.DialogBox {
-    border: 1px solid #bbb;
-    -ms-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    background-color: #eee;
-    box-shadow: 10px 10px 15px #888;
+.HomeLoginTable input[type=text], input[type=password] {
+    width: 100%;
 }
 
-.Dialog-NoTitleBar {
-    display: none;
+
+.Cursor-Pointer {
+    cursor: pointer;
 }
 
 
@@ -50,31 +48,4 @@
     -o-font-variant: small-caps;
     font-variant: small-caps;
     padding: 0 0 20px 20px;
-}
-
-.PageGridView {
-    
-}
-
-
-.GridViewTransfertTable {
-    width: 100%;
-}
-
-.GridViewTransfertTable td {
-    text-align: center;
-    vertical-align: top;
-    padding-bottom: 15px;
-}
-
-.GridViewTransfertTable tr:first-child {
-    font-weight: bold;
-}
-
-.GridViewTransfertTable td:first-child {
-    width: 49%;
-}
-
-.GridViewTransfertTable td:last-child {
-    width: 49%;
 }

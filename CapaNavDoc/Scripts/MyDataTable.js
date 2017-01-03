@@ -141,7 +141,7 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
 
     var editForm = "EditForm";
     var confirmForm = "ConfirmationForm";
-    var monitoringCssClass = "CursorPointer";
+    var monitoringCssClass = "Cursor-Pointer";
 
     var idColumn = [{"sName": "ID", "visible": false}];
     var specialColumns = [
