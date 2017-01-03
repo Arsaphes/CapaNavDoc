@@ -13,7 +13,7 @@
 @section HeaderSection
 {
     <link href="~/Content/GridViewStyle.css" rel="stylesheet"/>
-    <link href="~/Content/datatables.css" rel="stylesheet" />
+    <link href="~/Content/datatables.css" rel="stylesheet"/>
 
     <script src="~/Scripts/datatables.js"></script>
     <script src="~/Scripts/Validations.js"></script>
@@ -29,7 +29,7 @@
                     { "sName": "FirstName" },
                     { "sName": "LastName" },
                     { "sName": "UserName" },
-                    { "sName": "Password" }
+                    { "sName": "Password", "bSortable": false }
                 ],
                 "@Url.Action("GetUserUpdateView")",
                 "Mise à jour d*un utilisateur",

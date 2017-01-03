@@ -85,11 +85,13 @@ function SetMasterDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl,
             }}];
     var specialColumns = [
         {   "sName": "Update",
+            "bSortable": false,
             "mRender": function (data, type, full) {
                 var url = uUrl + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Pencil-icon.png", "Pencil", uFrmTitle, uFrmW, url, editForm, dtId); 
             }},
         {   "sName": "Delete",
+            "bSortable": false,
             "mRender": function (data, type, full) {
                 var url = dUrl + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Close-2-icon.png", "Cross", dFrmTitle, dFrmW, url, confirmForm, dtId);
@@ -144,21 +146,25 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
     var idColumn = [{"sName": "ID", "visible": false}];
     var specialColumns = [
         {   "sName": "CentersActions",
+            "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = uUrl3 + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Zoom-icon.png", "Magnifier", uFrmTitle3, uFrmW3, url, editForm, dtId);
             }},
         {   "sName": "Monitoring",
+            "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = uUrl2 + "?id=" + full[0];
                 return GetHtmlLink(monitoringCssClass, full[10], uFrmTitle2, uFrmW2, url, editForm, dtId);
             }},
         {   "sName": "Update",
+            "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = uUrl + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Pencil-icon.png", "Pencil", uFrmTitle, uFrmW, url, editForm, dtId);
             }},
         {   "sName": "Delete",
+            "bSortable": false,
             "mRender": function(data, type, full) {
                 var url = dUrl + "?id=" + full[0];
                 return GetHtmlImage("/Content/Icons/Close-2-icon.png", "Cross", dFrmTitle, dFrmW, url, confirmForm, dtId);
