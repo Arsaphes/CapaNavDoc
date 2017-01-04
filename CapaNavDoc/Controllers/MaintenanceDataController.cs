@@ -15,105 +15,48 @@ namespace CapaNavDoc.Controllers
     {
         public ActionResult Index()
         {
-            return new DefaultController().Index<MaintenanceData, MaintenanceDataDetailsViewModel, MaintenanceDataListViewModel>();
+            return new DefaultController<MaintenanceData>().Index<MaintenanceDataDetailsViewModel, MaintenanceDataListViewModel>();
         }
 
-        /// <summary>
-        /// Get the default view displaying the MaintenanceData grid view.
-        /// </summary>
-        /// <returns>A view.</returns>
-        //public ActionResult Index()
-        //{
-        //    BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-        //    List<MaintenanceData> mDatas = bl.GetList();
-        //    List<MaintenanceDataDetailsViewModel> mDataDetails = mDatas.Select(d => d.ToModel<MaintenanceDataDetailsViewModel>()).ToList();
-        //    MaintenanceDataListViewModel model = new MaintenanceDataListViewModel {MaintenanceDataDetails = mDataDetails};
-        //    return View("Index", model);
-        //}
-
-        /// <summary>
-        /// Insert or update a MaintenanceData.
-        /// </summary>
-        /// <param name="model">The MaintenanceDataEditionViewModel used to edit a MaintenanceData.</param>
         [HttpPost]
         public void EditMaintenanceData(MaintenanceDataEditionViewModel model)
         {
-            BusinessLayer<MaintenanceData> bl;
-
-            switch (model.EditionMode)
-            {
-                case "Ajouter":
-                    bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-                    bl.Insert(model.ToModel<MaintenanceData>());
-                    break;
-
-                case "Changer":
-                    bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-                    bl.Update(model.ToModel<MaintenanceData>());
-                    break;
-            }
+            new DefaultController<MaintenanceData>().Edit(model);
         }
 
-        /// <summary>
-        /// Delete a MaintenanceData.
-        /// </summary>
-        /// <param name="model">The ConfirmationViewModel used to display the dialog box.</param>
         [HttpPost]
         public void DeleteMaintenanceData(ConfirmationViewModel model)
         {
-            BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-            bl.Delete(model.Id.ToInt32());
+            new DefaultController<MaintenanceData>().Delete(model);
         }
 
 
-        /// <summary>
-        /// Get a partial view used to insert a MaintenanceData.
-        /// </summary>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetMaintenanceDataInsertView()
         {
-            MaintenanceDataEditionViewModel model = new MaintenanceDataEditionViewModel { EditionMode = "Ajouter" };
-            return PartialView("MaintenanceDataEditionView", model);
+            return PartialView("MaintenanceDataEditionView", new MaintenanceDataEditionViewModel { EditionMode = "Ajouter" });
         }
 
-        /// <summary>
-        /// Get a partial view used to update a MaintenanceData.
-        /// </summary>
-        /// <param name="id">The id of the MaintenanceData to update.</param>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetMaintenanceDataUpdateView(string id)
         {
-            BusinessLayer<MaintenanceData> ubl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-            MaintenanceData md = ubl.Get(id.ToInt32());
-            MaintenanceDataEditionViewModel model = md.ToModel<MaintenanceDataEditionViewModel>("Changer");
-
-            return PartialView("MaintenanceDataEditionView", model);
+            return PartialView("MaintenanceDataEditionView", new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<MaintenanceDataEditionViewModel>("Changer"));
         }
 
-        /// <summary>
-        /// Get a partial view used to confirm a MaintenanceData deletion.
-        /// </summary>
-        /// <param name="id">The id of the MaintenanceData to delete.</param>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetConfirmationView(string id)
         {
-            BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-            MaintenanceData md = bl.Get(id.ToInt32());
-            string call = $"{md.Name}";
-            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer les données d'entretien {call} ?", Id = id, Controler = "MaintenanceData", Action = "DeleteMaintenanceData" };
-
-            return PartialView("ConfirmationView", model);
+            MaintenanceData t = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32());
+            return PartialView("ConfirmationView", new ConfirmationViewModel
+            {
+                Id = id,
+                ConfirmationMessage = $"Supprimer les données d'entretien {t.Name} ?",
+                Controler = "MaintenanceData",
+                Action = "DeleteMaintenanceData"
+            });
         }
 
 
-        /// <summary>
-        /// Get the datas used to display the MaintenanceData data table.
-        /// </summary>
-        /// <param name="param">The data table common properties.</param>
-        /// <returns>A serialized set of data for the data table.</returns>
         [HttpGet]
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
