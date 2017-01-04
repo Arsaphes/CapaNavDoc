@@ -10,6 +10,7 @@ namespace CapaNavDoc.DataAccessLayer
         public DbSet<User> Users { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<Action> Actions { get; set; }
+        public DbSet<MaintenanceData> MaintenanceDatas { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -18,6 +19,7 @@ namespace CapaNavDoc.DataAccessLayer
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Equipment>().ToTable("Equipments");
             modelBuilder.Entity<Action>().ToTable("Actions");
+            modelBuilder.Entity<MaintenanceData>().ToTable("MaintenanceDatas");
 
             base.OnModelCreating(modelBuilder);
         }

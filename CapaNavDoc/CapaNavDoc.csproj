@@ -165,6 +165,7 @@
     <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
     <Compile Include="Extensions\ViewModels\MaintenanceDataExtensions.cs" />
     <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\ViewModelExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

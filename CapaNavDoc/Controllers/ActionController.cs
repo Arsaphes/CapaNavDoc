@@ -39,6 +39,9 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new BusinessLayer<Action>(new CapaNavDocDal());
+
+                    Action aa = model.ToModel<Action>();
+
                     bl.Insert(model.ToAction());
                     break;
 
@@ -103,6 +106,7 @@ namespace CapaNavDoc.Controllers
             return PartialView("ConfirmationView", model);
         }
 
+
         /// <summary>
         /// Get the datas used to display the Action data table.
         /// </summary>
@@ -112,7 +116,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
-            List<ActionDetailsViewModel> model = new List<ActionDetailsViewModel>(bl.GetList().Select(a => a.ToActionDetailsViewModel()));
+            List<ActionDetailsViewModel> model = new List<ActionDetailsViewModel>(bl.GetList().Select(a => a.ToModel<ActionDetailsViewModel>()      .ToActionDetailsViewModel()));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
