@@ -108,10 +108,14 @@ function SetMasterDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl,
         });
 
     $("#" + dtId + " tbody").on("click", "tr td img", function () {
+        
         var nTr = this.parentNode.parentNode;
         var image = this;
-        if (this.src.match("Minus-icon")) {
-            this.src = "/Content/Icons/Add-Green-Button-icon.png";
+
+        if(!image.src.match("Minus-icon") && !image.src.match("Add-Green-Button-icon")) return;
+
+        if (image.src.match("Minus-icon")) {
+            image.src = "/Content/Icons/Add-Green-Button-icon.png";
             table.fnClose(nTr);
         }
         else {

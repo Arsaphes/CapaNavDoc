@@ -12,80 +12,6 @@ namespace CapaNavDoc.Extensions.ViewModels
     public static class EquipmentExtensions
     {
         /// <summary>
-        /// Get an Equipment model from an EquipmentEditionViewModel used to edit an Equipment in a popup form.
-        /// </summary>
-        /// <param name="model">The model used in the popup edition form.</param>
-        /// <returns>An Equipment.</returns>
-        public static Equipment ToEquipment(this EquipmentEditionViewModel model)
-        {
-            Equipment equipment =  new Equipment
-            {
-                Id = model.Id.ToInt32(),
-                Name = model.Name,
-                PartNumber = model.PartNumber,
-                DocumentsPartNumber = model.DocumentsPartNumber,
-                ActivityField = model.ActivityField,
-                Ata = model.Ata.ToInt32(),
-                DocumentsReferences = model.DocumentsReferences,
-                Manufacturer = model.Manufacturer,
-                MechanicsGroup = model.MechanicsGroup,
-                Type = model.Type
-            };
-            if (string.IsNullOrEmpty(model.MonitoringDate)) equipment.MonitoringDate = SqlDateTime.MinValue.Value;
-
-            return equipment;
-        }
-
-        /// <summary>
-        /// Get an EquipmentDetailsViewModel used to display the Equipments in a grid view from an Equipment model. 
-        /// </summary>
-        /// <param name="equipment">The Equipment model.</param>
-        /// <returns>An EquipmentDetailsViewModel.</returns>
-        public static EquipmentDetailsViewModel ToEquipmentDetailsViewModel(this Equipment equipment)
-        {
-            return new EquipmentDetailsViewModel
-            {
-                Id = equipment.Id.ToString(),
-                Name = equipment.Name,
-                DocumentsPartNumber = equipment.DocumentsPartNumber,
-                PartNumber = equipment.PartNumber,
-                Ata = equipment.Ata.ToString(),
-                ActivityField = equipment.ActivityField,
-                MechanicsGroup = equipment.MechanicsGroup,
-                Type = equipment.Type,
-                Manufacturer = equipment.Manufacturer,
-                DocumentsReferences = equipment.DocumentsReferences,
-                MonitoringDate = equipment.MonitoringDate.ToString("dd-mm-yyyy")
-            };
-        }
-
-        /// <summary>
-        /// Get an EquipmentEditionViewModel used to edit an Equipment in a popup form from an Equipment model.
-        /// </summary>
-        /// <param name="equipment">The Equipment model.</param>
-        /// <param name="editionMode">The edition mode. Could be for updating ('Changer') or inserting ('Ajouter').</param>
-        /// <returns>An EquipmentEditionViewModel.</returns>
-        public static EquipmentEditionViewModel ToEquipmentEditionViewModel(this Equipment equipment, string editionMode)
-        {
-            return new EquipmentEditionViewModel
-            {
-                Id = equipment.Id.ToString(),
-                Name = equipment.Name,
-                PartNumber = equipment.PartNumber,
-                ActivityField = equipment.ActivityField,
-                Ata = equipment.Ata.ToString(),
-                DocumentsPartNumber = equipment.DocumentsPartNumber,
-                DocumentsReferences = equipment.DocumentsReferences,
-                Manufacturer = equipment.Manufacturer,
-                MechanicsGroup = equipment.MechanicsGroup,
-                Type = equipment.Type,
-
-                EditionMode = editionMode,
-            };
-        }
-
-
-        /// <summary>
         /// Set an Equipment Center/Action groups.
         /// </summary>
         /// <param name="equipment">The Equipment.</param>
@@ -122,8 +48,8 @@ namespace CapaNavDoc.Extensions.ViewModels
             EquipmentCenterViewModel model = new EquipmentCenterViewModel
             {
                 EquipmentId = equipment.Id.ToString(),
-                Centers = new List<CenterDetailsViewModel>(cbl.GetList().Select(c => c.ToCenterDetailsViewModel())),
-                Actions = new List<ActionDetailsViewModel>(abl.GetList().Select(a => a.ToActionDetailsViewModel()))
+                Centers = new List<CenterDetailsViewModel>(cbl.GetList().Select(c => c.ToModel<CenterDetailsViewModel>())),
+                Actions = new List<ActionDetailsViewModel>(abl.GetList().Select(a => a.ToModel<ActionDetailsViewModel>()))
             };
             model.Selections = new bool[model.Centers.Count][];
             model.TableColumns = (model.Actions.Count + 1).ToString();

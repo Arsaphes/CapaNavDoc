@@ -7,7 +7,6 @@ using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Extensions.ViewModels;
-using CapaNavDoc.Interfaces;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
@@ -24,7 +23,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
             List<Equipment> equipments = bl.GetList();
-            List<EquipmentDetailsViewModel> equipmentDetails = equipments.Select(equipment => equipment.ToEquipmentDetailsViewModel()).ToList();
+            List<EquipmentDetailsViewModel> equipmentDetails = equipments.Select(equipment => equipment.ToModel<EquipmentDetailsViewModel>()).ToList();
             EquipmentListViewModel model = new EquipmentListViewModel { EquipmentsDetails = equipmentDetails };
             return View("Index", model);
         }
@@ -42,12 +41,12 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-                    bl.Insert(model.ToEquipment());
+                    bl.Insert(model.ToModel<Equipment>());
                     break;
 
                 case "Changer":
                     bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-                    bl.Update(model.ToEquipment());
+                    bl.Update(model.ToModel<Equipment>());
                     break;
             }
         }
@@ -85,7 +84,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
             Equipment equipment = bl.Get(id.ToInt32());
-            EquipmentEditionViewModel model = equipment.ToEquipmentEditionViewModel("Changer");
+            EquipmentEditionViewModel model = equipment.ToModel<EquipmentEditionViewModel>("Changer");
 
             return PartialView("EquipmentEditionView", model);
         }
@@ -116,7 +115,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => e.ToEquipmentDetailsViewModel()));
+            List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => e.ToModel<EquipmentDetailsViewModel>()));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

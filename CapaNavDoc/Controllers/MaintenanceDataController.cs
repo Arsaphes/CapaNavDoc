@@ -13,18 +13,23 @@ namespace CapaNavDoc.Controllers
 {
     public class MaintenanceDataController : Controller
     {
+        public ActionResult Index()
+        {
+            return new DefaultController().Index<MaintenanceData, MaintenanceDataDetailsViewModel, MaintenanceDataListViewModel>();
+        }
+
         /// <summary>
         /// Get the default view displaying the MaintenanceData grid view.
         /// </summary>
         /// <returns>A view.</returns>
-        public ActionResult Index()
-        {
-            BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-            List<MaintenanceData> mDatas = bl.GetList();
-            List<MaintenanceDataDetailsViewModel> mDataDetails = mDatas.Select(d => d.ToMaintenanceDataDetailsViewModel()).ToList();
-            MaintenanceDataListViewModel model = new MaintenanceDataListViewModel {MaintenanceDataDetails = mDataDetails};
-            return View("Index", model);
-        }
+        //public ActionResult Index()
+        //{
+        //    BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
+        //    List<MaintenanceData> mDatas = bl.GetList();
+        //    List<MaintenanceDataDetailsViewModel> mDataDetails = mDatas.Select(d => d.ToModel<MaintenanceDataDetailsViewModel>()).ToList();
+        //    MaintenanceDataListViewModel model = new MaintenanceDataListViewModel {MaintenanceDataDetails = mDataDetails};
+        //    return View("Index", model);
+        //}
 
         /// <summary>
         /// Insert or update a MaintenanceData.
@@ -39,12 +44,12 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-                    bl.Insert(model.ToMaintenanceData());
+                    bl.Insert(model.ToModel<MaintenanceData>());
                     break;
 
                 case "Changer":
                     bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-                    bl.Update(model.ToMaintenanceData());
+                    bl.Update(model.ToModel<MaintenanceData>());
                     break;
             }
         }
@@ -82,7 +87,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<MaintenanceData> ubl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
             MaintenanceData md = ubl.Get(id.ToInt32());
-            MaintenanceDataEditionViewModel model = md.ToMaintenanceDataEditionViewModel("Changer");
+            MaintenanceDataEditionViewModel model = md.ToModel<MaintenanceDataEditionViewModel>("Changer");
 
             return PartialView("MaintenanceDataEditionView", model);
         }
@@ -113,7 +118,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-            List<MaintenanceDataDetailsViewModel> model = new List<MaintenanceDataDetailsViewModel>(bl.GetList().Select(d => d.ToMaintenanceDataDetailsViewModel()));
+            List<MaintenanceDataDetailsViewModel> model = new List<MaintenanceDataDetailsViewModel>(bl.GetList().Select(d => d.ToModel<MaintenanceDataDetailsViewModel>()));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

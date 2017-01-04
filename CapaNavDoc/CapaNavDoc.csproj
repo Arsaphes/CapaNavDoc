@@ -152,6 +152,7 @@
     <Compile Include="Classes\TableDataAdapter.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\CenterController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MaintenanceDataController.cs" />
@@ -160,10 +161,7 @@
     <Compile Include="DataAccessLayer\CapaNavDocDal.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\ViewModels\ActionExtensions.cs" />
-    <Compile Include="Extensions\ViewModels\CenterExtensions.cs" />
     <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
-    <Compile Include="Extensions\ViewModels\MaintenanceDataExtensions.cs" />
     <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
     <Compile Include="Extensions\ViewModels\ViewModelExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

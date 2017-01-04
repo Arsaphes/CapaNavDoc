@@ -21,7 +21,7 @@ namespace CapaNavDoc.Controllers
         {
             CenterBusinessLayer bl = new CenterBusinessLayer(new CapaNavDocDal());
             List<Center> centers = bl.GetList();
-            List<CenterDetailsViewModel> centerDetails = centers.Select(center => center.ToCenterDetailsViewModel()).ToList();
+            List<CenterDetailsViewModel> centerDetails = centers.Select(center => center.ToModel<CenterDetailsViewModel>()).ToList();
             CenterListViewModel model = new CenterListViewModel { CentersDetails = centerDetails };
             return View("Index", model);
         }
@@ -39,12 +39,12 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new CenterBusinessLayer(new CapaNavDocDal());
-                    bl.Insert(model.ToCenter());
+                    bl.Insert(model.ToModel<Center>());
                     break;
 
                 case "Changer":
                     bl = new CenterBusinessLayer(new CapaNavDocDal());
-                    bl.Update(model.ToCenter());
+                    bl.Update(model.ToModel<Center>());
                     break;
             }
         }
@@ -82,7 +82,7 @@ namespace CapaNavDoc.Controllers
         {
             CenterBusinessLayer bl = new CenterBusinessLayer(new CapaNavDocDal());
             Center center = bl.Get(id.ToInt32());
-            CenterEditionViewModel model = center.ToCenterEditionViewModel("Changer");
+            CenterEditionViewModel model = center.ToModel<CenterEditionViewModel>("Changer");
 
             return PartialView("CenterEditionView", model);
         }
@@ -112,7 +112,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
-            List<CenterDetailsViewModel> model = new List<CenterDetailsViewModel>(bl.GetList().Select(c => c.ToCenterDetailsViewModel()));
+            List<CenterDetailsViewModel> model = new List<CenterDetailsViewModel>(bl.GetList().Select(c => c.ToModel<CenterDetailsViewModel>()));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

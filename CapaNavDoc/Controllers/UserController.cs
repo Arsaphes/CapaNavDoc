@@ -23,7 +23,7 @@ namespace CapaNavDoc.Controllers
         {
             UserBusinessLayer ubl = new UserBusinessLayer();
             List<User> users = ubl.GetUsers();
-            List<UserDetailsViewModel> usersDetails = users.Select(user => user.ToUserDetailsViewModel()).ToList();
+            List<UserDetailsViewModel> usersDetails = users.Select(user => user.ToModel<UserDetailsViewModel>()).ToList();
             UserListViewModel model = new UserListViewModel {UsersDetails = usersDetails};
             return View("Index", model);
         }
@@ -41,12 +41,12 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new UserBusinessLayer();
-                    bl.InsertUser(model.ToUser());
+                    bl.InsertUser(model.ToModel<User>());
                     break;
 
                 case "Changer":
                     bl = new UserBusinessLayer();
-                    bl.UpdateUser(model.ToUser());
+                    bl.UpdateUser(model.ToModel<User>());
                     break;
             }
         }
@@ -84,7 +84,7 @@ namespace CapaNavDoc.Controllers
         {
             UserBusinessLayer ubl = new UserBusinessLayer();
             User user = ubl.GetUser(id.ToInt32());
-            UserEditionViewModel model = user.ToUserEditionViewModel("Changer");
+            UserEditionViewModel model = user.ToModel<UserEditionViewModel>("Changer");
 
             return PartialView("UserEditionView", model);
         }
@@ -115,7 +115,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
-            List<UserDetailsViewModel> model = new List<UserDetailsViewModel>(bl.GetList().Select(u => u.ToUserDetailsViewModel()));
+            List<UserDetailsViewModel> model = new List<UserDetailsViewModel>(bl.GetList().Select(u => u.ToModel<UserDetailsViewModel>()));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

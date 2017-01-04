@@ -21,7 +21,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
             List<Action> actions = bl.GetList();
-            List<ActionDetailsViewModel> actionDetails = actions.Select(action => action.ToActionDetailsViewModel()).ToList();
+            List<ActionDetailsViewModel> actionDetails = actions.Select(action => action.ToModel<ActionDetailsViewModel>()).ToList();
             ActionListViewModel model = new ActionListViewModel {ActionsDetails = actionDetails};
             return View("Index", model);
         }
@@ -39,15 +39,12 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new BusinessLayer<Action>(new CapaNavDocDal());
-
-                    Action aa = model.ToModel<Action>();
-
-                    bl.Insert(model.ToAction());
+                    bl.Insert(model.ToModel<Action>());
                     break;
 
                 case "Changer":
                     bl = new BusinessLayer<Action>(new CapaNavDocDal());
-                    bl.Update(model.ToAction());
+                    bl.Update(model.ToModel<Action>());
                     break;
             }
         }
@@ -85,7 +82,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
             Action action = bl.Get(id.ToInt32());
-            ActionEditionViewModel model = action.ToActionEditionViewModel("Changer");
+            ActionEditionViewModel model = action.ToModel<ActionEditionViewModel>("Changer");
 
             return PartialView("ActionEditionView", model);
         }
@@ -116,7 +113,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
-            List<ActionDetailsViewModel> model = new List<ActionDetailsViewModel>(bl.GetList().Select(a => a.ToModel<ActionDetailsViewModel>()      .ToActionDetailsViewModel()));
+            List<ActionDetailsViewModel> model = new List<ActionDetailsViewModel>(bl.GetList().Select(a => a.ToModel<ActionDetailsViewModel>()));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
