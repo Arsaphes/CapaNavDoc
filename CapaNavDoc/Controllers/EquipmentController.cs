@@ -15,102 +15,51 @@ namespace CapaNavDoc.Controllers
 {
     public class EquipmentController : Controller
     {
-        /// <summary>
-        /// Get the default view displaying the Equipment grid view.
-        /// </summary>
-        /// <returns>A view.</returns>
+        [HttpGet]
         public ActionResult Index()
         {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            List<Equipment> equipments = bl.GetList();
-            List<EquipmentDetailsViewModel> equipmentDetails = equipments.Select(equipment => equipment.ToModel<EquipmentDetailsViewModel>()).ToList();
-            EquipmentListViewModel model = new EquipmentListViewModel { EquipmentsDetails = equipmentDetails };
-            return View("Index", model);
+            return new DefaultController<Equipment>().Index<EquipmentDetailsViewModel, EquipmentListViewModel>();
         }
 
-        /// <summary>
-        /// Insert or update an Equipment.
-        /// </summary>
-        /// <param name="model">The EquipmentEditionViewModel used to edit an Equipment.</param>
         [HttpPost]
         public void EditEquipment(EquipmentEditionViewModel model)
         {
-            BusinessLayer<Equipment> bl;
-
-            switch (model.EditionMode)
-            {
-                case "Ajouter":
-                    bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-                    bl.Insert(model.ToModel<Equipment>());
-                    break;
-
-                case "Changer":
-                    bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-                    bl.Update(model.ToModel<Equipment>());
-                    break;
-            }
+            new DefaultController<Equipment>().Edit(model);
         }
 
-        /// <summary>
-        /// Delete an Equipment.
-        /// </summary>
-        /// <param name="model">The ConfirmationViewModel used to display the dialog box.</param>
         [HttpPost]
         public void DeleteEquipment(ConfirmationViewModel model)
         {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            bl.Delete(model.Id.ToInt32());
+            new DefaultController<Equipment>().Delete(model);
         }
 
 
-        /// <summary>
-        /// Get a partial view used to insert an Equipment.
-        /// </summary>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetEquipmentInsertView()
         {
-            EquipmentEditionViewModel model = new EquipmentEditionViewModel { EditionMode = "Ajouter" };
-            return PartialView("EquipmentEditionView", model);
+            return PartialView("EquipmentEditionView", new EquipmentEditionViewModel { EditionMode = "Ajouter" });
         }
 
-        /// <summary>
-        /// Get a partial view used to update an Equipment.
-        /// </summary>
-        /// <param name="id">The id of the Equipment to update.</param>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetEquipmentUpdateView(string id)
         {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            Equipment equipment = bl.Get(id.ToInt32());
-            EquipmentEditionViewModel model = equipment.ToModel<EquipmentEditionViewModel>("Changer");
-
-            return PartialView("EquipmentEditionView", model);
+            return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<EquipmentEditionViewModel>("Changer"));
         }
 
-        /// <summary>
-        /// Get a partial view used to confirm an Equipment deletation.
-        /// </summary>
-        /// <param name="id">The id of the Equipment to delete.</param>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetConfirmationView(string id)
         {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            Equipment equipment = bl.Get(id.ToInt32());
-            string equipementCall = $"{equipment.Name} (PN: {equipment.PartNumber})";
-            ConfirmationViewModel model = new ConfirmationViewModel { ConfirmationMessage = $"Supprimer l'équipement {equipementCall} ?", Id = id, Controler = "Equipment", Action = "DeleteEquipment" };
-
-            return PartialView("ConfirmationView", model);
+            Equipment t = new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32());
+            return PartialView("ConfirmationView", new ConfirmationViewModel
+            {
+                Id = id,
+                ConfirmationMessage = $"Supprimer l'équipement {t.PartNumber} ?",
+                Controler = "Equipment",
+                Action = "DeleteEquipment"
+            });
         }
-        
 
-        /// <summary>
-        /// Get the datas used to display the Equipment data table.
-        /// </summary>
-        /// <param name="param">The data table common properties.</param>
-        /// <returns>A serialized set of data for the data table.</returns>
+
         [HttpGet]
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
@@ -132,11 +81,6 @@ namespace CapaNavDoc.Controllers
         }
 
 
-        /// <summary>
-        /// Get a partial view used to update the Equipment monitoring.
-        /// </summary>
-        /// <param name="id">The Equipment id.</param>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetEquipmentMonitoringView(string id)
         {
@@ -147,10 +91,6 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentMonitoringView", model);
         }
 
-        /// <summary>
-        /// Update the Equipment monitoring status.
-        /// </summary>
-        /// <param name="model">The EquipmentMonitoringViewModel.</param>
         [HttpPost]
         public void UpdateEquipmentMonitoring(EquipmentMonitoringViewModel model)
         {
@@ -166,11 +106,6 @@ namespace CapaNavDoc.Controllers
         }
 
 
-        /// <summary>
-        /// Get a partial view used to link some centers to the Equipment.
-        /// </summary>
-        /// <param name="id">The Equipment id.</param>
-        /// <returns>A partial view.</returns>
         [HttpGet]
         public PartialViewResult GetEquipmentCenters(string id)
         {
@@ -189,10 +124,6 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentCentersView", model);
         }
 
-        /// <summary>
-        /// Update the Center/Action group linked to the Equipment.
-        /// </summary>
-        /// <param name="model">The EquipmentCenterViewModel.</param>
         [HttpPost]
         public void UpdateEquipmentCenters(EquipmentCenterViewModel model)
         {

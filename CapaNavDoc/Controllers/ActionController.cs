@@ -13,6 +13,7 @@ namespace CapaNavDoc.Controllers
 {
     public class ActionController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return new DefaultController<Action>().Index<ActionDetailsViewModel, ActionListViewModel>();
