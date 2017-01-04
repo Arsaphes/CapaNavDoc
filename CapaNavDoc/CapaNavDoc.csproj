@@ -55,6 +55,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.6.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.6\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -120,6 +124,7 @@
     <Content Include="Content\Images\NavBar02.png" />
     <Content Include="Content\Images\NavBar03.png" />
     <Content Include="Content\Images\pexels-photo-warehouse-stock.jpg" />
+    <Content Include="Content\MyDataTableStyle.css" />
     <Content Include="Content\NavigationBarStyle.css" />
     <Content Include="Content\Theme\Base\images\ui-icons_444444_256x240.png" />
     <Content Include="Content\Theme\Base\images\ui-icons_555555_256x240.png" />
@@ -143,11 +148,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\CenterActionCouple.cs" />
     <Compile Include="Classes\ColumnAttribute.cs" />
+    <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\TableDataAdapter.cs" />
     <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\CenterController.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MaintenanceDataController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="DataAccessLayer\CapaNavDocDal.cs" />
@@ -156,17 +163,19 @@
     <Compile Include="Extensions\ViewModels\ActionExtensions.cs" />
     <Compile Include="Extensions\ViewModels\CenterExtensions.cs" />
     <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\MaintenanceDataExtensions.cs" />
     <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\BusinessLayers\BusinessLayer.cs" />
-    <Compile Include="Models\BusinessLayers\EquipmentBusinessLayer.cs" />
     <Compile Include="Models\Center.cs" />
     <Compile Include="Models\BusinessLayers\CenterBusinessLayer.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\JQueryDataTableParam.cs" />
+    <Compile Include="Models\MaintenanceData.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\BusinessLayers\UserBusinessLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +194,9 @@
     <Compile Include="ViewModel\EquipmentListViewModel.cs" />
     <Compile Include="ViewModel\EquipmentMonitoringViewModel.cs" />
     <Compile Include="ViewModel\LoginUserViewModel.cs" />
+    <Compile Include="ViewModel\MaintenanceDataDetailsViewModel.cs" />
+    <Compile Include="ViewModel\MaintenanceDataEditionViewModel.cs" />
+    <Compile Include="ViewModel\MaintenanceDataListViewModel.cs" />
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\UserCallViewModel.cs" />
     <Compile Include="ViewModel\UserDetailsViewModel.cs" />
@@ -209,6 +221,8 @@
     <Content Include="Views\Equipment\EquipmentCentersView.cshtml" />
     <Content Include="Views\Equipment\EquipmentMonitoringView.cshtml" />
     <Content Include="Views\Center\CenterUsersView.cshtml" />
+    <Content Include="Views\MaintenanceData\Index.cshtml" />
+    <Content Include="Views\MaintenanceData\MaintenanceDataEditionView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

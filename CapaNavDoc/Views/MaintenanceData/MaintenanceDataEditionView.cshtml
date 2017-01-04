@@ -1,0 +1,97 @@
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel
+@model MaintenanceDataEditionViewModel
+
+<link href="~/Content/EditFormStyle.css" rel="stylesheet" />
+
+<form id="EditForm" action="/MaintenanceData/EditMaintenanceData" method="post">
+    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
+    <input id="MaintenanceDataId" type="hidden" name="Id" value="@Model.Id"/>
+    <table class="EditFormTable">
+        <tr>
+            <td>
+                Type:
+            </td>
+            <td>
+                <input id="Type-TextBox-val.Required" type="text" name="Type" value="@Model.Type"
+                       message="Le type est obligatoire."
+                       validatorLabelId="Type-ValidationMessage"/><br/>
+                <label id="Type-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Emetteur:
+            </td>
+            <td>
+                <input id="Sender-TextBox-val.Required" type="text" name="Sender" value="@Model.Sender"
+                       message="L'emetteur est obligatoire."
+                       validatorLabelId="Sender-ValidationMessage"/><br/>
+                <label id="Sender-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Révision:
+            </td>
+            <td>
+                <input id="Review-TextBox-val.Required" type="text" name="Review" value="@Model.Review"
+                       message="La révision est obligatoire."
+                       validatorLabelId="Review-ValidationMessage"/><br/>
+                <label id="Review-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date:
+            </td>
+            <td>
+                <input id="Date-TextBox-val.DateFormat" type="text" name="Date" value="@Model.Date"
+                       message="La date doit être au format 'jj-mm-aaaa'."
+                       validatorLabelId="Date-ValidationMessage"/><br/>
+                <label id="Date-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Désignation:
+            </td>
+            <td>
+                <input id="Name-TextBox-val.Required" type="text" name="Name" value="@Model.Name"
+                       message="La désignation est obligatoire."
+                       validatorLabelId="Name-ValidationMessage"/><br/>
+                <label id="Name-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mention certificat:
+            </td>
+            <td>
+                @Html.CheckBoxFor(m=>m.OnCertificate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Documentation:
+            </td>
+            <td>
+                <input id="DocumentLink-TextBox-val.Required" type="text" name="DocumentLink" value="@Model.DocumentLink"
+                       message="Le lien vers la documentation est obligatoire."
+                       validatorLabelId="DocumentLink-ValidationMessage"/><br/>
+                <label id="DocumentLink-ValidationMessage"></label>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script>
+    $('input[id="Date-val.DateFormat"]').datepicker({
+        dateFormat: "dd-mm-yy",
+        dayNames: [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" ],
+        dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
+        firstDay: 1,
+        monthNames: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" ]
+    });
+</script>

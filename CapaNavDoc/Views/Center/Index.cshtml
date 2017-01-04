@@ -13,34 +13,34 @@
 
 @section HeaderSection
 {
-<link href="~/Content/GridViewStyle.css" rel="stylesheet" />
-<link href="~/Content/datatables.css" rel="stylesheet" />
+    <link href="~/Content/datatables.css" rel="stylesheet"/>
+    <link href="~/Content/MyDataTableStyle.css" rel="stylesheet" />
 
-<script src="~/Scripts/datatables.js"></script>
-<script src="~/Scripts/Validations.js"></script>
-<script src="~/Scripts/Dialog.js"></script>
-<script src="~/Scripts/MyDataTable.js"></script>
-
-<script>
-    $(function() {
-        SetMasterDataTable(
-            "CenterDataTable",
-            "/Center/AjaxHandler",
-            [
-                { "sName: ": "Name" }
-            ],
-            "@Url.Action("GetCenterUpdateView")",
-            "Mise à jour d*un atelier",
-            380,
-            "@Url.Action("GetConfirmationView")",
-            "Suppression d*un atelier",
-            460,
-            "@Url.Action("GetCenterUsersView")",
-            "@Url.Action("SetCenterUsers")"
-        );
-        document.getElementById("AdministrationLink").className += "ActiveLink";
-    });
-</script>
+    <script src="~/Scripts/datatables.js"></script>
+    <script src="~/Scripts/Validations.js"></script>
+    <script src="~/Scripts/Dialog.js"></script>
+    <script src="~/Scripts/MyDataTable.js"></script>
+    
+    <script>
+        $(function() {
+            SetMasterDataTable(
+                "CenterDataTable",
+                "/Center/AjaxHandler",
+                [
+                    { "sName: ": "Name" }
+                ],
+                "@Url.Action("GetCenterUpdateView")",
+                "Mise à jour d*un atelier",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d*un atelier",
+                460,
+                "@Url.Action("GetCenterUsersView")",
+                "@Url.Action("SetCenterUsers")"
+            );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
+        });
+    </script>
 }
 
 @section ContentBody
@@ -50,7 +50,7 @@
 </div>
 
     <div style="padding: 15px;">
-        <table id="CenterDataTable" class="display">
+        <table id="CenterDataTable" class="display MyDataTable">
             <thead>
             <tr>
                 <th>ID</th>

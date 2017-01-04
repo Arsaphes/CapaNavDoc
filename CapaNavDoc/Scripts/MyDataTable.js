@@ -14,7 +14,7 @@
 }
 
 function GetHtmlImage(icon, alt, dialogTitle, dialogWidth, url, editFormId, dataTableId) {
-    var result = "<img src=";
+    var result = "<img class=\'Cursor-Pointer\' src=";
     result += "\'" + icon + "\' ";
     result += "alt=\'" + alt + "\' ";
     result += "onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId) + "\' />";  

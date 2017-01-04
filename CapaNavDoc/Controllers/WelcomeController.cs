@@ -37,6 +37,18 @@ namespace CapaNavDoc.Controllers
                 DocumentsReferences = "M-16",
                 MonitoringDate = SqlDateTime.MinValue.Value
             });
+            ebl.Insert(new Equipment
+            {
+                ActivityField = "(CO7) Moteur",
+                Ata = 74,
+                MechanicsGroup = "Magnétos Unison",
+                Name = "Magnétos Unison",
+                Manufacturer = "Unison (ex Slick)",
+                PartNumber = "4270",
+                DocumentsReferences = "Overhaul Manual?",
+                DocumentsPartNumber = "OL L1037 RevH Séries 4200 - 6200",
+                MonitoringDate = SqlDateTime.MinValue.Value
+            });
 
             UserBusinessLayer ubl = new UserBusinessLayer();
             ubl.InsertUser(new User

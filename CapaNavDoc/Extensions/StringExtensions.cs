@@ -27,9 +27,13 @@ namespace CapaNavDoc.Extensions
 
         public static List<CenterActionCouple> ToCenterActionGroups(this string str)
         {
+            Logger log = new Logger();
+            log.Debug($"[ ToCenterActionGroups({str}) ]");
+
             List<CenterActionCouple> couples = new List<CenterActionCouple>();
             if (str == null) return couples;
             string[] groups = str.Split(';');
+            log.Debug($"Groups created. Length={groups.Length}");
 
             couples.AddRange(groups.Select(g => g.Split(',')).Select(couple => new CenterActionCouple {CenterId = couple[0], ActionId = couple[1]}));
             return couples;

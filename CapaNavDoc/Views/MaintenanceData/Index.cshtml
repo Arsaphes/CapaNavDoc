@@ -1,0 +1,82 @@
+﻿@using CapaNavDoc.ViewModel
+@model MaintenanceDataListViewModel
+
+@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+@section TitleSection
+{
+    Données d'entretien
+}
+
+@section HeaderSection
+{
+    <link href="~/Content/datatables.css" rel="stylesheet" />
+    <link href="~/Content/MyDataTableStyle.css" rel="stylesheet" />
+
+    <script src="~/Scripts/datatables.js"></script>
+    <script src="~/Scripts/Validations.js"></script>
+    <script src="~/Scripts/Dialog.js"></script>
+    <script src="~/Scripts/MyDataTable.js"></script>
+
+    <script>
+        $(function() {
+            SetDataTable(
+                "MaintenanceDataDataTable",
+                "/MaintenanceData/AjaxHandler",
+                [
+                    { "sName": "Type" },
+                    { "sName": "Sender" },
+                    { "sName": "Review" },
+                    { "sName": "Name" },
+                    { "sName": "OnCertificate" },
+                    { "sName": "DocumentLink", "bSortable": false }
+                ],
+                "@Url.Action("GetMaintenanceDataUpdateView")",
+                "Mise à jour d*une donnée d'entretien",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d*une donnée d'entretien",
+                460
+            );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
+        });
+    </script>
+}
+
+@section ContentBody
+{
+    <div class="PageTitle">
+        Gestion des données d'entretien.
+    </div>
+
+    <div style="padding: 15px;">
+        <table id="MaintenanceDataDataTable" class="display MyDataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Emetteur</th>
+                    <th>Révision</th>
+                    <th>Date</th>
+                    <th>Désignation</th>
+                    <th>Mention Certificat</th>
+                    <th>Documentation</th>
+                    <th>Mod.</th>
+                    <th>Sup.</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10"><button id="AddMaintenanceDataButton" type="button" onclick="ShowDialog('Ajout d\'une donnée d\'entretien', 380, '@Url.Action("GetMAintenanceDataInsertView")', 'EditForm', 'MaintenanceDataDataTable');">Ajouter une donnée d'entretien</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        $("#AddMaintenanceDataButton").button();
+    </script>
+}

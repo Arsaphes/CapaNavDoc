@@ -11,6 +11,7 @@ namespace CapaNavDoc.Models
         public string LastName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public bool IsAdministrator { get; set; }
 
 
         public override bool Equals(object obj)

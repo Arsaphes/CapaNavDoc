@@ -7,6 +7,7 @@ using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Extensions.ViewModels;
+using CapaNavDoc.Interfaces;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
@@ -174,9 +175,17 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentCenters(string id)
         {
+            Logger log =  new Logger();
+            log.Debug($"[ GetEquipmentCenters({id}) ]");
+            
             BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            log.Debug("Equipment Business Layer created.");
+
             Equipment equipment = ebl.Get(id.ToInt32());
+            log.Debug($"Equipment with ID={id} grabbed. Name={equipment.Name}");
+
             EquipmentCenterViewModel model = equipment.ToEquipmentCenterViewModel();
+            log.Debug("EquipmentViewCenterModel created.");
 
             return PartialView("EquipmentCentersView", model);
         }

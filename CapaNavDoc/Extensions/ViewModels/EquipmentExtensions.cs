@@ -84,6 +84,7 @@ namespace CapaNavDoc.Extensions.ViewModels
             };
         }
 
+
         /// <summary>
         /// Set an Equipment Center/Action groups.
         /// </summary>
@@ -108,9 +109,16 @@ namespace CapaNavDoc.Extensions.ViewModels
         /// <returns>An EquipmentCenterViewModel.</returns>
         public static EquipmentCenterViewModel ToEquipmentCenterViewModel(this Equipment equipment)
         {
+            Logger log = new Logger();
+            log.Debug($"[ ToEquipmentCenterViewModel(ID={equipment.Id}) ]");
+
             List<CenterActionCouple> couples = equipment.EquipmentCenterActionList.ToCenterActionGroups();
+            log.Debug($"CenterActionCouple list created. Count={couples.Count}");
+
             BusinessLayer<Action> abl = new BusinessLayer<Action>(new CapaNavDocDal());
             BusinessLayer<Center> cbl = new BusinessLayer<Center>(new CapaNavDocDal());
+            log.Debug("Action and Center Business Layers created.");
+
             EquipmentCenterViewModel model = new EquipmentCenterViewModel
             {
                 EquipmentId = equipment.Id.ToString(),

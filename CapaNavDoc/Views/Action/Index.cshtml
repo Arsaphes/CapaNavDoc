@@ -12,32 +12,32 @@
 
 @section HeaderSection
 {
-<link href="~/Content/GridViewStyle.css" rel="stylesheet" />
-<link href="~/Content/datatables.css" rel="stylesheet" />
+    <link href="~/Content/datatables.css" rel="stylesheet"/>
+    <link href="~/Content/MyDataTableStyle.css" rel="stylesheet" />
 
-<script src="~/Scripts/datatables.js"></script>
-<script src="~/Scripts/Validations.js"></script>
-<script src="~/Scripts/Dialog.js"></script>
-<script src="~/Scripts/MyDataTable.js"></script>
+    <script src="~/Scripts/datatables.js"></script>
+    <script src="~/Scripts/Validations.js"></script>
+    <script src="~/Scripts/Dialog.js"></script>
+    <script src="~/Scripts/MyDataTable.js"></script>
 
-<script>
-    $(function() {
-        SetDataTable(
-            "ActionDataTable",
-            "/Action/AjaxHandler",
-            [
-                { "sName: ": "Description" }
-            ],
-            "@Url.Action("GetActionUpdateView")",
-            "Mise à jour d*une action",
-            380,
-            "@Url.Action("GetConfirmationView")",
-            "Suppression d*une action",
-            460
-        );
-        document.getElementById("AdministrationLink").className += "ActiveLink";
-    });
-</script>
+    <script>
+        $(function() {
+            SetDataTable(
+                "ActionDataTable",
+                "/Action/AjaxHandler",
+                [
+                    { "sName: ": "Description" }
+                ],
+                "@Url.Action("GetActionUpdateView")",
+                "Mise à jour d*une action",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d*une action",
+                460
+            );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
+        });
+    </script>
 }
 
 @section ContentBody
@@ -47,7 +47,7 @@
     </div>
 
     <div style="padding: 15px;">
-        <table id="ActionDataTable" class="display">
+        <table id="ActionDataTable" class="display MyDataTable">
             <thead>
             <tr>
                 <th>ID</th>
