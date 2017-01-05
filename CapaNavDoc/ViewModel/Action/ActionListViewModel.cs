@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CapaNavDoc.ViewModel
+namespace CapaNavDoc.ViewModel.Action
 {
     public class ActionListViewModel : MyLayoutViewModel
     {

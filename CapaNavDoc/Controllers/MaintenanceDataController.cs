@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using CapaNavDoc.Classes;
@@ -8,6 +10,7 @@ using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
+using CapaNavDoc.ViewModel.MaintenanceData;
 
 namespace CapaNavDoc.Controllers
 {
@@ -23,6 +26,18 @@ namespace CapaNavDoc.Controllers
         public void EditMaintenanceData(MaintenanceDataEditionViewModel model)
         {
             new DefaultController<MaintenanceData>().Edit(model);
+
+            if (model.FileUpload == null) return;
+
+            byte[] buffer = new byte[32 * 1024];
+            int bytesRead;
+            string fileName = Path.GetFileName(model.FileUpload.FileName);
+            Stream output = new FileStream(Server.MapPath($"~\\App_Data\\{fileName}"), FileMode.Create);
+            while ((bytesRead = model.FileUpload.InputStream.Read(buffer, 0, buffer.Length)) != 0)
+            {
+                output.Write(buffer, 0, bytesRead);
+            }
+
         }
 
         [HttpPost]
@@ -35,7 +50,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetMaintenanceDataInsertView()
         {
-            return PartialView("MaintenanceDataEditionView", new MaintenanceDataEditionViewModel { EditionMode = "Ajouter" });
+            return PartialView("MaintenanceDataEditionView", new MaintenanceDataEditionViewModel {EditionMode = "Ajouter"});
         }
 
         [HttpGet]

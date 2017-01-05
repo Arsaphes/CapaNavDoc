@@ -6,6 +6,9 @@ using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
+using CapaNavDoc.ViewModel.Action;
+using CapaNavDoc.ViewModel.Center;
+using CapaNavDoc.ViewModel.Equipment;
 
 namespace CapaNavDoc.Extensions.ViewModels
 {

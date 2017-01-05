@@ -1,6 +1,6 @@
 ﻿@* ReSharper disable Html.PathError *@
 
-@using CapaNavDoc.ViewModel
+@using CapaNavDoc.ViewModel.Equipment
 @model EquipmentMonitoringViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
@@ -27,6 +27,8 @@
 </form>
 
 <script>
+    $("input").input();
+
     $('input[id="Date-val.DateFormat"]').datepicker({
         dateFormat: "dd-mm-yy",
         dayNames: [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" ],

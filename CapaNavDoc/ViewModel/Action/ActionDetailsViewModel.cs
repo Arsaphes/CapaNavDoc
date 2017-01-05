@@ -1,6 +1,6 @@
 ﻿using CapaNavDoc.Classes;
 
-namespace CapaNavDoc.ViewModel
+namespace CapaNavDoc.ViewModel.Action
 {
     public class ActionDetailsViewModel
     {

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using CapaNavDoc.ViewModel.Action;
+using CapaNavDoc.ViewModel.Center;
 
-namespace CapaNavDoc.ViewModel
+namespace CapaNavDoc.ViewModel.Equipment
 {
     public class EquipmentCenterViewModel : MyLayoutViewModel
     {

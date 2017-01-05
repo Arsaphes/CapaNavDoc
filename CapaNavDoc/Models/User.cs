@@ -12,7 +12,8 @@ namespace CapaNavDoc.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool IsAdministrator { get; set; }
-
+        //Todo: Implement IsActive.
+        public bool IsActive { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -1,4 +1,4 @@
-﻿namespace CapaNavDoc.ViewModel
+﻿namespace CapaNavDoc.ViewModel.Action
 {
     public class ActionEditionViewModel : MyLayoutViewModel
     {

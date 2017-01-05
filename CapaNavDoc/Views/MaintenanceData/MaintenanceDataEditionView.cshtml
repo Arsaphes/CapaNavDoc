@@ -1,11 +1,11 @@
 ﻿@* ReSharper disable Html.PathError *@
 
-@using CapaNavDoc.ViewModel
+@using CapaNavDoc.ViewModel.MaintenanceData
 @model MaintenanceDataEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
-<form id="EditForm" action="/MaintenanceData/EditMaintenanceData" method="post">
+<form id="EditForm" action="/MaintenanceData/EditMaintenanceData" method="post" enctype="multipart/form-data">
     <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
     <input id="MaintenanceDataId" type="hidden" name="Id" value="@Model.Id"/>
     <table class="EditFormTable">
@@ -69,7 +69,7 @@
                 Mention certificat:
             </td>
             <td>
-                @Html.CheckBoxFor(m=>m.OnCertificate)
+                @Html.DropDownListFor(m => m.OnCertificate, new SelectList(new[] {"Oui", "Non"}), new {@id= "CertificateSelection" })
             </td>
         </tr>
         <tr>
@@ -83,10 +83,28 @@
                 <label id="DocumentLink-ValidationMessage"></label>
             </td>
         </tr>
+        <tr>
+            <td>
+                Documentation PDF:
+            </td>
+            <td>
+                <button id="FileUploadButton" type="button">Sélectionner un fichier</button>
+                <input id="FileUpload" type="file" name="FileUpload" accept=".pdf" style="display: none;" />
+            </td>
+        </tr>
     </table>
+    
 </form>
 
 <script>
+    $("#FileUploadButton").on("click", function() {
+        $("#FileUpload").click();
+    });
+
+    $("#FileUploadButton").button();
+    
+    $("input").input();
+
     $('input[id="Date-TextBox-val.DateFormat"]').datepicker({
         dateFormat: "dd-mm-yy",
         dayNames: [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" ],
@@ -94,4 +112,6 @@
         firstDay: 1,
         monthNames: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" ]
     });
+
+    $("#CertificateSelection").selectmenu({ width: 204 });
 </script>

@@ -20,11 +20,15 @@
 }
 
 .EditFormTable input[type="submit"] {
-    width: 100px;
+    width: 200px;
 }
 
 .EditFormTable input[type="button"] {
-    width: 100px;
+    width: 204px;
+}
+
+.EditFormTable button {
+    width: 204px;
 }
 
 .EditFormTable select {

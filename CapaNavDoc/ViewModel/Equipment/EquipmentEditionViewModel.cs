@@ -1,4 +1,4 @@
-﻿namespace CapaNavDoc.ViewModel
+﻿namespace CapaNavDoc.ViewModel.Equipment
 {
     public class EquipmentEditionViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using CapaNavDoc.Classes;
 using CapaNavDoc.Extensions;
 
-namespace CapaNavDoc.ViewModel
+namespace CapaNavDoc.ViewModel.User
 {
     public class UserDetailsViewModel
     {

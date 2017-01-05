@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CapaNavDoc.ViewModel
+namespace CapaNavDoc.ViewModel.Center
 {
     public class CenterUsersViewModel : MyLayoutViewModel
     {

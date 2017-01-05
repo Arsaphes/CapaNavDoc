@@ -10,6 +10,8 @@ using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
+using CapaNavDoc.ViewModel.Equipment;
+using CapaNavDoc.ViewModel.User;
 
 namespace CapaNavDoc.Controllers
 {

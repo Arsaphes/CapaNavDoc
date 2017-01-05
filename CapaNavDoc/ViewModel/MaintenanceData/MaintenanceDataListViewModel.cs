@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CapaNavDoc.ViewModel
+namespace CapaNavDoc.ViewModel.MaintenanceData
 {
     public class MaintenanceDataListViewModel : MyLayoutViewModel
     {

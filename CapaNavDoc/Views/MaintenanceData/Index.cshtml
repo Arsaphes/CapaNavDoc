@@ -1,5 +1,5 @@
 ﻿@using CapaNavDoc.ViewModel
-@model MaintenanceDataListViewModel
+@model CapaNavDoc.ViewModel.MaintenanceData.MaintenanceDataListViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -36,7 +36,7 @@
                 ],
                 "@Url.Action("GetMaintenanceDataUpdateView")",
                 "Mise à jour d*une donnée d*entretien",
-                380,
+                420,
                 "@Url.Action("GetConfirmationView")",
                 "Suppression d*une donnée d*entretien",
                 460
@@ -71,7 +71,7 @@
             <tbody></tbody>
             <tfoot>
                 <tr>
-                    <td colspan="10"><button id="AddMaintenanceDataButton" type="button" onclick="ShowDialog('Ajout d\'une donnée d\'entretien', 380, '@Url.Action("GetMAintenanceDataInsertView")', 'EditForm', 'MaintenanceDataDataTable');">Ajouter une donnée d'entretien</button></td>
+                    <td colspan="10"><button id="AddMaintenanceDataButton" type="button" onclick="ShowDialog('Ajout d\'une donnée d\'entretien', 420, '@Url.Action("GetMAintenanceDataInsertView")', 'EditForm', 'MaintenanceDataDataTable');">Ajouter une donnée d'entretien</button></td>
                 </tr>
             </tfoot>
         </table>

@@ -8,6 +8,7 @@ using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
+using CapaNavDoc.ViewModel.User;
 
 namespace CapaNavDoc.Controllers
 {

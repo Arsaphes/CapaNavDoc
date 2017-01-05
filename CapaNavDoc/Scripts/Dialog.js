@@ -22,7 +22,16 @@
                 {
                     url: form.attr("action"),
                     type: form.attr("method"),
-                    data: form.serialize(),
+
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(form[0]),
+
+                    //data: form.serialize(),
+
+
+
+
                     success: function () {
                         form.remove();
                         var table = $("#" + dataTableId).dataTable();

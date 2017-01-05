@@ -1,4 +1,4 @@
-﻿namespace CapaNavDoc.ViewModel
+﻿namespace CapaNavDoc.ViewModel.User
 {
     public class UserEditionViewModel : MyLayoutViewModel
     {
