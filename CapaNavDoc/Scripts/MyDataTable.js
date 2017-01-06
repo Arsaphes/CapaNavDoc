@@ -35,6 +35,18 @@ function GetDateLinkColumn(url, formTitle, formWidth, editForm, dataTableId, col
     ];
 }
 
+function GetExpandColumn() {
+    return [
+        {
+            "bSortable": false,
+            "bSearchable": false,
+            "mRender": function(data, type, full) {
+                return '<img src="/Content/Icons/Add-Green-Button-icon.png" alt="Expand/Collapse" rel="' + full[0] + '"/>';
+            }
+        }
+    ];
+}
+
 function GetEmptyColumns(nbCol) {
     var cols = [];
     for (var i = 0; i < nbCol; i++) {
@@ -42,6 +54,7 @@ function GetEmptyColumns(nbCol) {
     }
     return cols;
 }
+
 
 function GetShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
     var showDialog = "ShowDialog(\"";
@@ -78,9 +91,9 @@ function  GetHtmlLink(cssClass, text, dialogTitle, dialogWidth, url, editFormId,
 }
 
 
-function SetDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW) {
+function SetDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW) {
     var columns = GetIdColumn()
-        .concat(GetEmptyColumns(1))
+        .concat(GetEmptyColumns(nbDataCol))
         .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
         .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
@@ -102,49 +115,25 @@ function SetDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmT
     //        });
 };
 
-function SetMasterDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, dvUrl) {
-
-    var editForm = "EditForm";
-    var confirmForm = "ConfirmationForm";
-
-    var idColumn = [
-        {   "sName": "ID",
-            "visible": false
-        },
-        {   "bSortable": false,
-            "bSearchable": false,
-            "mRender": function(data, type, full) {
-            return '<img src="/Content/Icons/Add-Green-Button-icon.png" alt="Expand/Collapse" rel="' + full[0] + '"/>';
-            }}];
-    var specialColumns = [
-        {   "sName": "Update",
-            "bSortable": false,
-            "mRender": function (data, type, full) {
-                var url = uUrl + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Pencil-icon.png", "Pencil", uFrmTitle, uFrmW, url, editForm, dtId); 
-            }},
-        {   "sName": "Delete",
-            "bSortable": false,
-            "mRender": function (data, type, full) {
-                var url = dUrl + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Close-2-icon.png", "Cross", dFrmTitle, dFrmW, url, confirmForm, dtId);
-            }}];
-    var all = idColumn.concat(colDef).concat(specialColumns);
+function SetMasterDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, dvUrl) {
+    var columns = GetIdColumn()
+        .concat(GetExpandColumn())
+        .concat(GetEmptyColumns(nbDataCol))
+        .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
+        .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
     var table = $("#" + dtId)
         .dataTable({
             "bServerSide": true,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
-            "aoColumns": all,
-            "columnDefs": [{ "className": "Column-Center", "targets": [all.length - 2, all.length - 1] }]
+            "aoColumns": columns,
+            "columnDefs": [{ "className": "Column-Center", "targets": [columns.length - 2, columns.length - 1] }]
         });
 
     $("#" + dtId + " tbody").on("click", "tr td img", function () {
-        
         var nTr = this.parentNode.parentNode;
         var image = this;
-
         if(!image.src.match("Minus-icon") && !image.src.match("Add-Green-Button-icon")) return;
 
         if (image.src.match("Minus-icon")) {
@@ -162,7 +151,6 @@ function SetMasterDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl,
                     url: form.attr("action"),
                     type: form.attr("method"),
                     data: form.serialize(),
-
                     success: function () {
                         form.remove();
                     }
@@ -174,54 +162,21 @@ function SetMasterDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl,
     });
 };
 
-function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
-
-    var editForm = "EditForm";
-    var confirmForm = "ConfirmationForm";
-    var monitoringCssClassRed = "Cursor-Pointer Background-Red";
-    var monitoringCssClassGreen = "Cursor-Pointer Background-Green";
-
-    var idColumn = [{"sName": "ID", "visible": false}];
-    var specialColumns = [
-        {   "sName": "CentersActions",
-            "bSortable": false,
-            "mRender": function(data, type, full) {
-                var url = uUrl3 + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Zoom-icon.png", "Magnifier", uFrmTitle3, uFrmW3, url, editForm, dtId);
-            }},
-        {   "sName": "Monitoring",
-            "bSortable": false,
-            "mRender": function(data, type, full) {
-                var url = uUrl2 + "?id=" + full[0];
-                var dateItems = full[10].split("-");
-                var date = new Date(parseInt(dateItems[2]), parseInt(dateItems[1]) - 1, parseInt(dateItems[0]));
-                var today = new Date();
-                var cssClass = date > today ? monitoringCssClassGreen : monitoringCssClassRed;
-                return GetHtmlLink(cssClass, full[10], uFrmTitle2, uFrmW2, url, editForm, dtId);
-            }},
-        {   "sName": "Update",
-            "bSortable": false,
-            "mRender": function(data, type, full) {
-                var url = uUrl + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Pencil-icon.png", "Pencil", uFrmTitle, uFrmW, url, editForm, dtId);
-            }},
-        {   "sName": "Delete",
-            "bSortable": false,
-            "mRender": function(data, type, full) {
-                var url = dUrl + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Close-2-icon.png", "Cross", dFrmTitle, dFrmW, url, confirmForm, dtId);
-            }}];
-    var all = idColumn.concat(colDef).concat(specialColumns);
+function SetEquipmentDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
+    var columns = GetIdColumn()
+        .concat(GetEmptyColumns(nbDataCol))
+        .concat(GetDateLinkColumn(uUrl2, uFrmTitle2, uFrmW2, editForm, dtId, 9))
+        .concat(GetImageColumn("/Content/Icons/Zoom-icon.png", "Magnifier", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId))
+        .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
+        .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
     $("#" + dtId).dataTable({
             "bServerSide": true,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
-            "aoColumns": all,
+            "aoColumns": columns,
             "columnDefs": [{ "className": "Column-Center", "targets": [all.length-4, all.length-2, all.length-1] }]});
 };
-
-
 
 function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
     var columns = GetIdColumn()

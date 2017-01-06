@@ -6,8 +6,8 @@
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" action="/Action/EditAction" method="post">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode" />
-    <input id="ActionId" type="hidden" name="Id" value="@Model.Id" />
+    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
+    <input id="ActionId" type="hidden" name="Id" value="@Model.Id"/>
     <table class="EditFormTable">
         <tr>
             <td>
@@ -16,11 +16,15 @@
             <td>
                 <input id="DescriptionTextBox-val.Required" type="text" name="Description" value="@Model.Description"
                        message="La description est obligatoire."
-                       validatorLabelId="DescriptionValidationMessage" /><br />
+                       validatorLabelId="DescriptionValidationMessage"/><br/>
                 <label id="DescriptionValidationMessage"></label>
             </td>
         </tr>
     </table>
 </form>
+
+<script>
+    $("input").input();
+</script>
 
 

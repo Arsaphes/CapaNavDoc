@@ -1,6 +1,6 @@
 ﻿@* ReSharper disable Html.PathError *@
-@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.Center.CenterListViewModel
+@using CapaNavDoc.ViewModel.Center
+@model CenterListViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -26,9 +26,7 @@
             SetMasterDataTable(
                 "CenterDataTable",
                 "/Center/AjaxHandler",
-                [
-                    { "sName: ": "Name" }
-                ],
+                1,
                 "@Url.Action("GetCenterUpdateView")",
                 "Mise à jour d*un atelier",
                 380,

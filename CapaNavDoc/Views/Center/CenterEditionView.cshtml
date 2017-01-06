@@ -1,13 +1,13 @@
 ﻿@* ReSharper disable Html.PathError *@
 
-@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.Center.CenterEditionViewModel
+@using CapaNavDoc.ViewModel.Center
+@model CenterEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" action="/Center/EditCenter" method="post">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode" />
-    <input id="CenterId" type="hidden" name="Id" value="@Model.Id" />
+    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
+    <input id="CenterId" type="hidden" name="Id" value="@Model.Id"/>
     <table class="EditFormTable">
         <tr>
             <td>
@@ -16,11 +16,15 @@
             <td>
                 <input id="NameTextBox-val.Required" type="text" name="Name" value="@Model.Name"
                        message="Le code est obligatoire."
-                       validatorLabelId="NameValidationMessage" /><br />
+                       validatorLabelId="NameValidationMessage"/><br/>
                 <label id="NameValidationMessage"></label>
             </td>
         </tr>
     </table>
 </form>
+
+<script>
+    $("input").input();
+</script>
 
 

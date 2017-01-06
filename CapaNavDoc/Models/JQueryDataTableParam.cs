@@ -1,4 +1,5 @@
-﻿namespace CapaNavDoc.Models
+﻿// ReSharper disable InconsistentNaming
+namespace CapaNavDoc.Models
 {
     /// <summary>
     /// Class that encapsulates most common parameters sent by DataTables plugin

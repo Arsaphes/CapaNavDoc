@@ -15,7 +15,7 @@ namespace CapaNavDoc.Models
         //Todo: Implement IsActive.
         public bool IsActive { get; set; }
 
-
+        // Todo: Try to remove Equals and GetHashCode.
         public override bool Equals(object obj)
         {
             User u = obj as User;
@@ -24,6 +24,7 @@ namespace CapaNavDoc.Models
 
         public override int GetHashCode()
         {
+            // ReSharper disable once NonReadonlyMemberInGetHashCode
             return Id;
         }
     }
