@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
-using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
@@ -42,7 +41,6 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetActionUpdateView(string id)
         {
-            //ActionEditionViewModel model = new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<ActionEditionViewModel>("Changer");
             return PartialView("ActionEditionView", new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new ActionEditionViewModel(), "Changer"));
         }
 

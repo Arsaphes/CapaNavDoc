@@ -1,4 +1,7 @@
-﻿function GetIdColumn() {
+﻿var editForm = "EditForm";
+var confirmForm = "ConfirmationForm";
+
+function GetIdColumn() {
     return [{ "sName": "ID", "visible": false }];
 }
 
@@ -42,7 +45,7 @@ function GetEmptyColumns(nbCol) {
 
 function GetShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
     var showDialog = "ShowDialog(\"";
-    showDialog += title;
+    showDialog += title.replace("'","&#39;");
     showDialog += "\", \"";
     showDialog += width;
     showDialog += "\", \"";
@@ -75,40 +78,23 @@ function  GetHtmlLink(cssClass, text, dialogTitle, dialogWidth, url, editFormId,
 }
 
 
-
-
-
 function SetDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW) {
-
-    var editForm = "EditForm";
-    var confirmForm = "ConfirmationForm";
-
-    var idColumn = [{"sName": "ID", "visible": false}];
-    var specialColumns = [
-        {   "sName": "Update",
-            "bSortable": false,
-            "mRender": function(data, type, full) {
-                var url = uUrl + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Pencil-icon.png", "Pencil", uFrmTitle, uFrmW, url, editForm, dtId);
-            }},
-        {   "sName": "Delete",
-            "bSortable": false,
-            "mRender": function(data, type, full) {
-                var url = dUrl + "?id=" + full[0];
-                return GetHtmlImage("/Content/Icons/Close-2-icon.png", "Cross", dFrmTitle, dFrmW, url, confirmForm, dtId);
-            }}];
-    var all = idColumn.concat(colDef).concat(specialColumns);
+    var columns = GetIdColumn()
+        .concat(GetEmptyColumns(1))
+        .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
+        .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
     $("#" + dtId).dataTable({
-            "bServerSide": true,
-            "sAjaxSource": ajaxSrc,
-            "bProcessing": true,
-            "aoColumns": all,
-            //"fnServerParams": function (aoData) {
-            //    aoData.push({ "name": "mycolumn1", "value": $('#col1').val() });
-            //    aoData.push({ "name": "mycolumn2", "value": $('#col2').val() });
-            //},
-            "columnDefs": [{ "className": "Column-Center", "targets": [all.length-2, all.length-1] }]});
+        "bServerSide": true,
+        "sAjaxSource": ajaxSrc,
+        "bProcessing": true,
+        "aoColumns": columns,
+        //"fnServerParams": function (aoData) {
+        //    aoData.push({ "name": "mycolumn1", "value": $('#col1').val() });
+        //    aoData.push({ "name": "mycolumn2", "value": $('#col2').val() });
+        //},
+        "columnDefs": [{ "className": "Column-Center", "targets": [columns.length - 2, columns.length - 1] }]
+    });
     //$("#col1, #col2")
     //    .bind("keyup",
     //        function () {
@@ -238,10 +224,6 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
 
 
 function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
-
-    var editForm = "EditForm";
-    var confirmForm = "ConfirmationForm";
-
     var columns = GetIdColumn()
         .concat(GetEmptyColumns(nbDataCol))
         .concat(GetImageColumn("/Content/Icons/Adobe-PDF-Document-icon.png", "Pdf", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId, true))

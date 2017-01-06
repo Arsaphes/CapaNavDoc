@@ -1,5 +1,5 @@
-﻿@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.MaintenanceData.MaintenanceDataListViewModel
+﻿@using CapaNavDoc.ViewModel.MaintenanceData
+@model MaintenanceDataListViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -27,13 +27,13 @@
                 "/MaintenanceData/AjaxHandler",
                 8,
                 "@Url.Action("GetMaintenanceDataUpdateView")",
-                "Mise à jour d*une donnée d*entretien",
+                "Mise à jour d'une donnée d*entretien",
                 420,
                 "@Url.Action("GetConfirmationView")",
-                "Suppression d*une donnée d*entretien",
+                "Suppression d*une donnée d'entretien",
                 460,
                 "@Url.Action("GetEquipmentMonitoringView")",
-                "Mise à jour d*une veuille de donnée d*entretien",
+                "Mise à jour d'une veille de donnée d'entretien",
                 420,
                 "@Url.Action("GetPdfDocument")",
                 "Documentation PDF",

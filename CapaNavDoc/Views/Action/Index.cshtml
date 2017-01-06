@@ -1,5 +1,5 @@
-﻿@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.Action.ActionListViewModel
+﻿@using CapaNavDoc.ViewModel.Action
+@model ActionListViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -25,14 +25,12 @@
             SetDataTable(
                 "ActionDataTable",
                 "/Action/AjaxHandler",
-                [
-                    { "sName: ": "Description" }
-                ],
+                1,
                 "@Url.Action("GetActionUpdateView")",
-                "Mise à jour d*une action",
+                "Mise à jour d'une action",
                 380,
                 "@Url.Action("GetConfirmationView")",
-                "Suppression d*une action",
+                "Suppression d'une action",
                 460
             );
             document.getElementById("AdministrationLink").className += "ActiveLink";
