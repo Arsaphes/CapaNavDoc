@@ -194,13 +194,12 @@
     <Compile Include="ViewModel\Equipment\EquipmentCenterViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentDetailsViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentEditionViewModel.cs" />
-    <Compile Include="ViewModel\Equipment\EquipmentListViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentMonitoringViewModel.cs" />
     <Compile Include="ViewModel\FileUploadViewModel.cs" />
     <Compile Include="ViewModel\LoginUserViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataDetailsViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataEditionViewModel.cs" />
-    <Compile Include="ViewModel\MaintenanceData\MaintenanceDataListViewModel.cs" />
+    <Compile Include="ViewModel\MaintenanceData\MaintenanceDataIndexViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataMonitoringViewModel.cs" />
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\User\UserCallViewModel.cs" />

@@ -20,7 +20,8 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return new DefaultController<Equipment>().Index<EquipmentDetailsViewModel, EquipmentListViewModel>();
+            //return new DefaultController<Equipment>().Index<EquipmentDetailsViewModel, EquipmentListViewModel>();
+            return View("Index");
         }
 
         [HttpPost]
@@ -75,8 +76,12 @@ namespace CapaNavDoc.Controllers
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
             model = TableDataAdapter.PageList(model, param);
+            
+            string[][] data = model.Select(m => new[] {m.Id.ToString(), m.PartNumber, m.Manufacturer, m.Name, m.Type,
+                m.Ata.ToString(), m.ActivityField, m.MechanicsGroup,
+                m.MaintenanceDataId.ToInt32() == 0 ? "" : mbl.Get(m.MaintenanceDataId.ToInt32()).Name,
+                m.MonitoringDate, m.MaintenanceDataId  }).ToArray();
 
-            string[][] data = model.Select(m => new[] {m.Id.ToString(), m.PartNumber, m.Manufacturer, m.Name, m.Type, m.Ata.ToString(), m.ActivityField, m.MechanicsGroup, m.MaintenanceDataId.ToInt32() == 0 ? "" : mbl.Get(m.MaintenanceDataId.ToInt32()).Name, m.MonitoringDate}).ToArray();
             return Json(new
             {
                 param.sEcho,

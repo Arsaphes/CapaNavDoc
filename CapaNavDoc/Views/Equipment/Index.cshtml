@@ -1,7 +1,4 @@
-﻿@using CapaNavDoc.ViewModel.Equipment
-@model EquipmentListViewModel
-
-@{
+﻿@{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 
@@ -25,7 +22,7 @@
             SetEquipmentDataTable(
                 "EquipmentDataTable",
                 "/Equipment/AjaxHandler",
-                8,
+                7,
                 "@Url.Action("GetEquipmentUpdateView")",
                 "Mise à jour d*un équipement",
                 480,
@@ -37,7 +34,8 @@
                 380,
                 "@Url.Action("GetEquipmentCenters")",
                 "Liens Centres/Actions de l*équipement",
-                600
+                600,
+                "/MaintenanceData/Index"
             );
             document.getElementById("AdministrationLink").className += "ActiveLink";
         });

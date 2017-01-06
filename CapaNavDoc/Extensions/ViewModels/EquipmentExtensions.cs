@@ -86,7 +86,7 @@ namespace CapaNavDoc.Extensions.ViewModels
                 Manufacturer = equipment.Manufacturer,
                 MechanicsGroup = equipment.MechanicsGroup,
                 DocumentsReferences = bl.GetList().Select(md => md.Name).ToList(),
-                MaintenanceDataId = bl.Get(equipment.MaintenanceDataId).Name,
+                MaintenanceDataId = equipment.MaintenanceDataId == 0 ? "" : bl.Get(equipment.MaintenanceDataId).Name,
                 EditionMode = "Changer"
             };
         }

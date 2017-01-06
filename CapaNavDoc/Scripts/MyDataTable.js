@@ -29,11 +29,24 @@ function GetDateLinkColumn(url, formTitle, formWidth, editForm, dataTableId, col
                 var date = new Date(parseInt(dateItems[2]), parseInt(dateItems[1]) - 1, parseInt(dateItems[0]));
                 var today = new Date();
                 var cssClass = date > today ? monitoringCssClassGreen : monitoringCssClassRed;
-                return GetHtmlLink(cssClass, full[9], formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
+                return GetHtmlLink(cssClass, full[colNumber], formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
             }
         }
     ];
 }
+
+function GetLinkColumnByName(url, colNumber) {
+        return [
+        {
+            "bSortable": false,
+            "mRender": function(data, type, full) {
+                var fullUrl = url + "?name=" + full[colNumber];
+                return GetHtmlLinkNoDialog("", full[colNumber], fullUrl);
+            }
+        }
+    ];
+}
+
 
 function GetExpandColumn() {
     return [
@@ -81,10 +94,19 @@ function GetHtmlImage(icon, alt, dialogTitle, dialogWidth, url, editFormId, data
     return result;
 }
 
-function  GetHtmlLink(cssClass, text, dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) {
+function GetHtmlLink(cssClass, text, dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) {
     var result = "<a class=\'";
     result += cssClass;
     result += "\' onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) + "\'>";
+    result += text;
+    result += "</a>";
+    return result;
+}
+
+function GetHtmlLinkNoDialog(cssClass, text, url) {
+    var result = "<a class=\'";
+    result += cssClass;
+    result += "\' href=\'" + url + "\'>";
     result += text;
     result += "</a>";
     return result;
@@ -122,8 +144,7 @@ function SetMasterDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dU
         .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
         .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
-    var table = $("#" + dtId)
-        .dataTable({
+    var table = $("#" + dtId).dataTable({
             "bServerSide": true,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
@@ -162,23 +183,26 @@ function SetMasterDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dU
     });
 };
 
-function SetEquipmentDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
+function SetEquipmentDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3, mdUrl) {
     var columns = GetIdColumn()
         .concat(GetEmptyColumns(nbDataCol))
+        .concat(GetLinkColumnByName(mdUrl, 8))
         .concat(GetDateLinkColumn(uUrl2, uFrmTitle2, uFrmW2, editForm, dtId, 9))
         .concat(GetImageColumn("/Content/Icons/Zoom-icon.png", "Magnifier", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId))
         .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
         .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
-    $("#" + dtId).dataTable({
+        $("#" + dtId).dataTable({
             "bServerSide": true,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
             "aoColumns": columns,
             "columnDefs": [{ "className": "Column-Center", "targets": [columns.length-3, columns.length-2, columns.length-1] }]});
+
+    
 };
 
-function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
+function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3, dftSearch) {
     var columns = GetIdColumn()
         .concat(GetEmptyColumns(nbDataCol))
         .concat(GetImageColumn("/Content/Icons/Adobe-PDF-Document-icon.png", "Pdf", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId, true))
@@ -186,10 +210,13 @@ function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, 
         .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
         .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
-    $("#" + dtId).dataTable({
+    var table = $("#" + dtId).DataTable({
             "bServerSide": true,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
             "aoColumns": columns,
             "columnDefs": [{ "className": "Column-Center", "targets": [columns.length-4, columns.length-2, columns.length-1] }]});
+    if (dftSearch === "") return;
+
+   table.search(dftSearch).draw();
 };

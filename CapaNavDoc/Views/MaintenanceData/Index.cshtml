@@ -1,5 +1,5 @@
 ﻿@using CapaNavDoc.ViewModel.MaintenanceData
-@model MaintenanceDataListViewModel
+@model MaintenanceDataIndexViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -12,8 +12,8 @@
 
 @section HeaderSection
 {
-    <link href="~/Content/datatables.css" rel="stylesheet" />
-    <link href="~/Content/MyDataTableStyle.css" rel="stylesheet" />
+    <link href="~/Content/datatables.css" rel="stylesheet"/>
+    <link href="~/Content/MyDataTableStyle.css" rel="stylesheet"/>
 
     <script src="~/Scripts/datatables.js"></script>
     <script src="~/Scripts/Validations.js"></script>
@@ -37,10 +37,11 @@
                 420,
                 "@Url.Action("GetPdfDocument")",
                 "Documentation PDF",
-                420
+                420,
+                "@Model.MaintenanceDataName"
             );
-            document.getElementById("AdministrationLink").className += "ActiveLink";
-        });
+        document.getElementById("AdministrationLink").className += "ActiveLink";
+    });
     </script>
 }
 

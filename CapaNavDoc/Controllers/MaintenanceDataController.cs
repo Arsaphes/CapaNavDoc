@@ -19,9 +19,9 @@ namespace CapaNavDoc.Controllers
     public class MaintenanceDataController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
-            return new DefaultController<MaintenanceData>().Index<MaintenanceDataDetailsViewModel, MaintenanceDataListViewModel>();
+            return View("Index", new MaintenanceDataIndexViewModel {MaintenanceDataName = name});
         }
 
         [HttpPost]
