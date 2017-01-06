@@ -1,5 +1,5 @@
-﻿@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.User.UserListViewModel
+﻿@using CapaNavDoc.ViewModel.User
+@model UserListViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -25,12 +25,7 @@
             SetDataTable(
                 "UserDataTable",
                 "/User/AjaxHandler",
-                [
-                    { "sName": "FirstName" },
-                    { "sName": "LastName" },
-                    { "sName": "UserName" },
-                    { "sName": "Password", "bSortable": false }
-                ],
+                4,
                 "@Url.Action("GetUserUpdateView")",
                 "Mise à jour d*un utilisateur",
                 380,
@@ -66,7 +61,7 @@
             <tfoot>
             <tr>
                 @*<td><input id="col1" type="text" style="width: 100%;"/></td>
-            <td><input id="col2" type="text" style="width: 100%;"/></td>*@
+                <td><input id="col2" type="text" style="width: 100%;"/></td>*@
                 <td colspan="7"><button id="AddUserButton" type="button" onclick="ShowDialog('Ajout d\'un utilisateur', 380, '@Url.Action("GetUserInsertView")', 'EditForm', 'UserDataTable');">Ajouter un utilisateur</button></td>
             </tr>
             </tfoot>

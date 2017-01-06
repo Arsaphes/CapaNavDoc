@@ -1,7 +1,6 @@
 ﻿@* ReSharper disable Html.PathError *@
-
-@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.User.UserEditionViewModel
+@using CapaNavDoc.ViewModel.User
+@model UserEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet"/>
 
@@ -56,3 +55,6 @@
     </table>
 </form>
 
+<script>
+    $("input").input();
+</script>
