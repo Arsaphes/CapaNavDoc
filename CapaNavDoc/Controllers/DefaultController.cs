@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
-using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models.BusinessLayers;
 
 namespace CapaNavDoc.Controllers
@@ -14,7 +13,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<T> bl = new BusinessLayer<T>(new CapaNavDocDal());
             List<T> mDatas = bl.GetList();
-            List<TD> mDataDetails = mDatas.Select(d => d.ToModel<TD>()).ToList();
+            List<TD> mDataDetails = mDatas.Select(d => (TD)d.ToModel(new TD())).ToList();
 
             TL tl = new TL();
             typeof(TL).GetProperties()[0].SetValue(tl, mDataDetails);
@@ -23,7 +22,7 @@ namespace CapaNavDoc.Controllers
             return View("Index", tl);
         }
 
-        public void Edit(object editionViewModel) 
+        public T Edit(object editionViewModel)
         {
             BusinessLayer<T> bl;
 
@@ -31,13 +30,15 @@ namespace CapaNavDoc.Controllers
             {
                 case "Ajouter":
                     bl = new BusinessLayer<T>(new CapaNavDocDal());
-                    bl.Insert(editionViewModel.ToModel<T>());
-                    break;
+                    return bl.Insert((T)editionViewModel.ToModel(new T()));
 
                 case "Changer":
                     bl = new BusinessLayer<T>(new CapaNavDocDal());
-                    bl.Update(editionViewModel.ToModel<T>());
-                    break;
+                    object model = bl.Get(editionViewModel.GetType().GetProperty("Id").GetValue(editionViewModel).ToString().ToInt32());
+                    return bl.Update((T)editionViewModel.ToModel(model));
+
+                default:
+                    return null;
             }
         }
 

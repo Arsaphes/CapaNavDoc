@@ -1,0 +1,39 @@
+﻿@* ReSharper disable Html.PathError *@
+
+@using CapaNavDoc.ViewModel.MaintenanceData
+@model MaintenanceDataMonitoringViewModel
+
+<link href="~/Content/EditFormStyle.css" rel="stylesheet" />
+
+<form id="EditForm" method="post" action="/MaintenanceData/UpdateMaintenanceDataMonitoring">
+    <input type="hidden" name="MaintenanceDataId" value="@Model.MaintenanceDataId" />
+    <table class="EditFormTable">
+        <tr>
+            <td>Responsable:</td>
+            <td>
+                @Html.DropDownListFor(m => m.SelectedUserCall, new SelectList(Model.Users))
+            </td>
+        </tr>
+        <tr>
+            <td>Date:</td>
+            <td>
+                <input id="Date-val.DateFormat" type="text" name="Date" value="@Model.Date"
+                       message="La date doit être au format 'jj-mm-aaaa'."
+                       validatorLabelId="Date-ValidationMessage" /><br />
+                <label id="Date-ValidationMessage"></label>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script>
+    $("input").input();
+
+    $('input[id="Date-val.DateFormat"]').datepicker({
+        dateFormat: "dd-mm-yy",
+        dayNames: [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" ],
+        dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],
+        firstDay: 1,
+        monthNames: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre" ]
+    });
+</script>

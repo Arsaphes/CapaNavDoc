@@ -15,18 +15,22 @@ namespace CapaNavDoc.ViewModel.MaintenanceData
         public string Sender { get; set; }
 
         [Column(Column = 3)]
+        public string DocumentReference { get; set; }
+
+        [Column(Column = 4)]
+        public string DocumentPartNumber { get; set; }
+
+        [Column(Column = 5)]
         public string Review { get; set; }
 
         public string Date { get; set; }
 
-        [Column(Column = 5)]
+        [Column(Column = 7)]
         public string Name { get; set; }
 
-        [Column(Column = 6)]
+        [Column(Column = 8)]
         public string OnCertificate { get; set; }
 
-        [Column(Column = 7)]
-        public string DocumentLink { get; set; }
-
+        public string MonitoringDate { get; set; }
     }
 }

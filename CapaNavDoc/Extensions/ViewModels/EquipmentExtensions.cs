@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
 using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
-using CapaNavDoc.ViewModel;
 using CapaNavDoc.ViewModel.Action;
 using CapaNavDoc.ViewModel.Center;
 using CapaNavDoc.ViewModel.Equipment;
@@ -51,8 +49,8 @@ namespace CapaNavDoc.Extensions.ViewModels
             EquipmentCenterViewModel model = new EquipmentCenterViewModel
             {
                 EquipmentId = equipment.Id.ToString(),
-                Centers = new List<CenterDetailsViewModel>(cbl.GetList().Select(c => c.ToModel<CenterDetailsViewModel>())),
-                Actions = new List<ActionDetailsViewModel>(abl.GetList().Select(a => a.ToModel<ActionDetailsViewModel>()))
+                Centers = new List<CenterDetailsViewModel>(cbl.GetList().Select(c => (CenterDetailsViewModel)c.ToModel(new CenterDetailsViewModel()))),
+                Actions = new List<ActionDetailsViewModel>(abl.GetList().Select(a => (ActionDetailsViewModel)a.ToModel(new ActionDetailsViewModel())))
             };
             model.Selections = new bool[model.Centers.Count][];
             model.TableColumns = (model.Actions.Count + 1).ToString();

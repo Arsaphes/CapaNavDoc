@@ -43,7 +43,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetUserUpdateView(string id)
         {
-            return PartialView("UserEditionView", new BusinessLayer<User>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<UserEditionViewModel>("Changer"));
+            return PartialView("UserEditionView", new BusinessLayer<User>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new UserEditionViewModel(), "Changer"));
         }
 
         [HttpGet]
@@ -64,7 +64,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
-            List<UserDetailsViewModel> model = new List<UserDetailsViewModel>(bl.GetList().Select(u => u.ToModel<UserDetailsViewModel>()));
+            List<UserDetailsViewModel> model = new List<UserDetailsViewModel>(bl.GetList().Select(u => (UserDetailsViewModel)u.ToModel(new UserDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

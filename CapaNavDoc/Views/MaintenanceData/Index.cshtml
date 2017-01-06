@@ -22,24 +22,22 @@
 
     <script>
         $(function() {
-            SetDataTable(
+            SetMaintenanceDataDataTable(
                 "MaintenanceDataDataTable",
                 "/MaintenanceData/AjaxHandler",
-                [
-                    { "sName": "Type" },
-                    { "sName": "Sender" },
-                    { "sName": "Review" },
-                    { "sName": "Date" },
-                    { "sName": "Name" },
-                    { "sName": "OnCertificate" },
-                    { "sName": "DocumentLink", "bSortable": false }
-                ],
+                8,
                 "@Url.Action("GetMaintenanceDataUpdateView")",
                 "Mise à jour d*une donnée d*entretien",
                 420,
                 "@Url.Action("GetConfirmationView")",
                 "Suppression d*une donnée d*entretien",
-                460
+                460,
+                "@Url.Action("GetEquipmentMonitoringView")",
+                "Mise à jour d*une veuille de donnée d*entretien",
+                420,
+                "@Url.Action("GetPdfDocument")",
+                "Documentation PDF",
+                420
             );
             document.getElementById("AdministrationLink").className += "ActiveLink";
         });
@@ -55,23 +53,26 @@
     <div style="padding: 15px;">
         <table id="MaintenanceDataDataTable" class="display MyDataTable">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Emetteur</th>
-                    <th>Révision</th>
-                    <th>Date</th>
-                    <th>Désignation</th>
-                    <th>Mention Certificat</th>
-                    <th>Documentation</th>
-                    <th>Mod.</th>
-                    <th>Sup.</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Emetteur</th>
+                <th>Doc Ref</th>
+                <th>Doc P/N</th>
+                <th>Révision</th>
+                <th>Date</th>
+                <th>Désignation</th>
+                <th>Mention Certificat</th>
+                <th>Veille</th>
+                <th>PDF</th>
+                <th>Mod.</th>
+                <th>Sup.</th>
+            </tr>
             </thead>
             <tbody></tbody>
             <tfoot>
                 <tr>
-                    <td colspan="10"><button id="AddMaintenanceDataButton" type="button" onclick="ShowDialog('Ajout d\'une donnée d\'entretien', 420, '@Url.Action("GetMAintenanceDataInsertView")', 'EditForm', 'MaintenanceDataDataTable');">Ajouter une donnée d'entretien</button></td>
+                    <td colspan="13"><button id="AddMaintenanceDataButton" type="button" onclick="ShowDialog('Ajout d\'une donnée d\'entretien', 420, '@Url.Action("GetMAintenanceDataInsertView")', 'EditForm', 'MaintenanceDataDataTable');">Ajouter une donnée d'entretien</button></td>
                 </tr>
             </tfoot>
         </table>

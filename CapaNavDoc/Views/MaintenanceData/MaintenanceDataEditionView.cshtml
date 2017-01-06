@@ -27,8 +27,27 @@
             <td>
                 <input id="Sender-TextBox-val.Required" type="text" name="Sender" value="@Model.Sender"
                        message="L'emetteur est obligatoire."
-                       validatorLabelId="Sender-ValidationMessage"/><br/>
+                       validatorLabelId="Sender-ValidationMessage" /><br />
                 <label id="Sender-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Référence Document:
+            </td>
+            <td>
+                <input id="DocumentReference-TextBox-val.Required" type="text" name="DocumentReference" value="@Model.DocumentReference"
+                       message="La référence document est obligatoire."
+                       validatorLabelId="DocumentReference-ValidationMessage" /><br />
+                <label id="DocumentReference-ValidationMessage"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                P/N Document:
+            </td>
+            <td>
+                <input id="DocumentPartNumber-TextBox" type="text" name="Sender" value="@Model.DocumentPartNumber"/>
             </td>
         </tr>
         <tr>
@@ -70,17 +89,6 @@
             </td>
             <td>
                 @Html.DropDownListFor(m => m.OnCertificate, new SelectList(new[] {"Oui", "Non"}), new {@id= "CertificateSelection" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Documentation:
-            </td>
-            <td>
-                <input id="DocumentLink-TextBox-val.Required" type="text" name="DocumentLink" value="@Model.DocumentLink"
-                       message="Le lien vers la documentation est obligatoire."
-                       validatorLabelId="DocumentLink-ValidationMessage"/><br/>
-                <label id="DocumentLink-ValidationMessage"></label>
             </td>
         </tr>
         <tr>

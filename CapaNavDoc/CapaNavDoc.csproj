@@ -113,6 +113,7 @@
     <Content Include="Content\Icons\Actions-go-next-icon.png" />
     <Content Include="Content\Icons\Actions-go-previous-icon.png" />
     <Content Include="Content\Icons\Add-Green-Button-icon.png" />
+    <Content Include="Content\Icons\Adobe-PDF-Document-icon.png" />
     <Content Include="Content\Icons\Arrows-icon.png" />
     <Content Include="Content\Icons\Close-2-icon.png" />
     <Content Include="Content\Icons\maintenance-icon.png" />
@@ -133,6 +134,7 @@
     <Content Include="Content\Theme\Base\images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\Theme\Base\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\Theme\Base\jquery-ui.css" />
+    <Content Include="Drop Tables SQLQuery.sql" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Scripts\Dialog.js" />
     <Content Include="Scripts\Extensions.js" />
@@ -163,8 +165,9 @@
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
+    <Compile Include="Extensions\ViewModels\MaintenanceDataExtensions.cs" />
     <Compile Include="Extensions\ViewModels\UserExtensions.cs" />
-    <Compile Include="Extensions\ViewModels\ViewModelExtensions.cs" />
+    <Compile Include="Extensions\ModelExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,6 +201,7 @@
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataDetailsViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataEditionViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataListViewModel.cs" />
+    <Compile Include="ViewModel\MaintenanceData\MaintenanceDataMonitoringViewModel.cs" />
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\User\UserCallViewModel.cs" />
     <Compile Include="ViewModel\User\UserDetailsViewModel.cs" />
@@ -224,6 +228,7 @@
     <Content Include="Views\Center\CenterUsersView.cshtml" />
     <Content Include="Views\MaintenanceData\Index.cshtml" />
     <Content Include="Views\MaintenanceData\MaintenanceDataEditionView.cshtml" />
+    <Content Include="Views\MaintenanceData\MaintenanceDataMonitoringView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

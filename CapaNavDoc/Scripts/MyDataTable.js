@@ -1,4 +1,46 @@
-﻿function GetShowDialog(title, width, url, editFormId, dataTableId) {
+﻿function GetIdColumn() {
+    return [{ "sName": "ID", "visible": false }];
+}
+
+function GetImageColumn(icon, alt, url, formTitle, formWidth, editForm, dataTableId, newWindow) {
+    return [
+        {
+            "bSortable": false,
+            "mRender": function(data, type, full) {
+                var fullUrl = url + "?id=" + full[0];
+                return GetHtmlImage(icon, alt, formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
+            }
+        }
+    ];
+}
+
+function GetDateLinkColumn(url, formTitle, formWidth, editForm, dataTableId, colNumber, newWindow) {
+    var monitoringCssClassRed = "Cursor-Pointer Background-Red";
+    var monitoringCssClassGreen = "Cursor-Pointer Background-Green";
+    return [
+        {
+            "bSortable": false,
+            "mRender": function(data, type, full) {
+                var fullUrl = url + "?id=" + full[0];
+                var dateItems = full[colNumber].split("-");
+                var date = new Date(parseInt(dateItems[2]), parseInt(dateItems[1]) - 1, parseInt(dateItems[0]));
+                var today = new Date();
+                var cssClass = date > today ? monitoringCssClassGreen : monitoringCssClassRed;
+                return GetHtmlLink(cssClass, full[9], formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
+            }
+        }
+    ];
+}
+
+function GetEmptyColumns(nbCol) {
+    var cols = [];
+    for (var i = 0; i < nbCol; i++) {
+        cols = cols.concat([null]);
+    }
+    return cols;
+}
+
+function GetShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
     var showDialog = "ShowDialog(\"";
     showDialog += title;
     showDialog += "\", \"";
@@ -9,26 +51,31 @@
     showDialog += editFormId,
     showDialog += "\", \"";
     showDialog += dataTableId;
+    showDialog += "\", \"";
+    showDialog += newWindow;
     showDialog += "\")";
     return showDialog;
 }
 
-function GetHtmlImage(icon, alt, dialogTitle, dialogWidth, url, editFormId, dataTableId) {
+function GetHtmlImage(icon, alt, dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) {
     var result = "<img class=\'Cursor-Pointer\' src=";
     result += "\'" + icon + "\' ";
     result += "alt=\'" + alt + "\' ";
-    result += "onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId) + "\' />";  
+    result += "onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) + "\' />";  
     return result;
 }
 
-function  GetHtmlLink(cssClass, text, dialogTitle, dialogWidth, url, editFormId, dataTableId) {
+function  GetHtmlLink(cssClass, text, dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) {
     var result = "<a class=\'";
     result += cssClass;
-    result += "\' onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId) + "\'>";
+    result += "\' onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) + "\'>";
     result += text;
     result += "</a>";
     return result;
 }
+
+
+
 
 
 function SetDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW) {
@@ -186,4 +233,26 @@ function SetEquipmentDataTable(dtId, ajaxSrc, colDef, uUrl, uFrmTitle, uFrmW, dU
             "bProcessing": true,
             "aoColumns": all,
             "columnDefs": [{ "className": "Column-Center", "targets": [all.length-4, all.length-2, all.length-1] }]});
+};
+
+
+
+function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {
+
+    var editForm = "EditForm";
+    var confirmForm = "ConfirmationForm";
+
+    var columns = GetIdColumn()
+        .concat(GetEmptyColumns(nbDataCol))
+        .concat(GetImageColumn("/Content/Icons/Adobe-PDF-Document-icon.png", "Pdf", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId, true))
+        .concat(GetDateLinkColumn(uUrl2, uFrmTitle2, uFrmW2, editForm, dtId, 9))
+        .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
+        .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
+
+    $("#" + dtId).dataTable({
+            "bServerSide": true,
+            "sAjaxSource": ajaxSrc,
+            "bProcessing": true,
+            "aoColumns": columns,
+            "columnDefs": [{ "className": "Column-Center", "targets": [columns.length-4, columns.length-2, columns.length-1] }]});
 };

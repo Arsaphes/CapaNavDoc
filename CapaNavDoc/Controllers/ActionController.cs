@@ -42,9 +42,8 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetActionUpdateView(string id)
         {
-            ActionEditionViewModel model = new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<ActionEditionViewModel>("Changer");
-
-            return PartialView("ActionEditionView", model);
+            //ActionEditionViewModel model = new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<ActionEditionViewModel>("Changer");
+            return PartialView("ActionEditionView", new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new ActionEditionViewModel(), "Changer"));
         }
 
         [HttpGet]
@@ -65,7 +64,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Action> bl = new BusinessLayer<Action>(new CapaNavDocDal());
-            List<ActionDetailsViewModel> model = new List<ActionDetailsViewModel>(bl.GetList().Select(a => a.ToModel<ActionDetailsViewModel>()));
+            List<ActionDetailsViewModel> model = new List<ActionDetailsViewModel>(bl.GetList().Select(a => (ActionDetailsViewModel)a.ToModel(new ActionDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

@@ -42,7 +42,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetCenterUpdateView(string id)
         {
-            return PartialView("CenterEditionView", new BusinessLayer<Center>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<CenterEditionViewModel>("Changer"));
+            return PartialView("CenterEditionView", new BusinessLayer<Center>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new CenterEditionViewModel(), "Changer"));
         }
 
         [HttpGet]
@@ -63,7 +63,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
-            List<CenterDetailsViewModel> model = new List<CenterDetailsViewModel>(bl.GetList().Select(c => c.ToModel<CenterDetailsViewModel>()));
+            List<CenterDetailsViewModel> model = new List<CenterDetailsViewModel>(bl.GetList().Select(c => (CenterDetailsViewModel)c.ToModel(new CenterDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);

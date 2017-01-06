@@ -15,6 +15,7 @@ namespace CapaNavDoc.Models
         //Todo: Implement IsActive.
         public bool IsActive { get; set; }
 
+
         public override bool Equals(object obj)
         {
             User u = obj as User;

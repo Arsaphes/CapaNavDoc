@@ -1,5 +1,4 @@
 ﻿using CapaNavDoc.Models;
-using CapaNavDoc.ViewModel;
 using CapaNavDoc.ViewModel.User;
 
 namespace CapaNavDoc.Extensions.ViewModels

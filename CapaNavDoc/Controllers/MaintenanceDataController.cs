@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,6 +12,7 @@ using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 using CapaNavDoc.ViewModel.MaintenanceData;
+using CapaNavDoc.ViewModel.User;
 
 namespace CapaNavDoc.Controllers
 {
@@ -25,19 +27,21 @@ namespace CapaNavDoc.Controllers
         [HttpPost]
         public void EditMaintenanceData(MaintenanceDataEditionViewModel model)
         {
-            new DefaultController<MaintenanceData>().Edit(model);
-
+            MaintenanceData md = new DefaultController<MaintenanceData>().Edit(model);
             if (model.FileUpload == null) return;
 
-            byte[] buffer = new byte[32 * 1024];
-            int bytesRead;
-            string fileName = Path.GetFileName(model.FileUpload.FileName);
-            Stream output = new FileStream(Server.MapPath($"~\\App_Data\\{fileName}"), FileMode.Create);
-            while ((bytesRead = model.FileUpload.InputStream.Read(buffer, 0, buffer.Length)) != 0)
+            byte[] buffer = new byte[32*1024];
+            using (MemoryStream ms = new MemoryStream())
             {
-                output.Write(buffer, 0, bytesRead);
+                int read;
+                while ((read = model.FileUpload.InputStream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                MaintenanceData m = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(md.Id);
+                m.Document = ms.ToArray();
+                new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Update(m);
             }
-
         }
 
         [HttpPost]
@@ -56,7 +60,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetMaintenanceDataUpdateView(string id)
         {
-            return PartialView("MaintenanceDataEditionView", new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<MaintenanceDataEditionViewModel>("Changer"));
+            return PartialView("MaintenanceDataEditionView", new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new MaintenanceDataEditionViewModel(), "Changer"));
         }
 
         [HttpGet]
@@ -77,13 +81,13 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
-            List<MaintenanceDataDetailsViewModel> model = new List<MaintenanceDataDetailsViewModel>(bl.GetList().Select(d => d.ToModel<MaintenanceDataDetailsViewModel>()));
+            List<MaintenanceDataDetailsViewModel> model = new List<MaintenanceDataDetailsViewModel>(bl.GetList().Select(d => (MaintenanceDataDetailsViewModel)d.ToModel(new MaintenanceDataDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
             model = TableDataAdapter.PageList(model, param);
 
-            string[][] data = model.Select(m => new[] { m.Id.ToString(), m.Type, m.Sender, m.Review, m.Date, m.Name, m.OnCertificate, m.DocumentLink }).ToArray();
+            string[][] data = model.Select(m => new[] { m.Id.ToString(), m.Type, m.Sender, m.DocumentReference, m.DocumentPartNumber, m.Review, m.Date, m.Name, m.OnCertificate, m.MonitoringDate }).ToArray();
             return Json(new
             {
                 param.sEcho,
@@ -91,6 +95,42 @@ namespace CapaNavDoc.Controllers
                 iTotalDisplayRecords = param.iDisplayLength,
                 aaData = data
             }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public ActionResult GetPdfDocument(string id)
+        {
+            byte[] byteArray = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32()).Document;
+            if (byteArray == null || byteArray.Length == 0) return null;
+            MemoryStream pdfStream = new MemoryStream();
+            pdfStream.Write(byteArray, 0, byteArray.Length);
+            pdfStream.Position = 0;
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+
+        [HttpGet]
+        public PartialViewResult GetEquipmentMonitoringView(string id)
+        {
+            MaintenanceData md = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32());
+            MaintenanceDataMonitoringViewModel model = md.ToMaintenanceDataMonitoringViewModel();
+
+            return PartialView("MaintenanceDataMonitoringView", model);
+        }
+
+        [HttpPost]
+        public void UpdateMaintenanceDataMonitoring(MaintenanceDataMonitoringViewModel model)
+        {
+            BusinessLayer<MaintenanceData> mdbl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
+            BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
+            MaintenanceData md = mdbl.Get(model.MaintenanceDataId.ToInt32());
+            UserCallViewModel userCallViewModel = ubl.GetList().Select(u => u.ToUserCallViewModel()).FirstOrDefault(u => u.UserCall == model.SelectedUserCall);
+            if (userCallViewModel == null) return;
+
+            md.MonitoringUserId = userCallViewModel.UserId.ToInt32();
+            md.MonitoringDate = DateTime.ParseExact(model.Date, "dd-mm-yyyy", CultureInfo.InvariantCulture);
+            mdbl.Update(md);
         }
     }
 }

@@ -26,7 +26,6 @@ namespace CapaNavDoc.Controllers
                 Name = "Adaptateur Magnéto",
                 Manufacturer = "TCM",
                 PartNumber = "632653A1",
-                DocumentsReferences = "M-16",
                 MonitoringDate = SqlDateTime.MinValue.Value
             });
             ebl.Insert(new Equipment
@@ -37,8 +36,6 @@ namespace CapaNavDoc.Controllers
                 Name = "Magnétos Unison",
                 Manufacturer = "Unison (ex Slick)",
                 PartNumber = "4270",
-                DocumentsReferences = "Overhaul Manual?",
-                DocumentsPartNumber = "OL L1037 RevH Séries 4200 - 6200",
                 MonitoringDate = SqlDateTime.MinValue.Value
             });
 

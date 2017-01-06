@@ -45,7 +45,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentUpdateView(string id)
         {
-            return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel<EquipmentEditionViewModel>("Changer"));
+            return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new EquipmentEditionViewModel(), "Changer"));
         }
 
         [HttpGet]
@@ -66,7 +66,7 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => e.ToModel<EquipmentDetailsViewModel>()));
+            List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => (EquipmentDetailsViewModel)e.ToModel(new EquipmentDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
@@ -86,8 +86,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentMonitoringView(string id)
         {
-            BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            Equipment equipment = bl.Get(id.ToInt32());
+            Equipment equipment = new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32());
             EquipmentMonitoringViewModel model = equipment.ToEquipmentMonitoringViewModel();
 
             return PartialView("EquipmentMonitoringView", model);
