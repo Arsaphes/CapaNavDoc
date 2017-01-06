@@ -28,12 +28,7 @@ namespace CapaNavDoc.ViewModel.Equipment
         public string MechanicsGroup { get; set; }
 
         [Column(Column = 8)]
-        public string DocumentsReferences { get; set; }
-
-        [Column(Column = 9)]
-        public string DocumentsPartNumber { get; set; }
-
-        //public string CenterName { get; set; }
+        public string MaintenanceDataId { get; set; }
 
         public string MonitoringDate { get; set; }
     }

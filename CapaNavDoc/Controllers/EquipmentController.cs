@@ -26,6 +26,8 @@ namespace CapaNavDoc.Controllers
         [HttpPost]
         public void EditEquipment(EquipmentEditionViewModel model)
         {
+            MaintenanceData md = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().FirstOrDefault(m => m.Name == model.MaintenanceDataId);
+            if (md != null) model.MaintenanceDataId = md.Id.ToString();
             new DefaultController<Equipment>().Edit(model);
         }
 
@@ -39,13 +41,14 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentInsertView()
         {
-            return PartialView("EquipmentEditionView", new EquipmentEditionViewModel { EditionMode = "Ajouter" });
+            return PartialView("EquipmentEditionView", new EquipmentEditionViewModel {EditionMode = "Ajouter", DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(md => md.Name).ToList()});
         }
 
         [HttpGet]
         public PartialViewResult GetEquipmentUpdateView(string id)
         {
-            return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new EquipmentEditionViewModel(), "Changer"));
+            // Todo: Change the way the edition mode is set. Should be by class property, not parameter.
+            return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToEquipmentEditionViewModel());
         }
 
         [HttpGet]
@@ -66,13 +69,14 @@ namespace CapaNavDoc.Controllers
         public ActionResult AjaxHandler(JQueryDataTableParam param)
         {
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
+            BusinessLayer<MaintenanceData> mbl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
             List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => (EquipmentDetailsViewModel)e.ToModel(new EquipmentDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
             model = TableDataAdapter.PageList(model, param);
 
-            string[][] data = model.Select(m => new[] { m.Id.ToString(), m.PartNumber, m.Manufacturer, m.Name, m.Type, m.Ata.ToString(), m.ActivityField, m.MechanicsGroup, m.DocumentsReferences, m.DocumentsPartNumber, m.MonitoringDate }).ToArray();
+            string[][] data = model.Select(m => new[] {m.Id.ToString(), m.PartNumber, m.Manufacturer, m.Name, m.Type, m.Ata.ToString(), m.ActivityField, m.MechanicsGroup, m.MaintenanceDataId.ToInt32() == 0 ? "" : mbl.Get(m.MaintenanceDataId.ToInt32()).Name, m.MonitoringDate}).ToArray();
             return Json(new
             {
                 param.sEcho,

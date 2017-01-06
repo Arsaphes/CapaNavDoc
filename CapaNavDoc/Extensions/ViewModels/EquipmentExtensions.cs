@@ -12,11 +12,6 @@ namespace CapaNavDoc.Extensions.ViewModels
 {
     public static class EquipmentExtensions
     {
-        /// <summary>
-        /// Set an Equipment Center/Action groups.
-        /// </summary>
-        /// <param name="equipment">The Equipment.</param>
-        /// <param name="model">The EquipmentCenterViewModel used to edit the Center/Action groups</param>
         public static void SetCenterActionGroups(this Equipment equipment, EquipmentCenterViewModel model)
         {
             string centerActions = "";
@@ -29,11 +24,6 @@ namespace CapaNavDoc.Extensions.ViewModels
             equipment.EquipmentCenterActionList = centerActions;
         }
 
-        /// <summary>
-        /// Get an EquipmentCenterViewModel from an Equipment used to edit the Center/Action groups.
-        /// </summary>
-        /// <param name="equipment">The Equipment.</param>
-        /// <returns>An EquipmentCenterViewModel.</returns>
         public static EquipmentCenterViewModel ToEquipmentCenterViewModel(this Equipment equipment)
         {
             Logger log = new Logger();
@@ -68,11 +58,6 @@ namespace CapaNavDoc.Extensions.ViewModels
             return model;
         }
 
-        /// <summary>
-        /// Get an EquipmentMonitoringViewModel from an Equipment used to edit the monitoring.
-        /// </summary>
-        /// <param name="equipment">The Equipment.</param>
-        /// <returns>An EquipmentMonitoringViewModel.</returns>
         public static EquipmentMonitoringViewModel ToEquipmentMonitoringViewModel(this Equipment equipment)
         {
             BusinessLayer<User> bl = new BusinessLayer<User>(new CapaNavDocDal());
@@ -83,6 +68,26 @@ namespace CapaNavDoc.Extensions.ViewModels
                 SelectedUserCall = bl.GetList().FirstOrDefault(u => u.Id == equipment.MonitoringUserId).ToUserCallViewModel().UserCall,
                 Date = equipment.MonitoringDate.ToString("dd-mm-yyyy"),
                 Users = bl.GetList().Select(u => u.ToUserCallViewModel().UserCall).ToList()
+            };
+        }
+
+        public static EquipmentEditionViewModel ToEquipmentEditionViewModel(this Equipment equipment)
+        {
+            BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
+
+            return new EquipmentEditionViewModel
+            {
+                Id = equipment.Id.ToString(),
+                Name = equipment.Name,
+                Type = equipment.Type,
+                Ata = equipment.Ata.ToString(),
+                PartNumber = equipment.PartNumber,
+                ActivityField = equipment.ActivityField,
+                Manufacturer = equipment.Manufacturer,
+                MechanicsGroup = equipment.MechanicsGroup,
+                DocumentsReferences = bl.GetList().Select(md => md.Name).ToList(),
+                MaintenanceDataId = bl.Get(equipment.MaintenanceDataId).Name,
+                EditionMode = "Changer"
             };
         }
     }

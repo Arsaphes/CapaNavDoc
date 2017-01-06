@@ -58,7 +58,7 @@ function GetEmptyColumns(nbCol) {
 
 function GetShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
     var showDialog = "ShowDialog(\"";
-    showDialog += title.replace("'","&#39;");
+    showDialog += title.replace(/\'/g,"&#39;");
     showDialog += "\", \"";
     showDialog += width;
     showDialog += "\", \"";
@@ -175,7 +175,7 @@ function SetEquipmentDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW,
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
             "aoColumns": columns,
-            "columnDefs": [{ "className": "Column-Center", "targets": [all.length-4, all.length-2, all.length-1] }]});
+            "columnDefs": [{ "className": "Column-Center", "targets": [columns.length-3, columns.length-2, columns.length-1] }]});
 };
 
 function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3) {

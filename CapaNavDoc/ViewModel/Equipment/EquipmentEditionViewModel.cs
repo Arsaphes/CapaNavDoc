@@ -1,4 +1,6 @@
-﻿namespace CapaNavDoc.ViewModel.Equipment
+﻿using System.Collections.Generic;
+
+namespace CapaNavDoc.ViewModel.Equipment
 {
     public class EquipmentEditionViewModel
     {
@@ -10,10 +12,8 @@
         public string Ata { get; set; }
         public string ActivityField { get; set; }
         public string MechanicsGroup { get; set; }
-        public string DocumentsReferences { get; set; }
-        public string DocumentsPartNumber { get; set; }
-        public string MonitoringUserId { get; set; }
-        public string MonitoringDate { get; set; }
+        public string MaintenanceDataId { get; set; }
+        public List<string> DocumentsReferences { get; set; }
 
         public string EditionMode { get; set; }
     }

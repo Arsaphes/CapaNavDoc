@@ -9,11 +9,6 @@ namespace CapaNavDoc.Extensions
 {
     public static class ModelExtensions
     {
-        //public static object ToModel<T>(this object modelView, string editionMode = null) where T : new()
-        //{
-        //    return modelView.ToModel(new T(), editionMode);
-        //}
-
         public static object ToModel(this object modelView, object model, string editionMode = null)
         {
             PropertyInfo[] modelViewProperties = modelView.GetType().GetProperties();

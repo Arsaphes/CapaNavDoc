@@ -1,75 +1,72 @@
 ﻿@* ReSharper disable Html.PathError *@
-
-@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.Equipment.EquipmentEditionViewModel
+@using CapaNavDoc.ViewModel.Equipment
+@model EquipmentEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" action="/Equipment/EditEquipment" method="post">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode" />
-    <input id="EquipmentId" type="hidden" name="Id" value="@Model.Id" />
+    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
+    <input id="EquipmentId" type="hidden" name="Id" value="@Model.Id"/>
     <table class="EditFormTable">
         <tr>
             <td>Part Number:</td>
             <td>
-                <input id="PartNumber-TextBox-val.Required" type="text" name="PartNumber" value="@Model.PartNumber" message="Le part number est obligatoire." validatorLabelId="PartNumber-ValidationMessage" /><br />
+                <input id="PartNumber-TextBox-val.Required" type="text" name="PartNumber" value="@Model.PartNumber" message="Le part number est obligatoire." validatorLabelId="PartNumber-ValidationMessage"/><br/>
                 <label id="PartNumber-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
             <td>Constructeur:</td>
             <td>
-                <input id="Manufacturer-TextBox-val.Required" type="text" name="Manufacturer" value="@Model.Manufacturer" message="Le constructeur est obligatoire." validatorLabelId="Manufacturer-ValidationMessage" /><br />
+                <input id="Manufacturer-TextBox-val.Required" type="text" name="Manufacturer" value="@Model.Manufacturer" message="Le constructeur est obligatoire." validatorLabelId="Manufacturer-ValidationMessage"/><br/>
                 <label id="Manufacturer-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
             <td>Désignation:</td>
             <td>
-                <input id="Name-TextBox-val.Required" type="text" name="Name" value="@Model.Name" message="La désignation est obligatoire."validatorLabelId="Name-ValidationMessage" /><br />
+                <input id="Name-TextBox-val.Required" type="text" name="Name" value="@Model.Name" message="La désignation est obligatoire."validatorLabelId="Name-ValidationMessage"/><br/>
                 <label id="Name-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
             <td>Type:</td>
             <td>
-                <input id="Type-TextBox" type="text" name="Type" value="@Model.Type" />
+                <input id="Type-TextBox" type="text" name="Type" value="@Model.Type"/>
             </td>
         </tr>
         <tr>
             <td>ATA:</td>
             <td>
-                <input id="Ata-TextBox-val.Required" type="text" name="Ata" value="@Model.Ata" message="Le code ATA est obligatoire." validatorLabelId="Ata-ValidationMessage" /><br />
+                <input id="Ata-TextBox-val.Required" type="text" name="Ata" value="@Model.Ata" message="Le code ATA est obligatoire." validatorLabelId="Ata-ValidationMessage"/><br/>
                 <label id="Ata-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
             <td>Domaine d'activité P145:</td>
             <td>
-                <input id="ActivityField-TextBox-val.Required" type="text" name="ActivityField" value="@Model.ActivityField" message="Le domaine d'activité est obligatoire." validatorLabelId="ActivityField-ValidationMessage" /><br />
+                <input id="ActivityField-TextBox-val.Required" type="text" name="ActivityField" value="@Model.ActivityField" message="Le domaine d'activité est obligatoire." validatorLabelId="ActivityField-ValidationMessage"/><br/>
                 <label id="ActivityField-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
             <td>Famille Tech Formation:</td>
             <td>
-                <input id="MechanicsGroup-TextBox-val.Required" type="text" name="MechanicsGroup" value="@Model.MechanicsGroup" message="Le groupe de formation est obligatoire." validatorLabelId="MechanicsGroup-ValidationMessage" /><br />
+                <input id="MechanicsGroup-TextBox-val.Required" type="text" name="MechanicsGroup" value="@Model.MechanicsGroup" message="Le groupe de formation est obligatoire." validatorLabelId="MechanicsGroup-ValidationMessage"/><br/>
                 <label id="MechanicsGroup-ValidationMessage"></label>
             </td>
         </tr>
         <tr>
             <td>Documentation:</td>
             <td>
-                <input id="DocumentsReferences-TextBox-val.Required" type="text" name="DocumentsReferences" value="@Model.DocumentsReferences" message="La référence documents est obligatoire." validatorLabelId="DocumentsReferences-ValidationMessage" /><br />
-                <label id="DocumentsReferences-ValidationMessage"></label>
-            </td>
-        </tr>
-        <tr>
-            <td>Documentation P/N:</td>
-            <td>
-                <input id="DocumentsPartNumber-TextBox" type="text" name="DocumentsPartNumber" value="@Model.DocumentsPartNumber" /><br />
+                @Html.DropDownListFor(m=>m.MaintenanceDataId, new SelectList(@Model.DocumentsReferences))
             </td>
         </tr>
     </table>
 </form>
+
+<script>
+    $("input").input();
+    $("select").selectmenu({ width: 204 });
+</script>
 

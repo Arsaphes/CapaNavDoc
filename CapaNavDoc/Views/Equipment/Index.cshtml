@@ -1,7 +1,5 @@
-﻿@* ReSharper disable Html.PathError *@
-
-@using CapaNavDoc.ViewModel
-@model CapaNavDoc.ViewModel.Equipment.EquipmentListViewModel
+﻿@using CapaNavDoc.ViewModel.Equipment
+@model EquipmentListViewModel
 
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -27,17 +25,7 @@
             SetEquipmentDataTable(
                 "EquipmentDataTable",
                 "/Equipment/AjaxHandler",
-                [
-                    { "sName": "PartNumber" },
-                    { "sName": "Manufacturer" },
-                    { "sName": "Name" },
-                    { "sName": "Type" },
-                    { "sName": "Ata" },
-                    { "sName": "ActivityField" },
-                    { "sName": "MechanicsGroup" },
-                    { "sName": "DocumentsReferences" },
-                    { "sName": "DocumentsPartNumber" }
-                ],
+                8,
                 "@Url.Action("GetEquipmentUpdateView")",
                 "Mise à jour d*un équipement",
                 480,
@@ -75,9 +63,8 @@
                 <th>Domaine d'activité</th>
                 <th>Famille Tech</th>
                 <th>Référence documentation</th>
-                <th>P/N documentation</th>
-                <th>Ateliers/Actions</th>
                 <th>Veille</th>
+                <th>At/Ac</th>
                 <th>Mod.</th>
                 <th>Sup.</th>
             </tr>
@@ -85,7 +72,7 @@
             <tbody></tbody>
             <tfoot>
             <tr>
-                <td colspan="14"><button id="AddEquipmentButton" type="button" onclick="ShowDialog('Ajout d\'un équipement', 480, '@Url.Action("GetEquipmentInsertView")', 'EditForm', 'EquipmentDataTable');">Ajouter un équipement</button></td>
+                <td colspan="13"><button id="AddEquipmentButton" type="button" onclick="ShowDialog('Ajout d\'un équipement', 480, '@Url.Action("GetEquipmentInsertView")', 'EditForm', 'EquipmentDataTable');">Ajouter un équipement</button></td>
             </tr>
             </tfoot>
         </table>
