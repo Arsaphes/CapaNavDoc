@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,7 +21,6 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //return new DefaultController<Equipment>().Index<EquipmentDetailsViewModel, EquipmentListViewModel>();
             return View("Index");
         }
 

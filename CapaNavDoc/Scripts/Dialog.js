@@ -34,20 +34,31 @@ function OpenHandler(container, url, newWindow) {
 
 function CancelHandler(container, editFormId) {
     var form = $("#" + editFormId);
-    form.remove();
     $(container).dialog("close");
+    form.remove();
 }
 
 function ValidateHandler(container, editFormId, dataTableId, ajaxRequestFunc) {
     if (!Validate(editFormId)) return;
-    ajaxRequestFunc(editFormId, dataTableId);
     $(container).dialog("close");
-
+    ajaxRequestFunc(editFormId, dataTableId);
+    $("#" + editFormId).remove();
 }
 
 
 function SendAjaxRequest(editFormId, dataTableId) {
     var form = $("#" + editFormId);
+
+    var waitingDialog = GetLoadingSpinner().dialog({
+        autoOpen: true,
+        modal: true,
+        width: 240,
+        title: "",
+        hide: "fade",
+        show: "fade"
+    });
+    $(".ui-dialog-titlebar").hide();
+
     $.ajax(
     {
         url: form.attr("action"),
@@ -56,7 +67,7 @@ function SendAjaxRequest(editFormId, dataTableId) {
         processData: false,
         data: new FormData(form[0]),
         success: function() {
-            form.remove();
+            waitingDialog.dialog("close");
             $("#" + dataTableId).dataTable().fnDraw();
         }
     });
@@ -75,4 +86,13 @@ function SendAjaxRequestSerialized(editFormId, dataTableId) {
             table.fnDraw();
         }
     });
+}
+
+function GetLoadingSpinner() {
+    return $("" +
+        "<div style='text-align: center; padding-top: 40px; padding-bottom: 20px;'>" +
+        "<img src='/Content/Images/LoadingSpinner.gif' alt='Loading Spinner' />" +
+        "<br/>" +
+        "Veuillez patienter..." +
+        "</div>");
 }

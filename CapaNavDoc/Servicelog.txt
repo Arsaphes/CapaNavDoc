@@ -105,3 +105,19 @@
 2017-01-06 11:28:14,049 [5] DEBUG ErrorLogger - CenterActionCouple list created. Count=5
 2017-01-06 11:28:14,049 [5] DEBUG ErrorLogger - Action and Center Business Layers created.
 2017-01-06 11:28:14,050 [5] DEBUG ErrorLogger - EquipmentViewCenterModel created.
+2017-01-07 09:40:50,453 [6] DEBUG ErrorLogger - [ GetEquipmentCenters(1) ]
+2017-01-07 09:40:50,494 [6] DEBUG ErrorLogger - Equipment Business Layer created.
+2017-01-07 09:40:50,505 [6] DEBUG ErrorLogger - Equipment with ID=1 grabbed. Name=Adaptateur Magnéto
+2017-01-07 09:40:50,511 [6] DEBUG ErrorLogger - [ ToEquipmentCenterViewModel(ID=1) ]
+2017-01-07 09:40:50,513 [6] DEBUG ErrorLogger - [ ToCenterActionGroups() ]
+2017-01-07 09:40:50,513 [6] DEBUG ErrorLogger - CenterActionCouple list created. Count=0
+2017-01-07 09:40:50,513 [6] DEBUG ErrorLogger - Action and Center Business Layers created.
+2017-01-07 09:40:50,599 [6] DEBUG ErrorLogger - EquipmentViewCenterModel created.
+2017-01-07 10:07:59,906 [7] DEBUG ErrorLogger - [ GetEquipmentCenters(1) ]
+2017-01-07 10:07:59,941 [7] DEBUG ErrorLogger - Equipment Business Layer created.
+2017-01-07 10:07:59,961 [7] DEBUG ErrorLogger - Equipment with ID=1 grabbed. Name=Adaptateur Magnéto
+2017-01-07 10:07:59,968 [7] DEBUG ErrorLogger - [ ToEquipmentCenterViewModel(ID=1) ]
+2017-01-07 10:07:59,969 [7] DEBUG ErrorLogger - [ ToCenterActionGroups() ]
+2017-01-07 10:07:59,970 [7] DEBUG ErrorLogger - CenterActionCouple list created. Count=0
+2017-01-07 10:07:59,970 [7] DEBUG ErrorLogger - Action and Center Business Layers created.
+2017-01-07 10:08:00,077 [7] DEBUG ErrorLogger - EquipmentViewCenterModel created.
