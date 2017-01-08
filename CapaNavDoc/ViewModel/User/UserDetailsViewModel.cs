@@ -18,7 +18,7 @@ namespace CapaNavDoc.ViewModel.User
 
         public string Password { get; set; }
 
-
+        // Todo: Try to remove Equals and GetHashCode.
         public override bool Equals(object obj)
         {
             UserDetailsViewModel vm = (UserDetailsViewModel)obj;

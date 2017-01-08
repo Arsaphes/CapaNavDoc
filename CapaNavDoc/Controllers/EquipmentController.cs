@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,6 +12,7 @@ using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
 using CapaNavDoc.ViewModel.Equipment;
 using CapaNavDoc.ViewModel.User;
+using Action = CapaNavDoc.Models.Action;
 
 namespace CapaNavDoc.Controllers
 {
@@ -119,27 +119,30 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentCenters(string id)
         {
-            Logger log =  new Logger();
-            log.Debug($"[ GetEquipmentCenters({id}) ]");
-            
-            BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
-            log.Debug("Equipment Business Layer created.");
-
-            Equipment equipment = ebl.Get(id.ToInt32());
-            log.Debug($"Equipment with ID={id} grabbed. Name={equipment.Name}");
-
-            EquipmentCenterViewModel model = equipment.ToEquipmentCenterViewModel();
-            log.Debug("EquipmentViewCenterModel created.");
-
+            List<Center> centers = new BusinessLayer<Center>(new CapaNavDocDal()).GetList();
+            List<Action> actions = new BusinessLayer<Action>(new CapaNavDocDal()).GetList();
+            string[] couples = new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).EquipmentCenterActionList?.Split(';') ?? new string[0];
+            EquipmentCenterActionViewModel model = new EquipmentCenterActionViewModel
+            {
+                EquipmentId = id,
+                ActionNames = actions.Select(a => a.Description).ToArray(),
+                CenterNames = centers.Select(c => c.Name).ToArray(),
+                Selections = ArrayHelper.GetInitialized(centers.Count, actions.Count, (i, j) => couples.Contains($"{centers[i].Id},{actions[j].Id}"))
+            };
             return PartialView("EquipmentCentersView", model);
         }
 
         [HttpPost]
-        public void UpdateEquipmentCenters(EquipmentCenterViewModel model)
+        public void UpdateEquipmentCenters(EquipmentCenterActionViewModel model)
         {
+            List<Center> centers = new BusinessLayer<Center>(new CapaNavDocDal()).GetList();
+            List<Action> actions = new BusinessLayer<Action>(new CapaNavDocDal()).GetList();
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
             Equipment equipment = bl.Get(model.EquipmentId.ToInt32());
-            equipment.SetCenterActionGroups(model);
+            equipment.EquipmentCenterActionList = null;
+
+            for (int i = 0; i < centers.Count; i++)
+                equipment.EquipmentCenterActionList = actions.Where((t, j) => model.Selections[i][j]).Aggregate(equipment.EquipmentCenterActionList, (current, t) => current.AddIdCouple(centers[i].Id, t.Id));
             bl.Update(equipment);
         }
     }

@@ -15,11 +15,8 @@ namespace CapaNavDoc.Models
 	    public int Ata { get; set; }
 	    public string ActivityField { get; set; }
 	    public string MechanicsGroup { get; set; }
-        //Todo: Implement MaintenanceDataId
         public int MaintenanceDataId { get; set; }
-
         public string EquipmentCenterActionList { get; set; } // "n,m;" where 'n' is the center id, 'm' the action id, ',' the center/action separator, ';' the center/action group separator
-
 	    public DateTime MonitoringDate { get; set; }
 	    public int MonitoringUserId { get; set; }
 	}

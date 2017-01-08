@@ -17,7 +17,6 @@ namespace CapaNavDoc.Models
         public string Name { get; set; }
         public bool OnCertificate { get; set; }
         public byte[] Document { get; set; }
-
         public DateTime MonitoringDate { get; set; }
         public int MonitoringUserId { get; set; }
     }

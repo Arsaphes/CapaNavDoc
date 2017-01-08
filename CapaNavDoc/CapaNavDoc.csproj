@@ -150,8 +150,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Classes\CenterActionCouple.cs" />
+    <Compile Include="Classes\ArrayHelper.cs" />
+    <Compile Include="ViewModel\Equipment\EquipmentCenterActionViewModel.cs" />
     <Compile Include="Classes\ColumnAttribute.cs" />
+    <Compile Include="Classes\LambdaComparer.cs" />
     <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\TableDataAdapter.cs" />
     <Compile Include="Controllers\ActionController.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="DataAccessLayer\CapaNavDocDal.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\ViewModels\EquipmentExtensions.cs" />
     <Compile Include="Extensions\ViewModels\MaintenanceDataExtensions.cs" />
@@ -176,7 +179,6 @@
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\BusinessLayers\BusinessLayer.cs" />
     <Compile Include="Models\Center.cs" />
-    <Compile Include="Models\BusinessLayers\CenterBusinessLayer.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\JQueryDataTableParam.cs" />
     <Compile Include="Models\MaintenanceData.cs" />
@@ -192,7 +194,6 @@
     <Compile Include="ViewModel\Center\CenterUsersViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterUserViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
-    <Compile Include="ViewModel\Equipment\EquipmentCenterViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentDetailsViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentEditionViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentMonitoringViewModel.cs" />

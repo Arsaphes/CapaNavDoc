@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
-using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
@@ -84,27 +83,22 @@ namespace CapaNavDoc.Controllers
         public PartialViewResult GetCenterUsersView(string id)
         {
             BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
-            CenterBusinessLayer cbl = new CenterBusinessLayer(new CapaNavDocDal());
-            List<User> centerUsers = cbl.GetCenterUsers(id.ToInt32());
-            List<User> users = ubl.GetList();
+            BusinessLayer<Center> cbl = new BusinessLayer<Center>(new CapaNavDocDal());
 
-            List<CenterUserViewModel> centerUsersVm = users.Select(u =>
-                centerUsers.Contains(u) ?
-                    new CenterUserViewModel {Id = u.Id.ToString(), FirstName = u.FirstName, LastName = u.LastName, Selected = true} :
-                    new CenterUserViewModel {FirstName = u.FirstName, Id = u.Id.ToString(), LastName = u.LastName, Selected = false}).ToList();
+            List<User> centerUsers = cbl.Get(id.ToInt32()).UserList.GetList<User>().OrderBy(u=>u.FirstName).ToList();
+            List<User> otherUsers = ubl.GetList().Except(centerUsers, (u1, u2) => u1.Id == u2.Id).OrderBy(u => u.FirstName).ToList();
 
-            CenterUsersViewModel model = new CenterUsersViewModel
-            {
-                CenterId = id,
-                CenterUsersDetails = centerUsersVm
-            };
-            return PartialView("CenterUsersView", model);
+            List<CenterUserViewModel> centerUsersVm = new List<CenterUserViewModel>();
+            centerUsersVm.AddRange(centerUsers.Select(u => new CenterUserViewModel { FirstName = u.FirstName, LastName = u.LastName, Id = u.Id.ToString(), Selected = true }));
+            centerUsersVm.AddRange(otherUsers.Select(u => new CenterUserViewModel { FirstName = u.FirstName, LastName = u.LastName, Id = u.Id.ToString(), Selected = false }));
+
+            return PartialView("CenterUsersView", new CenterUsersViewModel {CenterId = id, CenterUsersDetails = centerUsersVm});
         }
 
         [HttpPost]
         public void SetCenterUsers(CenterUsersViewModel model)
         {
-            CenterBusinessLayer bl = new CenterBusinessLayer(new CapaNavDocDal());
+            BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
             Center center = bl.Get(model.CenterId.ToInt32());
             center.UserList = model.CenterUsersDetails.Where(user => user.Selected).Aggregate("", (current, user) => current.AddId(user.Id.ToInt32()));
             bl.Update(center);

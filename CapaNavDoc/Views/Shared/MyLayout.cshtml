@@ -22,22 +22,25 @@
     @RenderSection("HeaderSection", false)
 </head>
 <body>
-    <div class="NavBarBackground">
-        <ul class="NavigationBar">
-            <li id="AdministrationListItem">
-                <a id="AdministrationLink" href="/Welcome/Index">Administration</a>
-                <ul>
-                    <li><a href="/User/Index">Utilisateurs</a></li>
-                    <li><a href="/Action/Index">Actions</a></li>
-                    <li><a href="/Center/Index">Centres</a></li>
-                    <li><a href="/Equipment/Index">Equipements</a></li>
-                    <li><a href="/MaintenanceData/Index">Données d'entretien</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div>
-        @RenderSection("ContentBody")
-    </div>
+<div style="text-align: right; color: red; padding-right: 20px;">
+    Version 0.11
+</div>
+<div class="NavBarBackground">
+    <ul class="NavigationBar">
+        <li id="AdministrationListItem">
+            <a id="AdministrationLink" href="/Welcome/Index">Administration</a>
+            <ul>
+                <li><a href="/User/Index">Utilisateurs</a></li>
+                <li><a href="/Action/Index">Actions</a></li>
+                <li><a href="/Center/Index">Centres</a></li>
+                <li><a href="/Equipment/Index">Equipements</a></li>
+                <li><a href="/MaintenanceData/Index">Données d'entretien</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div>
+    @RenderSection("ContentBody")
+</div>
 </body>
 </html>

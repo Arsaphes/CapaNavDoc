@@ -76,7 +76,7 @@ namespace CapaNavDoc.Controllers
                 UserName = "regis"
             });
 
-            CenterBusinessLayer cbl = new CenterBusinessLayer(new CapaNavDocDal());
+            BusinessLayer<Center> cbl = new BusinessLayer<Center>(new CapaNavDocDal());
             cbl.Insert(new Center
             {
                 Name = "Biscarrosse"

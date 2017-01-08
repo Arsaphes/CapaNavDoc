@@ -14,18 +14,5 @@ namespace CapaNavDoc.Models
         public bool IsAdministrator { get; set; }
         //Todo: Implement IsActive.
         public bool IsActive { get; set; }
-
-        // Todo: Try to remove Equals and GetHashCode.
-        public override bool Equals(object obj)
-        {
-            User u = obj as User;
-            return u?.Id == Id;
-        }
-
-        public override int GetHashCode()
-        {
-            // ReSharper disable once NonReadonlyMemberInGetHashCode
-            return Id;
-        }
     }
 }
