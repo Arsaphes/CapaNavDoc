@@ -64,6 +64,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Reports, Version=0.9.5821.33855, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Report.NET.0.09.06\lib\net452\Reports.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -151,6 +155,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\ArrayHelper.cs" />
+    <Compile Include="Classes\EditionMode.cs" />
+    <Compile Include="Validation\ClonedUserAttribute.cs" />
+    <Compile Include="Validation\ClonedUserNameAttribute.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentCenterActionViewModel.cs" />
     <Compile Include="Classes\ColumnAttribute.cs" />
     <Compile Include="Classes\LambdaComparer.cs" />
@@ -206,8 +213,8 @@
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\User\UserCallViewModel.cs" />
     <Compile Include="ViewModel\User\UserDetailsViewModel.cs" />
-    <Compile Include="ViewModel\User\UserEditionViewModel.cs" />
     <Compile Include="ViewModel\User\UserListViewModel.cs" />
+    <Compile Include="ViewModel\User\UserEditionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

@@ -69,13 +69,13 @@ function GetEmptyColumns(nbCol) {
 }
 
 
-function GetShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
+function GetShowDialog(title, width, actionName, editFormId, dataTableId, newWindow) {
     var showDialog = "ShowDialog(\"";
     showDialog += title.replace(/\'/g,"&#39;");
     showDialog += "\", \"";
     showDialog += width;
     showDialog += "\", \"";
-    showDialog += url;
+    showDialog += actionName;
     showDialog += "\", \"";
     showDialog += editFormId,
     showDialog += "\", \"";
@@ -86,11 +86,11 @@ function GetShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
     return showDialog;
 }
 
-function GetHtmlImage(icon, alt, dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) {
+function GetHtmlImage(icon, alt, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow) {
     var result = "<img class=\'Cursor-Pointer\' src=";
     result += "\'" + icon + "\' ";
     result += "alt=\'" + alt + "\' ";
-    result += "onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, url, editFormId, dataTableId, newWindow) + "\' />";  
+    result += "onclick=\'" + GetShowDialog(dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow) + "\' />";  
     return result;
 }
 

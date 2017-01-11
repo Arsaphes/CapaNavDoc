@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Extensions;
 using CapaNavDoc.Models.BusinessLayers;
@@ -28,11 +29,11 @@ namespace CapaNavDoc.Controllers
 
             switch (editionViewModel.GetType().GetProperty("EditionMode").GetValue(editionViewModel).ToString())
             {
-                case "Ajouter":
+                case EditionMode.Insert:
                     bl = new BusinessLayer<T>(new CapaNavDocDal());
                     return bl.Insert((T)editionViewModel.ToModel(new T()));
 
-                case "Changer":
+                case EditionMode.Update:
                     bl = new BusinessLayer<T>(new CapaNavDocDal());
                     object model = bl.Get(editionViewModel.GetType().GetProperty("Id").GetValue(editionViewModel).ToString().ToInt32());
                     return bl.Update((T)editionViewModel.ToModel(model));

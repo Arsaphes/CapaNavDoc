@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
+using Action = CapaNavDoc.Models.Action;
 
 namespace CapaNavDoc.Controllers
 {
@@ -127,5 +128,11 @@ namespace CapaNavDoc.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public void GeneratePdfTest()
+        {
+        }
+
     }
 }

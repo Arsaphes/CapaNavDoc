@@ -1,52 +1,60 @@
-﻿function ShowDialog(title, width, url, editFormId, dataTableId, newWindow) {
+﻿// ReSharper disable CoercedEqualsUsing
+
+function ShowDialog(dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, divHtmlContent) {
     $("<div></div>").dialog({
         autoOpen: true,
         modal: true,
-        width: width,
-        title: title,
-        hide: "shake",
+        width: dialogWidth,
+        title: dialogTitle,
+        hide: "fade",
         show: "fade",
         open: function () {
-            OpenHandler(this, url, newWindow);
+            OpenHandler(this, actionName, newWindow, divHtmlContent);
         },
         buttons: {
             Annuler: function () {
                 CancelHandler(this, editFormId);
             },
             Valider: function () {
-                ValidateHandler(this, editFormId, dataTableId, SendAjaxRequest);
+                ValidateHandler(this, dialogTitle, dialogWidth, actionName,  editFormId, dataTableId, newWindow, SendAjaxRequest);
             }
         }
     });
 }
 
 
-function OpenHandler(container, url, newWindow) {
-    // ReSharper disable once CoercedEqualsUsing
+function OpenHandler(container, actionName, newWindow, divHtmlContent) {
+    
     if (newWindow == "undefined") newWindow = false;
     if (!newWindow) {
-        $(container).load(url);
+        if (typeof divHtmlContent == "undefined") {
+            $(container).load(actionName);
+            
+        } else {
+            $(container).html(divHtmlContent);
+        }
     } else {
         $(container).dialog("close");
-        window.open(url, "Documentation PFD", "Settings");
+        $(container).dialog("destroy").remove();
+        window.open(actionName, "Documentation PFD", "Settings");
     }
 }
 
 function CancelHandler(container, editFormId) {
     var form = $("#" + editFormId);
     $(container).dialog("close");
+    $(container).dialog("destroy").remove();
     form.remove();
 }
 
-function ValidateHandler(container, editFormId, dataTableId, ajaxRequestFunc) {
-    if (!Validate(editFormId)) return;
+function ValidateHandler(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, ajaxRequestFunc) {
     $(container).dialog("close");
-    ajaxRequestFunc(editFormId, dataTableId);
+    ajaxRequestFunc(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow);
     $("#" + editFormId).remove();
 }
 
 
-function SendAjaxRequest(editFormId, dataTableId) {
+function SendAjaxRequest(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow) {
     var form = $("#" + editFormId);
 
     var waitingDialog = GetLoadingSpinner().dialog({
@@ -66,24 +74,55 @@ function SendAjaxRequest(editFormId, dataTableId) {
         contentType: false,
         processData: false,
         data: new FormData(form[0]),
-        success: function() {
-            waitingDialog.dialog("close");
-            $("#" + dataTableId).dataTable().fnDraw();
+        success: function(result) {
+            if (result.success) {
+                waitingDialog.dialog("close");
+                waitingDialog.dialog("destroy").remove();
+                $(container).dialog("destroy").remove();
+                $("#" + dataTableId).dataTable().fnDraw();
+            } else {
+                waitingDialog.dialog("close");
+                waitingDialog.dialog("destroy").remove();
+                $(container).dialog("destroy").remove();
+                ShowDialog(dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, result);
+            }
         }
     });
 }
 
-function SendAjaxRequestSerialized(editFormId, dataTableId) {
+function SendAjaxRequestSerialized(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow) {
     var form = $("#" + editFormId);
+
+    var waitingDialog = GetLoadingSpinner().dialog({
+        autoOpen: true,
+        modal: true,
+        width: 240,
+        title: "",
+        hide: "fade",
+        show: "fade"
+    });
+    $(".ui-dialog-titlebar").hide();
+
     $.ajax(
     {
         url: form.attr("action"),
         type: form.attr("method"),
         data: form.serialize(),
-        success: function() {
-            form.remove();
-            var table = $("#" + dataTableId).dataTable();
-            table.fnDraw();
+        success: function(result) {
+            //form.remove();
+            //var table = $("#" + dataTableId).dataTable();
+            //table.fnDraw();
+            if (result.success) {
+                waitingDialog.dialog("close");
+                waitingDialog.dialog("destroy").remove();
+                $(container).dialog("destroy").remove();
+                $("#" + dataTableId).dataTable().fnDraw();
+            } else {
+                waitingDialog.dialog("close");
+                waitingDialog.dialog("destroy").remove();
+                $(container).dialog("destroy").remove();
+                ShowDialog(dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, result);
+            }
         }
     });
 }

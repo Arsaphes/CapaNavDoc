@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using CapaNavDoc.Extensions;
-using CapaNavDoc.Extensions.ViewModels;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
 using CapaNavDoc.ViewModel;
@@ -22,28 +21,31 @@ namespace CapaNavDoc.Controllers
         }
 
         [HttpPost]
-        public void EditUser(UserEditionViewModel model)
+        public ActionResult EditUser(UserEditionViewModel model)
         {
+            if (!ModelState.IsValid) return PartialView("UserEditionView", model);
             new DefaultController<User>().Edit(model);
+            return Json(new { success = true });
         }
 
         [HttpPost]
-        public void DeleteUser(ConfirmationViewModel model)
+        public ActionResult DeleteUser(ConfirmationViewModel model)
         {
             new DefaultController<User>().Delete(model);
+            return Json(new { success = true });
         }
 
 
         [HttpGet]
         public PartialViewResult GetUserInsertView()
         {
-            return PartialView("UserEditionView", new UserEditionViewModel { EditionMode = "Ajouter" });
+            return PartialView("UserEditionView", new UserEditionViewModel { EditionMode = EditionMode.Insert });
         }
 
         [HttpGet]
         public PartialViewResult GetUserUpdateView(string id)
         {
-            return PartialView("UserEditionView", new BusinessLayer<User>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new UserEditionViewModel(), "Changer"));
+            return PartialView("UserEditionView", new BusinessLayer<User>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new UserEditionViewModel(), EditionMode.Update));
         }
 
         [HttpGet]

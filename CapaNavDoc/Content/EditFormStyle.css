@@ -1,5 +1,4 @@
 ﻿.EditFormTable {
-    margin: 10px;
     width: 100%;
 }
 
@@ -7,9 +6,10 @@
     padding-bottom: 5px;
 }
 
-.EditFormTable td:first-child {
-    padding-right: 15px;
+.EditFormTable td:last-child {
+    width: 208px;
 }
+
 
 .EditFormTable input[type="text"] {
     width: 200px;
@@ -35,9 +35,10 @@
     width: 204px;
 }
 
-.EditFormTable label {
+.EditFormTable span {
     color: red;
     font-size: 12px;
-    display: none;
 }
+
+
 

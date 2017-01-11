@@ -2,21 +2,20 @@
 @using CapaNavDoc.ViewModel.User
 @model UserEditionViewModel
 
+
 <link href="~/Content/EditFormStyle.css" rel="stylesheet"/>
 
 <form id="EditForm" action="/User/EditUser" method="post">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode" />
-    <input id="UserId" type="hidden" name="Id" value="@Model.Id" />
+    @Html.HiddenFor(m => m.EditionMode)
+    @Html.HiddenFor(m => m.Id)
     <table class="EditFormTable">
         <tr>
             <td>
                 Nom:
             </td>
             <td>
-                <input id="LastNameTextBox-val.Required" type="text" name="LastName" value="@Model.LastName"
-                       message="Le nom est obligatoire." 
-                       validatorLabelId="LastNameValidationMessage"/><br/>
-                <label id="LastNameValidationMessage"></label>
+                @Html.TextBoxFor(m => m.LastName)
+                @Html.ValidationMessageFor(m => m.LastName)
             </td>
         </tr>
         <tr>
@@ -24,10 +23,8 @@
                 Prénom:
             </td>
             <td>
-                <input id="FirstNameTextBox-val.Required" type="text" name="FirstName" value="@Model.FirstName"
-                       message="Le prénom est obligatoire."
-                       validatorLabelId="FirstNameValidationMessage"/><br />
-                <label id="FirstNameValidationMessage"></label>
+                @Html.TextBoxFor(m => m.FirstName)
+                @Html.ValidationMessageFor(m => m.FirstName)
             </td>
         </tr>
         <tr>
@@ -35,10 +32,8 @@
                 Identifiant:
             </td>
             <td>
-                <input id="UserNameTextBox-val.Required" type="text" name="UserName" value="@Model.UserName"
-                       message="L'identifiant est obligatoire."
-                       validatorLabelId="UserNameValidationMessage"/><br />
-                <label id="UserNameValidationMessage"></label>
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
             </td>
         </tr>
         <tr>
@@ -46,10 +41,8 @@
                 Mot de passe:
             </td>
             <td>
-                <input id="PasswordTextBox-val.Required" type="text" name="Password" value="@Model.Password"
-                       message="Le mot de passe est obligatoire."
-                       validatorLabelId="PasswordValidationMessage"/><br />
-                <label id="PasswordValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
             </td>
         </tr>
     </table>
