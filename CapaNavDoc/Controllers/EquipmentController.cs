@@ -25,30 +25,40 @@ namespace CapaNavDoc.Controllers
         }
 
         [HttpPost]
-        public void EditEquipment(EquipmentEditionViewModel model)
+        public ActionResult EditEquipment(EquipmentEditionViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                model.DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(m => m.Name).ToList();
+                return PartialView("EquipmentEditionView", model);
+            }
             MaintenanceData md = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().FirstOrDefault(m => m.Name == model.MaintenanceDataId);
             if (md != null) model.MaintenanceDataId = md.Id.ToString();
             new DefaultController<Equipment>().Edit(model);
+            return Json(new { success = true });
         }
 
         [HttpPost]
-        public void DeleteEquipment(ConfirmationViewModel model)
+        public ActionResult DeleteEquipment(ConfirmationViewModel model)
         {
             new DefaultController<Equipment>().Delete(model);
+            return Json(new { success = true });
         }
 
 
         [HttpGet]
         public PartialViewResult GetEquipmentInsertView()
         {
-            return PartialView("EquipmentEditionView", new EquipmentEditionViewModel {EditionMode = "Ajouter", DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(md => md.Name).ToList()});
+            return PartialView("EquipmentEditionView", new EquipmentEditionViewModel
+            {
+                EditionMode = EditionMode.Insert,
+                DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(md => md.Name).ToList()
+            });
         }
 
         [HttpGet]
         public PartialViewResult GetEquipmentUpdateView(string id)
         {
-            // Todo: Change the way the edition mode is set. Should be by class property, not parameter.
             return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToEquipmentEditionViewModel());
         }
 

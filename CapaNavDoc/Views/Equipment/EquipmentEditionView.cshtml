@@ -2,62 +2,77 @@
 @using CapaNavDoc.ViewModel.Equipment
 @model EquipmentEditionViewModel
 
+
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" action="/Equipment/EditEquipment" method="post">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
-    <input id="EquipmentId" type="hidden" name="Id" value="@Model.Id"/>
+    @Html.HiddenFor(m => m.EditionMode)
+    @Html.HiddenFor(m => m.Id)
     <table class="EditFormTable">
         <tr>
-            <td>Part Number:</td>
             <td>
-                <input id="PartNumber-TextBox-val.Required" type="text" name="PartNumber" value="@Model.PartNumber" message="Le part number est obligatoire." validatorLabelId="PartNumber-ValidationMessage"/><br/>
-                <label id="PartNumber-ValidationMessage"></label>
+                Part Number:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.PartNumber)
+                @Html.ValidationMessageFor(m => m.PartNumber)
             </td>
         </tr>
         <tr>
-            <td>Constructeur:</td>
             <td>
-                <input id="Manufacturer-TextBox-val.Required" type="text" name="Manufacturer" value="@Model.Manufacturer" message="Le constructeur est obligatoire." validatorLabelId="Manufacturer-ValidationMessage"/><br/>
-                <label id="Manufacturer-ValidationMessage"></label>
+                Constructeur:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Manufacturer)
+                @Html.ValidationMessageFor(m => m.Manufacturer)
             </td>
         </tr>
         <tr>
-            <td>Désignation:</td>
             <td>
-                <input id="Name-TextBox-val.Required" type="text" name="Name" value="@Model.Name" message="La désignation est obligatoire."validatorLabelId="Name-ValidationMessage"/><br/>
-                <label id="Name-ValidationMessage"></label>
+                Désignation:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
             </td>
         </tr>
         <tr>
             <td>Type:</td>
             <td>
-                <input id="Type-TextBox" type="text" name="Type" value="@Model.Type"/>
+                @Html.TextBoxFor(m => m.Type)
             </td>
         </tr>
         <tr>
-            <td>ATA:</td>
             <td>
-                <input id="Ata-TextBox-val.Required" type="text" name="Ata" value="@Model.Ata" message="Le code ATA est obligatoire." validatorLabelId="Ata-ValidationMessage"/><br/>
-                <label id="Ata-ValidationMessage"></label>
+                ATA:
             </td>
-        </tr>
-        <tr>
-            <td>Domaine d'activité P145:</td>
             <td>
-                <input id="ActivityField-TextBox-val.Required" type="text" name="ActivityField" value="@Model.ActivityField" message="Le domaine d'activité est obligatoire." validatorLabelId="ActivityField-ValidationMessage"/><br/>
-                <label id="ActivityField-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Ata)
+                @Html.ValidationMessageFor(m => m.Ata)
             </td>
         </tr>
         <tr>
-            <td>Famille Tech Formation:</td>
             <td>
-                <input id="MechanicsGroup-TextBox-val.Required" type="text" name="MechanicsGroup" value="@Model.MechanicsGroup" message="Le groupe de formation est obligatoire." validatorLabelId="MechanicsGroup-ValidationMessage"/><br/>
-                <label id="MechanicsGroup-ValidationMessage"></label>
+                Domaine d'activité P145:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.ActivityField)
+                @Html.ValidationMessageFor(m => m.ActivityField)
             </td>
         </tr>
         <tr>
-            <td>Documentation:</td>
+            <td>
+                Famille Tech Formation:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.MechanicsGroup)
+                @Html.ValidationMessageFor(m => m.MechanicsGroup)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Documentation:
+            </td>
             <td>
                 @Html.DropDownListFor(m=>m.MaintenanceDataId, new SelectList(@Model.DocumentsReferences))
             </td>

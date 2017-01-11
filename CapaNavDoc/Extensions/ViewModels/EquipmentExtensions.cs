@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CapaNavDoc.Classes;
 using CapaNavDoc.DataAccessLayer;
 using CapaNavDoc.Models;
 using CapaNavDoc.Models.BusinessLayers;
@@ -37,7 +38,7 @@ namespace CapaNavDoc.Extensions.ViewModels
                 MechanicsGroup = equipment.MechanicsGroup,
                 DocumentsReferences = bl.GetList().Select(md => md.Name).ToList(),
                 MaintenanceDataId = equipment.MaintenanceDataId == 0 ? "" : bl.Get(equipment.MaintenanceDataId).Name,
-                EditionMode = "Changer"
+                EditionMode = EditionMode.Update
             };
         }
     }
