@@ -48,9 +48,9 @@ function CancelHandler(container, editFormId) {
 }
 
 function ValidateHandler(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, ajaxRequestFunc) {
-    $(container).dialog("close");
+    //$(container).dialog("close");
     ajaxRequestFunc(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow);
-    $("#" + editFormId).remove();
+    //$("#" + editFormId).remove();
 }
 
 
@@ -60,12 +60,14 @@ function SendAjaxRequest(container, dialogTitle, dialogWidth, actionName, editFo
     var waitingDialog = GetLoadingSpinner().dialog({
         autoOpen: true,
         modal: true,
+        dialogClass: "hideTitleBar",
         width: 240,
         title: "",
         hide: "fade",
         show: "fade"
     });
-    $(".ui-dialog-titlebar").hide();
+    //$(".ui-dialog-titlebar").hide();
+    $(".hideTitleBar div:first").remove();
 
     $.ajax(
     {
@@ -81,6 +83,7 @@ function SendAjaxRequest(container, dialogTitle, dialogWidth, actionName, editFo
                 $(container).dialog("destroy").remove();
                 $("#" + dataTableId).dataTable().fnDraw();
             } else {
+                //ShowDialog(dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, result);
                 waitingDialog.dialog("close");
                 waitingDialog.dialog("destroy").remove();
                 $(container).dialog("destroy").remove();
@@ -129,7 +132,7 @@ function SendAjaxRequestSerialized(container, dialogTitle, dialogWidth, actionNa
 
 function GetLoadingSpinner() {
     return $("" +
-        "<div style='text-align: center; padding-top: 40px; padding-bottom: 20px;'>" +
+        "<div id='LoadingSpinner' style='text-align: center; padding-top: 40px; padding-bottom: 20px;'>" +
         "<img src='/Content/Images/LoadingSpinner.gif' alt='Loading Spinner' />" +
         "<br/>" +
         "Veuillez patienter..." +

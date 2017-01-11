@@ -20,28 +20,31 @@ namespace CapaNavDoc.Controllers
         }
 
         [HttpPost]
-        public void EditAction(ActionEditionViewModel model)
+        public ActionResult EditAction(ActionEditionViewModel model)
         {
+            if (!ModelState.IsValid) return PartialView("ActionEditionView", model);
             new DefaultController<Action>().Edit(model);
+            return Json(new { success = true });
         }
 
         [HttpPost]
-        public void DeleteAction(ConfirmationViewModel model)
+        public ActionResult DeleteAction(ConfirmationViewModel model)
         {
             new DefaultController<Action>().Delete(model);
+            return Json(new { success = true });
         }
 
 
         [HttpGet]
         public PartialViewResult GetActionInsertView()
         {
-            return PartialView("ActionEditionView", new ActionEditionViewModel { EditionMode = "Ajouter" });
+            return PartialView("ActionEditionView", new ActionEditionViewModel { EditionMode = EditionMode.Insert });
         }
 
         [HttpGet]
         public PartialViewResult GetActionUpdateView(string id)
         {
-            return PartialView("ActionEditionView", new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new ActionEditionViewModel(), "Changer"));
+            return PartialView("ActionEditionView", new BusinessLayer<Action>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new ActionEditionViewModel(), EditionMode.Update));
         }
 
         [HttpGet]

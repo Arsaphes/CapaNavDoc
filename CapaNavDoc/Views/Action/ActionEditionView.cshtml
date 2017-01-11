@@ -1,23 +1,20 @@
 ﻿@* ReSharper disable Html.PathError *@
-
 @using CapaNavDoc.ViewModel.Action
 @model ActionEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" action="/Action/EditAction" method="post">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
-    <input id="ActionId" type="hidden" name="Id" value="@Model.Id"/>
+    @Html.HiddenFor(m => m.EditionMode)
+    @Html.HiddenFor(m => m.Id)
     <table class="EditFormTable">
         <tr>
             <td>
                 Description:
             </td>
             <td>
-                <input id="DescriptionTextBox-val.Required" type="text" name="Description" value="@Model.Description"
-                       message="La description est obligatoire."
-                       validatorLabelId="DescriptionValidationMessage"/><br/>
-                <label id="DescriptionValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
             </td>
         </tr>
     </table>
@@ -26,5 +23,3 @@
 <script>
     $("input").input();
 </script>
-
-

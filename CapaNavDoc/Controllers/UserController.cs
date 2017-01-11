@@ -23,6 +23,7 @@ namespace CapaNavDoc.Controllers
         [HttpPost]
         public ActionResult EditUser(UserEditionViewModel model)
         {
+            //System.Threading.Thread.Sleep(80000);
             if (!ModelState.IsValid) return PartialView("UserEditionView", model);
             new DefaultController<User>().Edit(model);
             return Json(new { success = true });
