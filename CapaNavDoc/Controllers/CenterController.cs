@@ -20,28 +20,31 @@ namespace CapaNavDoc.Controllers
         }
 
         [HttpPost]
-        public void EditCenter(CenterEditionViewModel model)
+        public ActionResult EditCenter(CenterEditionViewModel model)
         {
+            if (!ModelState.IsValid) return PartialView("CenterEditionView", model);
             new DefaultController<Center>().Edit(model);
+            return Json(new { success = true });
         }
 
         [HttpPost]
-        public void DeleteCenter(ConfirmationViewModel model)
+        public ActionResult DeleteCenter(ConfirmationViewModel model)
         {
             new DefaultController<Center>().Delete(model);
+            return Json(new { success = true });
         }
 
 
         [HttpGet]
         public PartialViewResult GetCenterInsertView()
         {
-            return PartialView("CenterEditionView", new CenterEditionViewModel { EditionMode = "Ajouter" });
+            return PartialView("CenterEditionView", new CenterEditionViewModel { EditionMode = EditionMode.Insert });
         }
 
         [HttpGet]
         public PartialViewResult GetCenterUpdateView(string id)
         {
-            return PartialView("CenterEditionView", new BusinessLayer<Center>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new CenterEditionViewModel(), "Changer"));
+            return PartialView("CenterEditionView", new BusinessLayer<Center>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new CenterEditionViewModel(), EditionMode.Update));
         }
 
         [HttpGet]
