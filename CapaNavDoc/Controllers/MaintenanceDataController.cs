@@ -25,10 +25,11 @@ namespace CapaNavDoc.Controllers
         }
 
         [HttpPost]
-        public void EditMaintenanceData(MaintenanceDataEditionViewModel model)
+        public ActionResult EditMaintenanceData(MaintenanceDataEditionViewModel model)
         {
+            if (!ModelState.IsValid) return PartialView("MaintenanceDataEditionView", model);
             MaintenanceData md = new DefaultController<MaintenanceData>().Edit(model);
-            if (model.FileUpload == null) return;
+            if (model.FileUpload == null) return Json(new { success = true }); ;
 
             byte[] buffer = new byte[32*1024];
             using (MemoryStream ms = new MemoryStream())
@@ -42,25 +43,27 @@ namespace CapaNavDoc.Controllers
                 m.Document = ms.ToArray();
                 new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Update(m);
             }
+            return Json(new { success = true });
         }
 
         [HttpPost]
-        public void DeleteMaintenanceData(ConfirmationViewModel model)
+        public ActionResult DeleteMaintenanceData(ConfirmationViewModel model)
         {
             new DefaultController<MaintenanceData>().Delete(model);
+            return Json(new { success = true });
         }
 
 
         [HttpGet]
         public PartialViewResult GetMaintenanceDataInsertView()
         {
-            return PartialView("MaintenanceDataEditionView", new MaintenanceDataEditionViewModel {EditionMode = "Ajouter"});
+            return PartialView("MaintenanceDataEditionView", new MaintenanceDataEditionViewModel {EditionMode = EditionMode.Insert });
         }
 
         [HttpGet]
         public PartialViewResult GetMaintenanceDataUpdateView(string id)
         {
-            return PartialView("MaintenanceDataEditionView", new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new MaintenanceDataEditionViewModel(), "Changer"));
+            return PartialView("MaintenanceDataEditionView", new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).Get(id.ToInt32()).ToModel(new MaintenanceDataEditionViewModel(), EditionMode.Update));
         }
 
         [HttpGet]
@@ -82,12 +85,12 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
             List<MaintenanceDataDetailsViewModel> model = new List<MaintenanceDataDetailsViewModel>(bl.GetList().Select(d => (MaintenanceDataDetailsViewModel)d.ToModel(new MaintenanceDataDetailsViewModel())));
-
+            
             model = TableDataAdapter.Search(model, param);
             model = TableDataAdapter.SortList(model, param);
             model = TableDataAdapter.PageList(model, param);
 
-            string[][] data = model.Select(m => new[] { m.Id.ToString(), m.Type, m.Sender, m.DocumentReference, m.DocumentPartNumber, m.Review, m.Date, m.Name, m.OnCertificate, m.MonitoringDate }).ToArray();
+            string[][] data = model.Select(m => new[] {m.Id, m.Type, m.Sender, m.DocumentReference, m.DocumentPartNumber, m.Review, m.Date, m.Name, m.OnCertificate, m.MonitoringDate, bl.Get(m.Id.ToInt32()).Document == null ? null : ""}).ToArray();
             return Json(new
             {
                 param.sEcho,

@@ -1,7 +1,4 @@
-﻿@using CapaNavDoc.ViewModel.MaintenanceData
-@model MaintenanceDataIndexViewModel
-
-@{
+﻿@{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 
@@ -16,7 +13,6 @@
     <link href="~/Content/MyDataTableStyle.css" rel="stylesheet"/>
 
     <script src="~/Scripts/datatables.js"></script>
-    <script src="~/Scripts/Validations.js"></script>
     <script src="~/Scripts/Dialog.js"></script>
     <script src="~/Scripts/MyDataTable.js"></script>
 
@@ -27,10 +23,10 @@
                 "/MaintenanceData/AjaxHandler",
                 8,
                 "@Url.Action("GetMaintenanceDataUpdateView")",
-                "Mise à jour d'une donnée d*entretien",
+                "Mise à jour d'une donnée d'entretien",
                 420,
                 "@Url.Action("GetConfirmationView")",
-                "Suppression d*une donnée d'entretien",
+                "Suppression d'une donnée d'entretien",
                 460,
                 "@Url.Action("GetEquipmentMonitoringView")",
                 "Mise à jour d'une veille de donnée d'entretien",

@@ -5,13 +5,16 @@ function GetIdColumn() {
     return [{ "sName": "ID", "visible": false }];
 }
 
-function GetImageColumn(icon, alt, url, formTitle, formWidth, editForm, dataTableId, newWindow) {
+function GetImageColumn(icon, alt, url, formTitle, formWidth, editForm, dataTableId, newWindow, hideIfNull, colCheck) {
     return [
         {
             "bSortable": false,
             "mRender": function(data, type, full) {
                 var fullUrl = url + "?id=" + full[0];
-                return GetHtmlImage(icon, alt, formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
+                if(hideIfNull && full[colCheck] == null)
+                    return GetHtmlImage("", "-", formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
+                else
+                    return GetHtmlImage(icon, alt, formTitle, formWidth, fullUrl, editForm, dataTableId, newWindow);
             }
         }
     ];
@@ -205,8 +208,8 @@ function SetEquipmentDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW,
 function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dFrmTitle, dFrmW, uUrl2, uFrmTitle2, uFrmW2, uUrl3, uFrmTitle3, uFrmW3, dftSearch) {
     var columns = GetIdColumn()
         .concat(GetEmptyColumns(nbDataCol))
-        .concat(GetImageColumn("/Content/Icons/Adobe-PDF-Document-icon.png", "Pdf", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId, true))
         .concat(GetDateLinkColumn(uUrl2, uFrmTitle2, uFrmW2, editForm, dtId, 9))
+        .concat(GetImageColumn("/Content/Icons/Adobe-PDF-Document-icon.png", "Pdf", uUrl3, uFrmTitle3, uFrmW3, editForm, dtId, true, true, 10))
         .concat(GetImageColumn("/Content/Icons/Pencil-icon.png", "Pencil", uUrl, uFrmTitle, uFrmW, editForm, dtId))
         .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
@@ -215,7 +218,7 @@ function SetMaintenanceDataDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, 
             "sAjaxSource": ajaxSrc,
             "bProcessing": true,
             "aoColumns": columns,
-            "columnDefs": [{ "className": "Column-Center", "targets": [columns.length-4, columns.length-2, columns.length-1] }]});
+            "columnDefs": [{ "className": "Column-Center", "targets": [columns.length-4, columns.length-3, columns.length-2, columns.length-1] }]});
     if (dftSearch === "") return;
 
    table.search(dftSearch).draw();

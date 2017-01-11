@@ -1,23 +1,21 @@
 ﻿@* ReSharper disable Html.PathError *@
-
 @using CapaNavDoc.ViewModel.MaintenanceData
 @model MaintenanceDataEditionViewModel
+
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" action="/MaintenanceData/EditMaintenanceData" method="post" enctype="multipart/form-data">
-    <input id="EditionModeInput" type="hidden" name="EditionMode" value="@Model.EditionMode"/>
-    <input id="MaintenanceDataId" type="hidden" name="Id" value="@Model.Id"/>
+    @Html.HiddenFor(m => m.EditionMode)
+    @Html.HiddenFor(m => m.Id)
     <table class="EditFormTable">
         <tr>
             <td>
                 Type:
             </td>
             <td>
-                <input id="Type-TextBox-val.Required" type="text" name="Type" value="@Model.Type"
-                       message="Le type est obligatoire."
-                       validatorLabelId="Type-ValidationMessage"/><br/>
-                <label id="Type-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Type)
+                @Html.ValidationMessageFor(m => m.Type)
             </td>
         </tr>
         <tr>
@@ -25,10 +23,8 @@
                 Emetteur:
             </td>
             <td>
-                <input id="Sender-TextBox-val.Required" type="text" name="Sender" value="@Model.Sender"
-                       message="L'emetteur est obligatoire."
-                       validatorLabelId="Sender-ValidationMessage" /><br />
-                <label id="Sender-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Sender)
+                @Html.ValidationMessageFor(m => m.Sender)
             </td>
         </tr>
         <tr>
@@ -36,10 +32,8 @@
                 Référence Document:
             </td>
             <td>
-                <input id="DocumentReference-TextBox-val.Required" type="text" name="DocumentReference" value="@Model.DocumentReference"
-                       message="La référence document est obligatoire."
-                       validatorLabelId="DocumentReference-ValidationMessage" /><br />
-                <label id="DocumentReference-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.DocumentReference)
+                @Html.ValidationMessageFor(m => m.DocumentReference)
             </td>
         </tr>
         <tr>
@@ -47,7 +41,7 @@
                 P/N Document:
             </td>
             <td>
-                <input id="DocumentPartNumber-TextBox" type="text" name="Sender" value="@Model.DocumentPartNumber"/>
+                @Html.TextBoxFor(m => m.DocumentPartNumber)
             </td>
         </tr>
         <tr>
@@ -55,10 +49,8 @@
                 Révision:
             </td>
             <td>
-                <input id="Review-TextBox-val.Required" type="text" name="Review" value="@Model.Review"
-                       message="La révision est obligatoire."
-                       validatorLabelId="Review-ValidationMessage"/><br/>
-                <label id="Review-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Review)
+                @Html.ValidationMessageFor(m => m.Review)
             </td>
         </tr>
         <tr>
@@ -66,10 +58,8 @@
                 Date:
             </td>
             <td>
-                <input id="Date-TextBox-val.DateFormat" type="text" name="Date" value="@Model.Date"
-                       message="La date doit être au format 'jj-mm-aaaa'."
-                       validatorLabelId="Date-ValidationMessage"/><br/>
-                <label id="Date-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Date)
+                @Html.ValidationMessageFor(m => m.Date)
             </td>
         </tr>
         <tr>
@@ -77,10 +67,8 @@
                 Désignation:
             </td>
             <td>
-                <input id="Name-TextBox-val.Required" type="text" name="Name" value="@Model.Name"
-                       message="La désignation est obligatoire."
-                       validatorLabelId="Name-ValidationMessage"/><br/>
-                <label id="Name-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
             </td>
         </tr>
         <tr>
