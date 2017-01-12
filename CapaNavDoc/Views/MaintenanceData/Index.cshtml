@@ -75,7 +75,11 @@
         </table>
     </div>
 
-    <script>
-        $("#AddMaintenanceDataButton").button();
-    </script>
+<script>
+        $(function() {
+            $("#AddMaintenanceDataButton").button();
+            $("input").input();
+            $("select").selectmenu({ width: 204 });
+        });
+</script>
 }

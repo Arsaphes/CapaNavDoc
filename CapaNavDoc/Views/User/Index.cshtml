@@ -64,7 +64,11 @@
         </table>
     </div>
 
-    <script>
-        $("#AddUserButton").button();
-    </script>
+<script>
+        $(function() {
+            $("#AddUserButton").button();
+            $("input").input();
+            $("select").selectmenu({ width: 204 });
+        });
+</script>
 }

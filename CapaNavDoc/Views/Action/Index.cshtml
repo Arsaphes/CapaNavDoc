@@ -60,6 +60,10 @@
     </div>
 
     <script>
-        $("#AddActionButton").button();
+        $(function() {
+            $("#AddActionButton").button();
+            $("input").input();
+            $("select").selectmenu({ width: 204 });
+        });
     </script>
 }

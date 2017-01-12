@@ -61,9 +61,13 @@
         </table>
     </div>
 
-    <script>
-        $("#AddCenterButton").button();
-    </script>
+<script>
+        $(function() {
+            $("#AddCenterButton").button();
+            $("input").input();
+            $("select").selectmenu({ width: 204 });
+        });
+</script>
 }
 
 

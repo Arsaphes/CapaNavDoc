@@ -53,13 +53,17 @@
             <tbody></tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4"><button id="AddActionButton" type="button" onclick="ShowDialog('Ajout d\'un domaine d\'activité', 380, '@Url.Action("GetActivityFieldInsertView")', 'EditForm', 'ActivityFieldDataTable');">Ajouter un domaine d'activité</button></td>
+                    <td colspan="4"><button id="AddActivityFieldButton" type="button" onclick="ShowDialog('Ajout d\'un domaine d\'activité', 380, '@Url.Action("GetActivityFieldInsertView")', 'EditForm', 'ActivityFieldDataTable');">Ajouter un domaine d'activité</button></td>
                 </tr>
             </tfoot>
         </table>
     </div>
 
-    <script>
-        $("#AddActionButton").button();
-    </script>
+<script>
+        $(function() {
+            $("#AddActivityFieldButton").button();
+            $("input").input();
+            $("select").selectmenu({ width: 204 });
+        });
+</script>
 }
