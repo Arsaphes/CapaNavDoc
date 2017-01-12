@@ -156,8 +156,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\ArrayHelper.cs" />
     <Compile Include="Classes\EditionMode.cs" />
+    <Compile Include="Controllers\ActivityFieldController.cs" />
+    <Compile Include="Models\ActivityField.cs" />
     <Compile Include="Validation\ClonedUserAttribute.cs" />
     <Compile Include="Validation\ClonedUserNameAttribute.cs" />
+    <Compile Include="ViewModel\ActivityField\ActivityFieldDetailsViewModel.cs" />
+    <Compile Include="ViewModel\ActivityField\ActivityFieldEditionViewModel.cs" />
+    <Compile Include="ViewModel\ActivityField\ActivityFieldListViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentCenterActionViewModel.cs" />
     <Compile Include="Classes\ColumnAttribute.cs" />
     <Compile Include="Classes\LambdaComparer.cs" />
@@ -237,6 +242,8 @@
     <Content Include="Views\MaintenanceData\Index.cshtml" />
     <Content Include="Views\MaintenanceData\MaintenanceDataEditionView.cshtml" />
     <Content Include="Views\MaintenanceData\MaintenanceDataMonitoringView.cshtml" />
+    <Content Include="Views\ActivityField\Index.cshtml" />
+    <Content Include="Views\ActivityField\ActivityFieldEditionView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

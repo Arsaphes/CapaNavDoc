@@ -1,16 +1,16 @@
 ﻿@* ReSharper disable Html.PathError *@
-@using CapaNavDoc.ViewModel.Action
-@model ActionEditionViewModel
+@using CapaNavDoc.ViewModel.ActivityField
+@model ActivityFieldEditionViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
-<form id="EditForm" action="/Action/EditAction" method="post">
+<form id="EditForm" action="/ActivityField/EditActivityField" method="post">
     @Html.HiddenFor(m => m.EditionMode)
     @Html.HiddenFor(m => m.Id)
     <table class="EditFormTable">
         <tr>
             <td>
-                Nom:
+                Description:
             </td>
             <td>
                 @Html.TextBoxFor(m => m.Description)

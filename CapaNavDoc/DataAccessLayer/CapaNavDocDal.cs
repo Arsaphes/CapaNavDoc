@@ -11,6 +11,7 @@ namespace CapaNavDoc.DataAccessLayer
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<Action> Actions { get; set; }
         public DbSet<MaintenanceData> MaintenanceDatas { get; set; }
+        public DbSet<ActivityField> ActivityFields { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -20,6 +21,7 @@ namespace CapaNavDoc.DataAccessLayer
             modelBuilder.Entity<Equipment>().ToTable("Equipments");
             modelBuilder.Entity<Action>().ToTable("Actions");
             modelBuilder.Entity<MaintenanceData>().ToTable("MaintenanceDatas");
+            modelBuilder.Entity<ActivityField>().ToTable("ActivityFields");
 
             base.OnModelCreating(modelBuilder);
         }

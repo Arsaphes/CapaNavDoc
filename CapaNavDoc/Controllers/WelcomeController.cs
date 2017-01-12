@@ -126,6 +126,20 @@ namespace CapaNavDoc.Controllers
                 Description = "Réglage"
             });
 
+            BusinessLayer<ActivityField> afbl = new BusinessLayer<ActivityField>(new CapaNavDocDal());
+            afbl.Insert(new ActivityField
+            {
+                Description = "Moteur"
+            });
+            afbl.Insert(new ActivityField
+            {
+                Description = "Cellule"
+            });
+            afbl.Insert(new ActivityField
+            {
+                Description = "Radio"
+            });
+
             return RedirectToAction("Index");
         }
 

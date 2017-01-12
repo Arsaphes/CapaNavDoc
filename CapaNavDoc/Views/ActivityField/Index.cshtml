@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+@section TitleSection
+{
+    Domaines d'activité
+}
+
+@section HeaderSection
+{
+    <link href="~/Content/datatables.css" rel="stylesheet" />
+    <link href="~/Content/MyDataTableStyle.css" rel="stylesheet" />
+
+    <script src="~/Scripts/datatables.js"></script>
+    <script src="~/Scripts/MyDataTable.js"></script>
+    <script src="~/Scripts/Dialog.js"></script>
+
+    <script>
+        $(function() {
+            SetDataTable(
+                "ActivityFieldDataTable",
+                "/ActivityField/AjaxHandler",
+                1,
+                "@Url.Action("GetActivityFieldUpdateView")",
+                "Mise à jour d'un domaine d'activité",
+                380,
+                "@Url.Action("GetConfirmationView")",
+                "Suppression d'un domaine d'activité",
+                460
+            );
+            document.getElementById("AdministrationLink").className += "ActiveLink";
+        });
+    </script>
+}
+
+@section ContentBody
+{
+    <div class="PageTitle">
+        Gestion des domaines d'activités
+    </div>
+
+    <div style="padding: 15px;">
+        <table id="ActivityFieldDataTable" class="display MyDataTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Mod.</th>
+                    <th>Sup.</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"><button id="AddActionButton" type="button" onclick="ShowDialog('Ajout d\'un domaine d\'activité', 380, '@Url.Action("GetActivityFieldInsertView")', 'EditForm', 'ActivityFieldDataTable');">Ajouter un domaine d'activité</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        $("#AddActionButton").button();
+    </script>
+}

@@ -5,6 +5,7 @@ using CapaNavDoc.DataAccessLayer;
 
 namespace CapaNavDoc.Models.BusinessLayers
 {
+    // Todo: Remove this class.
     public class UserBusinessLayer
     {
         public List<User> GetUsers()
