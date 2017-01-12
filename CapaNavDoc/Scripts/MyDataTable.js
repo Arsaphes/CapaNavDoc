@@ -123,6 +123,7 @@ function SetDataTable(dtId, ajaxSrc, nbDataCol, uUrl, uFrmTitle, uFrmW, dUrl, dF
         .concat(GetImageColumn("/Content/Icons/Close-2-icon.png", "Cross", dUrl, dFrmTitle, dFrmW, confirmForm, dtId));
 
     $("#" + dtId).dataTable({
+        "stateSave": true,
         "bServerSide": true,
         "sAjaxSource": ajaxSrc,
         "bProcessing": true,
