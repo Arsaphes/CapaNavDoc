@@ -5,7 +5,7 @@
 <link href="~/Content/CenterActionsStyle.css" rel="stylesheet" /> 
     
 <form id="EditForm" method="post" action="/Equipment/UpdateEquipmentCenters">
-    <input type="hidden" name="EquipmentId" value="@Model.EquipmentId"/>
+    @Html.HiddenFor(m=>m.EquipmentId)
     <table class="CenterActionsTable">
         <tr>
             <td></td>
@@ -22,7 +22,7 @@
                 <td>
                     @Model.CenterNames[i]
                 </td>
-                @for (int j = 0; j < Model.ActionNames.Length ; j++)
+                @for (int j = 0; j < Model.ActionNames.Length; j++)
                 {
                     <td>
                         @Html.CheckBoxFor(m => m.Selections[i][j])

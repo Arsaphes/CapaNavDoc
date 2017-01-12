@@ -135,19 +135,25 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentMonitoringView", model);
         }
 
-        // Todo: Add return value.
         [HttpPost]
-        public void UpdateEquipmentMonitoring(EquipmentMonitoringViewModel model)
+        public ActionResult UpdateEquipmentMonitoring(EquipmentMonitoringViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                model.Users = new BusinessLayer<User>(new CapaNavDocDal()).GetList().Select(u => u.ToUserCallViewModel().UserCall).ToList();
+                return PartialView("EquipmentMonitoringView", model);
+            }
+
             BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
             BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
             Equipment equipment = ebl.Get(model.EquipmentId.ToInt32());
             UserCallViewModel userCallViewModel = ubl.GetList().Select(u => u.ToUserCallViewModel()).FirstOrDefault(u => u.UserCall == model.SelectedUserCall);
-            if (userCallViewModel == null) return;
+            if (userCallViewModel == null) return Json(new { success = true }); 
 
             equipment.MonitoringUserId = userCallViewModel.UserId.ToInt32();
             equipment.MonitoringDate = DateTime.ParseExact(model.Date, "dd-mm-yyyy", CultureInfo.InvariantCulture);
             ebl.Update(equipment);
+            return Json(new { success = true });
         }
 
 
@@ -167,9 +173,8 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentCentersView", model);
         }
 
-        // Todo: Add return value.
         [HttpPost]
-        public void UpdateEquipmentCenters(EquipmentCenterActionViewModel model)
+        public ActionResult UpdateEquipmentCenters(EquipmentCenterActionViewModel model)
         {
             List<Center> centers = new BusinessLayer<Center>(new CapaNavDocDal()).GetList();
             List<Action> actions = new BusinessLayer<Action>(new CapaNavDocDal()).GetList();
@@ -180,6 +185,7 @@ namespace CapaNavDoc.Controllers
             for (int i = 0; i < centers.Count; i++)
                 equipment.EquipmentCenterActionList = actions.Where((t, j) => model.Selections[i][j]).Aggregate(equipment.EquipmentCenterActionList, (current, t) => current.AddIdCouple(centers[i].Id, t.Id));
             bl.Update(equipment);
+            return Json(new { success = true });
         }
     }
 }
