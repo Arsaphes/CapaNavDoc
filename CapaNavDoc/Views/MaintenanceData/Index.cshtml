@@ -1,4 +1,7 @@
-﻿@{
+﻿@using CapaNavDoc.ViewModel.MaintenanceData
+@model MaintenanceDataIndexViewModel
+
+@{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
 
@@ -34,6 +37,7 @@
                 "@Url.Action("GetPdfDocument")",
                 "Documentation PDF",
                 420,
+                // Todo: Model not defined.
                 "@Model.MaintenanceDataName"
             );
         document.getElementById("AdministrationLink").className += "ActiveLink";

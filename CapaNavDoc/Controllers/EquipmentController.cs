@@ -54,17 +54,32 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public PartialViewResult GetEquipmentInsertView()
         {
+            List<MaintenanceData> mdl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList();
+            List<ActivityField> afl = new BusinessLayer<ActivityField>(new CapaNavDocDal()).GetList();
+
+            if (mdl.Count == 0)
+                return PartialView("ErrorMessageView", new ErrorMessageViewModel { ErrorMessage = "Aucune donnée d'entretien définie." });
+
+            if (afl.Count == 0)
+                return PartialView("ErrorMessageView", new ErrorMessageViewModel { ErrorMessage = "Aucun domaine d'activité défini." });
+
             return PartialView("EquipmentEditionView", new EquipmentEditionViewModel
             {
                 EditionMode = EditionMode.Insert,
-                DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(md => md.Name).ToList(),
-                ActivityFieldDescriptions = new BusinessLayer<ActivityField>(new CapaNavDocDal()).GetList().Select(a => a.Description).ToList()
+                DocumentsReferences = mdl.Select(md => md.Name).ToList(),
+                ActivityFieldDescriptions = afl.Select(a => a.Description).ToList()
             });
         }
 
         [HttpGet]
         public PartialViewResult GetEquipmentUpdateView(string id)
         {
+            if (new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Count == 0)
+                return PartialView("ErrorMessageView", new ErrorMessageViewModel { ErrorMessage = "Aucune donnée d'entretien définie." });
+
+            if (new BusinessLayer<ActivityField>(new CapaNavDocDal()).GetList().Count == 0)
+                return PartialView("ErrorMessageView", new ErrorMessageViewModel { ErrorMessage = "Aucun domaine d'activité défini." });
+
             return PartialView("EquipmentEditionView", new BusinessLayer<Equipment>(new CapaNavDocDal()).Get(id.ToInt32()).ToEquipmentEditionViewModel());
         }
 
@@ -120,6 +135,7 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentMonitoringView", model);
         }
 
+        // Todo: Add return value.
         [HttpPost]
         public void UpdateEquipmentMonitoring(EquipmentMonitoringViewModel model)
         {
@@ -151,6 +167,7 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentCentersView", model);
         }
 
+        // Todo: Add return value.
         [HttpPost]
         public void UpdateEquipmentCenters(EquipmentCenterActionViewModel model)
         {

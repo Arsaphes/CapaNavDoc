@@ -21,7 +21,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult Index(string name)
         {
-            return View("Index");
+            return View("Index", new MaintenanceDataIndexViewModel {MaintenanceDataName = name});
         }
 
         [HttpPost]
@@ -122,6 +122,7 @@ namespace CapaNavDoc.Controllers
             return PartialView("MaintenanceDataMonitoringView", model);
         }
 
+        // Todo: Add return value.
         [HttpPost]
         public void UpdateMaintenanceDataMonitoring(MaintenanceDataMonitoringViewModel model)
         {

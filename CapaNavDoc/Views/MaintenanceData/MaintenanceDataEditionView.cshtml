@@ -58,7 +58,7 @@
                 Date:
             </td>
             <td>
-                @Html.TextBoxFor(m => m.Date)
+                @Html.TextBoxFor(m => m.Date, new {@id = "ReviewDate" })
                 @Html.ValidationMessageFor(m => m.Date)
             </td>
         </tr>
@@ -93,15 +93,14 @@
 </form>
 
 <script>
+    $("#FileUploadButton").button();
     $("#FileUploadButton").on("click", function() {
         $("#FileUpload").click();
     });
-
-    $("#FileUploadButton").button();
     
     $("input").input();
 
-    $('input[id="Date-TextBox-val.DateFormat"]').datepicker({
+    $('input[id="ReviewDate"]').datepicker({
         dateFormat: "dd-mm-yy",
         dayNames: [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" ],
         dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],

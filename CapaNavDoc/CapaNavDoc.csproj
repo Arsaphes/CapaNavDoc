@@ -114,6 +114,7 @@
     <Content Include="Content\datatables.css" />
     <Content Include="Content\DetailTable.css" />
     <Content Include="Content\EditFormStyle.css" />
+    <Content Include="Content\ErrorMessageFormStyle.css" />
     <Content Include="Content\Icons\Actions-go-next-icon.png" />
     <Content Include="Content\Icons\Actions-go-previous-icon.png" />
     <Content Include="Content\Icons\Add-Green-Button-icon.png" />
@@ -206,6 +207,7 @@
     <Compile Include="ViewModel\Equipment\EquipmentDetailsViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentEditionViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentMonitoringViewModel.cs" />
+    <Compile Include="ViewModel\ErrorMessageViewModel.cs" />
     <Compile Include="ViewModel\FileUploadViewModel.cs" />
     <Compile Include="ViewModel\LoginUserViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceData\MaintenanceDataDetailsViewModel.cs" />
@@ -240,6 +242,7 @@
     <Content Include="Views\MaintenanceData\MaintenanceDataMonitoringView.cshtml" />
     <Content Include="Views\ActivityField\Index.cshtml" />
     <Content Include="Views\ActivityField\ActivityFieldEditionView.cshtml" />
+    <Content Include="Views\Shared\ErrorMessageView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

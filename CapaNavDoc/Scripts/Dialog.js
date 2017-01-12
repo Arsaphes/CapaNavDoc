@@ -1,7 +1,7 @@
 ﻿// ReSharper disable CoercedEqualsUsing
 
 function ShowDialog(dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow, divHtmlContent) {
-    $("<div></div>").dialog({
+    $("<div id='ShowDialog'></div>").dialog({
         autoOpen: true,
         modal: true,
         width: dialogWidth,
@@ -28,8 +28,22 @@ function OpenHandler(container, actionName, newWindow, divHtmlContent) {
     if (newWindow == "undefined") newWindow = false;
     if (!newWindow) {
         if (typeof divHtmlContent == "undefined") {
-            $(container).load(actionName);
-            
+            var waitingDialog = GetLoadingSpinnerDialog(GetLoadingSpinnerContent);
+            $(container).load(actionName, function() {
+                if ($("#ErrorMessage").length) {
+                    $(container).dialog({
+                        buttons: {
+                            OK: function() {
+                                $(container).dialog("close");
+                                $(container).dialog("destroy").remove();
+                            }
+                        },
+                        title: "Petit problème..."
+                    });
+                }
+                waitingDialog.dialog("close");
+                waitingDialog.dialog("destroy").remove();
+            });
         } else {
             $(container).html(divHtmlContent);
         }
@@ -57,15 +71,17 @@ function ValidateHandler(container, dialogTitle, dialogWidth, actionName, editFo
 function SendAjaxRequest(container, dialogTitle, dialogWidth, actionName, editFormId, dataTableId, newWindow) {
     var form = $("#" + editFormId);
 
-    var waitingDialog = GetLoadingSpinner().dialog({
-        autoOpen: true,
-        modal: true,
-        dialogClass: "hideTitleBar",
-        width: 240,
-        title: "",
-        hide: "fade",
-        show: "fade"
-    });
+    //var waitingDialog = GetLoadingSpinnerContent().dialog({
+    //    autoOpen: true,
+    //    modal: true,
+    //    dialogClass: "hideTitleBar",
+    //    width: 240,
+    //    title: "",
+    //    hide: "fade",
+    //    show: "fade"
+    //});
+    var waitingDialog = GetLoadingSpinnerDialog(GetLoadingSpinnerContent);
+
     //$(".ui-dialog-titlebar").hide();
     $(".hideTitleBar div:first").remove();
 
@@ -130,7 +146,19 @@ function SendAjaxRequestSerialized(container, dialogTitle, dialogWidth, actionNa
     });
 }
 
-function GetLoadingSpinner() {
+function GetLoadingSpinnerDialog(getLoadingSpinnerContentFunc) {
+        return getLoadingSpinnerContentFunc().dialog({
+        autoOpen: true,
+        modal: true,
+        dialogClass: "hideTitleBar",
+        width: 240,
+        title: "",
+        hide: "fade",
+        show: "fade"
+    });
+}
+
+function GetLoadingSpinnerContent() {
     return $("" +
         "<div id='LoadingSpinner' style='text-align: center; padding-top: 40px; padding-bottom: 20px;'>" +
         "<img src='/Content/Images/LoadingSpinner.gif' alt='Loading Spinner' />" +
