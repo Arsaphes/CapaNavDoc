@@ -22,8 +22,8 @@ namespace CapaNavDoc.ViewModel.Equipment
         [RegularExpression("^[0-9]*$", ErrorMessage = "Le code ATA doit être un nombre.")]
         public string Ata { get; set; }
 
-        [Required(ErrorMessage = "Le domaine d'activité est obligatoire.")]
-        public string ActivityField { get; set; }
+        public string ActivityFieldId { get; set; }
+        public List<string> ActivityFieldDescriptions { get; set; }
 
         [Required(ErrorMessage = "La famille de technicien est obligatoire.")]
         public string MechanicsGroup { get; set; }

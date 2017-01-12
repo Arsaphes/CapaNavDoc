@@ -21,7 +21,6 @@ namespace CapaNavDoc.Controllers
             BusinessLayer<Equipment> ebl = new BusinessLayer<Equipment>(new CapaNavDocDal());
             ebl.Insert(new Equipment
             {
-                ActivityField = "Moteurs à pistons",
                 Ata = 72,
                 MechanicsGroup = "moteurs pistons",
                 Name = "Adaptateur Magnéto",
@@ -31,7 +30,6 @@ namespace CapaNavDoc.Controllers
             });
             ebl.Insert(new Equipment
             {
-                ActivityField = "(CO7) Moteur",
                 Ata = 74,
                 MechanicsGroup = "Magnétos Unison",
                 Name = "Magnétos Unison",

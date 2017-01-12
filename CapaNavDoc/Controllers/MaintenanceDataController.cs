@@ -21,7 +21,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult Index(string name)
         {
-            return View("Index", new MaintenanceDataIndexViewModel {MaintenanceDataName = name});
+            return View("Index");
         }
 
         [HttpPost]

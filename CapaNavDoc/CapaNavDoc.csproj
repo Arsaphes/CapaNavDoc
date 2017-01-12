@@ -162,7 +162,6 @@
     <Compile Include="Validation\ClonedUserNameAttribute.cs" />
     <Compile Include="ViewModel\ActivityField\ActivityFieldDetailsViewModel.cs" />
     <Compile Include="ViewModel\ActivityField\ActivityFieldEditionViewModel.cs" />
-    <Compile Include="ViewModel\ActivityField\ActivityFieldListViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentCenterActionViewModel.cs" />
     <Compile Include="Classes\ColumnAttribute.cs" />
     <Compile Include="Classes\LambdaComparer.cs" />
@@ -199,10 +198,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Action\ActionDetailsViewModel.cs" />
     <Compile Include="ViewModel\Action\ActionEditionViewModel.cs" />
-    <Compile Include="ViewModel\Action\ActionListViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterDetailsViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterEditionViewModel.cs" />
-    <Compile Include="ViewModel\Center\CenterListViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterUsersViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterUserViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
@@ -218,7 +215,6 @@
     <Compile Include="ViewModel\MyLayoutViewModel.cs" />
     <Compile Include="ViewModel\User\UserCallViewModel.cs" />
     <Compile Include="ViewModel\User\UserDetailsViewModel.cs" />
-    <Compile Include="ViewModel\User\UserListViewModel.cs" />
     <Compile Include="ViewModel\User\UserEditionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace CapaNavDoc.Models
 	    public string Name { get; set; }
 	    public string Type { get; set; }
 	    public int Ata { get; set; }
-	    public string ActivityField { get; set; }
+	    public int ActivityFieldId { get; set; }
 	    public string MechanicsGroup { get; set; }
         public int MaintenanceDataId { get; set; }
         public string EquipmentCenterActionList { get; set; } // "n,m;" where 'n' is the center id, 'm' the action id, ',' the center/action separator, ';' the center/action group separator

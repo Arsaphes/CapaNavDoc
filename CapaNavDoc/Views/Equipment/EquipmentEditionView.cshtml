@@ -56,8 +56,7 @@
                 Domaine d'activité P145:
             </td>
             <td>
-                @Html.TextBoxFor(m => m.ActivityField)
-                @Html.ValidationMessageFor(m => m.ActivityField)
+                @Html.DropDownListFor(m => m.ActivityFieldId, new SelectList(@Model.ActivityFieldDescriptions))
             </td>
         </tr>
         <tr>

@@ -16,7 +16,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return new DefaultController<ActivityField>().Index<ActivityFieldDetailsViewModel, ActivityFieldListViewModel>();
+            return View("Index");
         }
 
         [HttpPost]

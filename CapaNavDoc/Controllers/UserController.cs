@@ -17,7 +17,7 @@ namespace CapaNavDoc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return new DefaultController<User>().Index<UserDetailsViewModel, UserListViewModel>();
+            return View("Index");
         }
 
         [HttpPost]

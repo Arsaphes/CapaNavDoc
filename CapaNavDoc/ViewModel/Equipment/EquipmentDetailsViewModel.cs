@@ -22,7 +22,7 @@ namespace CapaNavDoc.ViewModel.Equipment
         public string Ata { get; set; }
 
         [Column(Column = 6)]
-        public string ActivityField { get; set; }
+        public string ActivityFieldId { get; set; }
 
         [Column(Column = 7)]
         public string MechanicsGroup { get; set; }

@@ -25,6 +25,7 @@ namespace CapaNavDoc.Extensions.ViewModels
         public static EquipmentEditionViewModel ToEquipmentEditionViewModel(this Equipment equipment)
         {
             BusinessLayer<MaintenanceData> bl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
+            BusinessLayer<ActivityField> afbl = new BusinessLayer<ActivityField>(new CapaNavDocDal());
 
             return new EquipmentEditionViewModel
             {
@@ -33,7 +34,8 @@ namespace CapaNavDoc.Extensions.ViewModels
                 Type = equipment.Type,
                 Ata = equipment.Ata.ToString(),
                 PartNumber = equipment.PartNumber,
-                ActivityField = equipment.ActivityField,
+                ActivityFieldDescriptions = afbl.GetList().Select(a=>a.Description).ToList(),
+                ActivityFieldId = equipment.ActivityFieldId == 0 ? "" : afbl.Get(equipment.ActivityFieldId).Description,
                 Manufacturer = equipment.Manufacturer,
                 MechanicsGroup = equipment.MechanicsGroup,
                 DocumentsReferences = bl.GetList().Select(md => md.Name).ToList(),

@@ -30,10 +30,15 @@ namespace CapaNavDoc.Controllers
             if (!ModelState.IsValid)
             {
                 model.DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(m => m.Name).ToList();
+                model.ActivityFieldDescriptions = new BusinessLayer<ActivityField>(new CapaNavDocDal()).GetList().Select(a=>a.Description).ToList();
                 return PartialView("EquipmentEditionView", model);
             }
             MaintenanceData md = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().FirstOrDefault(m => m.Name == model.MaintenanceDataId);
             if (md != null) model.MaintenanceDataId = md.Id.ToString();
+
+            ActivityField af = new BusinessLayer<ActivityField>(new CapaNavDocDal()).GetList().FirstOrDefault(a => a.Description == model.ActivityFieldId);
+            if (af != null) model.ActivityFieldId = af.Id.ToString();
+
             new DefaultController<Equipment>().Edit(model);
             return Json(new { success = true });
         }
@@ -52,7 +57,8 @@ namespace CapaNavDoc.Controllers
             return PartialView("EquipmentEditionView", new EquipmentEditionViewModel
             {
                 EditionMode = EditionMode.Insert,
-                DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(md => md.Name).ToList()
+                DocumentsReferences = new BusinessLayer<MaintenanceData>(new CapaNavDocDal()).GetList().Select(md => md.Name).ToList(),
+                ActivityFieldDescriptions = new BusinessLayer<ActivityField>(new CapaNavDocDal()).GetList().Select(a => a.Description).ToList()
             });
         }
 
@@ -81,6 +87,7 @@ namespace CapaNavDoc.Controllers
         {
             BusinessLayer<Equipment> bl = new BusinessLayer<Equipment>(new CapaNavDocDal());
             BusinessLayer<MaintenanceData> mbl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
+            BusinessLayer<ActivityField> afbl = new BusinessLayer<ActivityField>(new CapaNavDocDal());
             List<EquipmentDetailsViewModel> model = new List<EquipmentDetailsViewModel>(bl.GetList().Select(e => (EquipmentDetailsViewModel)e.ToModel(new EquipmentDetailsViewModel())));
 
             model = TableDataAdapter.Search(model, param);
@@ -88,7 +95,9 @@ namespace CapaNavDoc.Controllers
             model = TableDataAdapter.PageList(model, param);
             
             string[][] data = model.Select(m => new[] {m.Id.ToString(), m.PartNumber, m.Manufacturer, m.Name, m.Type,
-                m.Ata.ToString(), m.ActivityField, m.MechanicsGroup,
+                m.Ata.ToString(),
+                m.ActivityFieldId.ToInt32() ==0 ? "" : afbl.Get(m.ActivityFieldId.ToInt32()).Description,
+                m.MechanicsGroup,
                 m.MaintenanceDataId.ToInt32() == 0 ? "" : mbl.Get(m.MaintenanceDataId.ToInt32()).Name,
                 m.MonitoringDate, m.MaintenanceDataId  }).ToArray();
 
