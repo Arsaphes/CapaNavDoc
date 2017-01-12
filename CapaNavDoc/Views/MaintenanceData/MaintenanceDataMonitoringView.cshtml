@@ -1,12 +1,11 @@
 ﻿@* ReSharper disable Html.PathError *@
-
 @using CapaNavDoc.ViewModel.MaintenanceData
 @model MaintenanceDataMonitoringViewModel
 
 <link href="~/Content/EditFormStyle.css" rel="stylesheet" />
 
 <form id="EditForm" method="post" action="/MaintenanceData/UpdateMaintenanceDataMonitoring">
-    <input type="hidden" name="MaintenanceDataId" value="@Model.MaintenanceDataId" />
+    @Html.HiddenFor(m => m.MaintenanceDataId)
     <table class="EditFormTable">
         <tr>
             <td>Responsable:</td>
@@ -17,10 +16,8 @@
         <tr>
             <td>Date:</td>
             <td>
-                <input id="Date-val.DateFormat" type="text" name="Date" value="@Model.Date"
-                       message="La date doit être au format 'jj-mm-aaaa'."
-                       validatorLabelId="Date-ValidationMessage" /><br />
-                <label id="Date-ValidationMessage"></label>
+                @Html.TextBoxFor(m => m.Date, new {@id = "MonitoringDate"})
+                @Html.ValidationMessageFor(m => m.Date)
             </td>
         </tr>
     </table>
@@ -29,7 +26,7 @@
 <script>
     $("input").input();
     $("select").selectmenu({ width: 204 });
-    $('input[id="Date-val.DateFormat"]').datepicker({
+    $('input[id="MonitoringDate"]').datepicker({
         dateFormat: "dd-mm-yy",
         dayNames: [ "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" ],
         dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa" ],

@@ -2,7 +2,7 @@
 
 namespace CapaNavDoc.ViewModel.Center
 {
-    public class CenterUsersViewModel : MyLayoutViewModel
+    public class CenterUserListViewModel : MyLayoutViewModel
     {
         public string CenterId { get; set; }
         public List<CenterUserViewModel> CenterUsersDetails { get; set; }

@@ -201,7 +201,7 @@
     <Compile Include="ViewModel\Action\ActionEditionViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterDetailsViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterEditionViewModel.cs" />
-    <Compile Include="ViewModel\Center\CenterUsersViewModel.cs" />
+    <Compile Include="ViewModel\Center\CenterUserListViewModel.cs" />
     <Compile Include="ViewModel\Center\CenterUserViewModel.cs" />
     <Compile Include="ViewModel\ConfirmationViewModel.cs" />
     <Compile Include="ViewModel\Equipment\EquipmentDetailsViewModel.cs" />

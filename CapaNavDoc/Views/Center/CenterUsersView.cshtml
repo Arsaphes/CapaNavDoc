@@ -1,12 +1,12 @@
 ﻿@* ReSharper disable Html.PathError *@
 
 @using CapaNavDoc.ViewModel.Center
-@model CenterUsersViewModel
+@model CenterUserListViewModel
 
 <link href="~/Content/DetailTable.css" rel="stylesheet" />
 
 <form id="DetailForm" action="/Center/SetCenterUsers" method="post">
-    <input type="hidden" name="CenterId" value="@Model.CenterId"/>
+    @Html.HiddenFor(m => m.CenterId)
     <table class="DetailTable">
         <tr>
             <td>Prénom</td>

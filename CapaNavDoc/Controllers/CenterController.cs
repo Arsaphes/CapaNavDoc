@@ -95,12 +95,11 @@ namespace CapaNavDoc.Controllers
             centerUsersVm.AddRange(centerUsers.Select(u => new CenterUserViewModel { FirstName = u.FirstName, LastName = u.LastName, Id = u.Id.ToString(), Selected = true }));
             centerUsersVm.AddRange(otherUsers.Select(u => new CenterUserViewModel { FirstName = u.FirstName, LastName = u.LastName, Id = u.Id.ToString(), Selected = false }));
 
-            return PartialView("CenterUsersView", new CenterUsersViewModel {CenterId = id, CenterUsersDetails = centerUsersVm});
+            return PartialView("CenterUsersView", new CenterUserListViewModel { CenterId = id, CenterUsersDetails = centerUsersVm});
         }
 
-        // Todo: Add return value.
         [HttpPost]
-        public void SetCenterUsers(CenterUsersViewModel model)
+        public void SetCenterUsers(CenterUserListViewModel model)
         {
             BusinessLayer<Center> bl = new BusinessLayer<Center>(new CapaNavDocDal());
             Center center = bl.Get(model.CenterId.ToInt32());

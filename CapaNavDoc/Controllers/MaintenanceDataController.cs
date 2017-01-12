@@ -29,7 +29,7 @@ namespace CapaNavDoc.Controllers
         {
             if (!ModelState.IsValid) return PartialView("MaintenanceDataEditionView", model);
             MaintenanceData md = new DefaultController<MaintenanceData>().Edit(model);
-            if (model.FileUpload == null) return Json(new { success = true }); ;
+            if (model.FileUpload == null) return Json(new { success = true }); 
 
             byte[] buffer = new byte[32*1024];
             using (MemoryStream ms = new MemoryStream())
@@ -122,19 +122,25 @@ namespace CapaNavDoc.Controllers
             return PartialView("MaintenanceDataMonitoringView", model);
         }
 
-        // Todo: Add return value.
         [HttpPost]
-        public void UpdateMaintenanceDataMonitoring(MaintenanceDataMonitoringViewModel model)
+        public ActionResult UpdateMaintenanceDataMonitoring(MaintenanceDataMonitoringViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                model.Users = new BusinessLayer<User>(new CapaNavDocDal()).GetList().Select(u => u.ToUserCallViewModel().UserCall).ToList();
+                return PartialView("MaintenanceDataMonitoringView", model);
+            }
+
             BusinessLayer<MaintenanceData> mdbl = new BusinessLayer<MaintenanceData>(new CapaNavDocDal());
             BusinessLayer<User> ubl = new BusinessLayer<User>(new CapaNavDocDal());
             MaintenanceData md = mdbl.Get(model.MaintenanceDataId.ToInt32());
             UserCallViewModel userCallViewModel = ubl.GetList().Select(u => u.ToUserCallViewModel()).FirstOrDefault(u => u.UserCall == model.SelectedUserCall);
-            if (userCallViewModel == null) return;
+            if (userCallViewModel == null) return Json(new { success = true }); 
 
             md.MonitoringUserId = userCallViewModel.UserId.ToInt32();
             md.MonitoringDate = DateTime.ParseExact(model.Date, "dd-mm-yyyy", CultureInfo.InvariantCulture);
             mdbl.Update(md);
+            return Json(new { success = true });
         }
     }
 }
